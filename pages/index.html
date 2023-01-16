@@ -29,9 +29,14 @@
     }
 
     .demo {
-      height: 80vh;
-      -webkit-filter: drop-shadow(0 0 20px #000000b3);
-      filter: drop-shadow(0 0 20px #000000b3);
+      height: 95%;
+      -webkit-filter: drop-shadow(0 0 10px #000000a0);
+      filter: drop-shadow(0 0 10px #000000a0);
+    }
+
+    header {
+      width: 100%;
+      height: 72px;
     }
 
     .header {
@@ -45,7 +50,6 @@
       height: 72px;
       background-color: #fff;
       border-bottom: 1px solid #d8e3ee;
-      position: relative;
       z-index: 99;
 
       box-sizing: border-box;
@@ -104,15 +108,82 @@
       background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), #06f;
     }
 
+    section {
+      width: 100%;
+    }
+
     #cover {
-      height: calc(100vh - 72px);
+      height: calc(400px + 20vw);
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+      position: relative;
     }
 
     #cover>* {
       margin: 0 5vw;
+    }
+
+    .left-block {
+      position: absolute;
+      left: 5vw;
+      bottom: 5vw;
+      padding: 0 32px;
+      z-index: 1;
+    }
+
+    .left-block h1 {
+      font-weight: 700;
+      font-size: 56px;
+      letter-spacing: .03em;
+      line-height: 150%;
+      text-align: center;
+      color: var(--second-color);
+    }
+
+    .right-block {
+      z-index: 0;
+    }
+
+    .top-btn {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .02em;
+      line-height: 24px;
+      padding-left: 16px;
+      margin-bottom: 12px;
+    }
+
+    .table {
+      max-width: 1072px;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 24px auto;
+    }
+
+    .table.c2>div {
+      padding: 24px;
+      width: 45%;
+    }
+
+    .table.c3>div {
+      padding: 24px;
+      width: 26%;
+      border: 1px solid #d8e3ee;
+      border-radius: 20px;
+    }
+
+    #functional {
+      background-color: #fff9e1;
+      padding: 80px 0;
+    }
+
+    .table.center {
+      justify-content: center;
+    }
+
+    .table.between {
+      justify-content: space-between;
     }
   </style>
 </head>
@@ -140,12 +211,72 @@
       </ul>
     </nav>
   </header>
-  <div id="cover">
-    <div>
+  <section id="cover">
+    <div class="left-block">
       <h1>提供各項最新及時資訊<br>的LINE BOT機器人</h1>
+      <p class="top-btn"> ▼ 全功能免費，快速加入 </p>
+      <a href="#" class="btn-primary">
+        加入好友
+      </a>
     </div>
-    <img class="demo" src="../images/portrait.png" alt="">
-  </div>
+    <div class="right-block">
+      <img class="demo" src="../images/portrait.png" alt="">
+    </div>
+  </section>
+  <section id="functional">
+    <div class="table center c2">
+      <div>
+        <h3>
+          <p>天氣</p>
+        </h3>
+        <p>校內及多點氣象站的即時天氣資訊，以及一周內的天氣預報。</p>
+      </div>
+      <div>
+        <h3>
+          <p>公車</p>
+        </h3>
+        <p>公車的即時進站資訊。</p>
+      </div>
+      <div>
+        <h3>
+          <p>最新消息</p>
+        </h3>
+        <p>快速查看校內的重要訊息。</p>
+      </div>
+      <div>
+        <h3>
+          <p>吃什麼</p>
+        </h3>
+        <p>快速幫你決定要吃什麼。</p>
+      </div>
+      <div>
+        <h3>
+          <p>星座運勢</p>
+        </h3>
+        <p>查看每日的星座運勢。</p>
+      </div>
+      <div>
+        <h3>
+          <p>校園即景</p>
+        </h3>
+        <p>快速連接到學校的校園即景網頁。</p>
+      </div>
+    </div>
+  </section>
+  <section id="add_friend">
+    <div class="table between c3">
+      <div>
+        <h3>1. 點擊按鈕</h3>
+      </div>
+      <div>
+        <h3>2. 掃描QR code</h3>
+      </div>
+      <div>
+        <h3>3. 輸入LINE ID</h3>
+
+      </div>
+    </div>
+  </section>
 </body>
 
 </html>
