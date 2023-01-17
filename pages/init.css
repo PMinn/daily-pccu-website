@@ -1,0 +1,14 @@
+:root {
+    --first-color: #FAC600;
+    --second-color: #895129;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    font-family: sans-serif;
+}
