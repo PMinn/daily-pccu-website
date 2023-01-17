@@ -1,91 +1,206 @@
-.container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
+.section {
+  width: 100%;
+}
+
+.section:nth-child(odd) {
+  background-color: #fff9e1;
+  color: var(--second-color);
+}
+
+.section:nth-child(even) {
+  background-color: #fff;
+  color: #2a3b4c;
+}
+
+.section>h2 {
+  text-align: center;
+}
+
+#cover {
+  height: calc(400px + 20vw);
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+#cover>* {
+  margin: 0 5vw;
+}
+
+.left-block,
+.right-block {
+  padding: 0 32px;
+}
+
+.left-block {
+  position: absolute;
+  left: 5vw;
+  bottom: 5vw;
+  z-index: 1;
+}
+
+.left-block h1 {
+  font-weight: 700;
+  font-size: 56px;
+  letter-spacing: .03em;
+  line-height: 150%;
+  text-align: center;
+  color: var(--second-color);
+}
+
+.right-block {
+  z-index: 0;
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.right-block>img {
+  width: auto;
+  height: 95%;
+  -webkit-filter: drop-shadow(0 0 10px #000000a0);
+  filter: drop-shadow(0 0 10px #000000a0);
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.top-btn {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .02em;
+  line-height: 24px;
+  padding-left: 16px;
+  margin-bottom: 12px;
+  color: #2a3b4c;
 }
 
-.title {
-  margin: 0 0 1rem;
-  line-height: 1.15;
-  font-size: 3.6rem;
-}
-
-.title {
-  text-align: center;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.grid {
+.table {
+  max-width: 1072px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
-
-  max-width: 800px;
-  margin-top: 3rem;
+  margin: 24px auto;
 }
 
-.card {
-  margin: 1rem;
-  flex-basis: 45%;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+.table svg {
+  width: 60px;
+  margin-bottom: 16px;
+  fill: var(--second-color);
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.table.c2>div {
+  padding: 24px;
+  width: 45%;
 }
 
-.card h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.table.c3>div {
+  padding: 24px;
+  width: 26%;
+  border: 1px solid #d8e3ee;
+  border-radius: 20px;
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+.table h3 {
+  letter-spacing: .01em;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.logo {
-  height: 1em;
+#functions {
+  padding: 80px 0;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
+.table.center {
+  justify-content: center;
+}
+
+.table.between {
+  justify-content: space-between;
+}
+
+#add_friend {
+  padding: 80px 0;
+}
+
+#history {
+  padding: 80px 0;
+}
+
+#history table {
+  margin: 0 auto;
+  color: var(--second-color);
+}
+
+#history td {
+  padding: 3vh 2vw;
+}
+
+#history td:first-child {
+  border-right: 1px solid var(--second-color);
+  border-top: 0;
+  border-bottom: 0;
+}
+
+@media screen and (max-width:600px) {
+  #cover {
     flex-direction: column;
+    height: auto;
+  }
+
+  #cover>* {
+    margin: 0;
+  }
+
+  .left-block,
+  .right-block {
+    padding: 0;
+  }
+
+  .left-block {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left-block h1 {
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: .03em;
+    line-height: 150%;
+    margin-bottom: 40px;
+    margin-top: 64px;
+  }
+
+  .left-block a {
+    margin-bottom: 40px;
+  }
+
+  .right-block>img {
+    height: auto;
+    width: 80%;
+    margin-bottom: 40px;
+  }
+
+  #functions .table>div {
+    width: 80%;
+
+  }
+
+  .add_friend .table {
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .add_friend .table>div {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+
+  #history table {
+    width: 80%;
   }
 }

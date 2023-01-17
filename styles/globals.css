@@ -1,38 +1,42 @@
+:root {
+  --first-color: #FAC600;
+  --second-color: #895129;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }
 
 * {
+  font-family: sans-serif;
+}
+
+.btn-primary {
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+  max-width: 288px;
+  padding: 10px 16px;
+  height: 44px;
+  border-radius: 15px;
+  color: #fff;
+  background: var(--first-color);
+  color: var(--second-color);
+  font-weight: 900;
   box-sizing: border-box;
+  transition: all .2s cubic-bezier(.48, 0, .75, .72) 0s;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-h1,
-h2,
-p,
-ul {
-  margin: 0;
-}
-
-ul {
-  padding: 0;
-  list-style: none;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
+.btn-primary:hover {
+  background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), var(--first-color);
 }

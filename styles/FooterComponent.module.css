@@ -1,30 +1,30 @@
-footer {
+.footer {
     width: 73.6%;
     height: 80vh;
     padding: 10vh 13.2%;
     position: relative;
 }
 
-footer>small {
+.footer>small {
     position: absolute;
     bottom: 5vh;
     left: 5vw;
     color: #aaaaaa;
 }
 
-footer>small * {
+.footer>small * {
     color: #aaaaaa;
 }
 
-footer>div {
+.footer>div {
     display: flex;
 }
 
-footer #team_info {
+.footer #team_info {
     width: 20vw;
 }
 
-footer #page_info {
+.footer #page_info {
     width: 50%;
     margin: 0 auto;
     display: flex;
@@ -32,13 +32,13 @@ footer #page_info {
     flex-wrap: wrap;
 }
 
-footer #page_info a {
+.footer #page_info a {
     color: #000;
     text-decoration: none;
     position: relative;
 }
 
-footer #page_info a::after {
+.footer #page_info a::after {
     content: '';
     width: 2em;
     height: 1px;
@@ -48,49 +48,50 @@ footer #page_info a::after {
     left: 0;
 }
 
-footer #page_info>div {
+.footer #page_info>div {
     display: flex;
     flex-direction: column;
     padding: 10px;
     width: 300px;
 }
 
-footer #page_info>div>* {
+.footer #page_info>div>* {
     margin-top: 5px;
 }
 
-footer p {
+.footer p {
     line-height: 200%;
     margin-top: 5vh;
 }
 
-footer img {
+.footer img {
     width: 200px;
+    height: 200px;
     border-radius: 200px;
     border: 1px solid #00000050;
 }
 
 @media screen and (max-width:600px) {
-    footer {
+    .footer {
         height: auto;
     }
 
-    footer>div {
+    .footer>div {
         width: 60vw;
         flex-direction: column;
     }
 
-    footer #team_info {
+    .footer #team_info {
         width: 100%;
     }
 
-    footer #page_info {
+    .footer #page_info {
         margin-top: 8vh;
         margin-left: 0;
         width: 100%;
     }
 
-    footer #page_info>div {
+    .footer #page_info>div {
         margin-top: 5vh;
         margin-left: 0;
     }
