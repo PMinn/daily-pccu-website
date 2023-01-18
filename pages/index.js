@@ -2,9 +2,6 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css';
 
 import Link from 'next/link';
-import Image from 'next/image';
-
-import demo1 from '../images/portrait.png'
 
 import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
@@ -26,7 +23,7 @@ export default function Home() {
           <Link href="/#add_friend" class="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
-          <Image src={demo1} alt="" width={1314} height={2661}></Image>
+          <img src='/images/portrait.png' alt="" width="1314" height="2661"></img>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>
@@ -48,12 +45,12 @@ export default function Home() {
           <div>
             <h3>1. 點擊按鈕</h3>
             <a href="https://lin.ee/h0kZmTc">
-              <Image src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" width={232} height={72} alt="加入每日文大好友" border="0"></Image>
+              <img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入每日文大好友" border="0"></img>
             </a>
           </div>
           <div>
             <h3>2. 掃描QR code</h3>
-            <Image src="https://qr-official.line.me/sid/M/037gujtt.png" width={180} height={180} alt="加入每日文大好友"></Image>
+            <img src="https://qr-official.line.me/sid/M/037gujtt.png" alt="加入每日文大好友"></img>
           </div>
           <div>
             <h3>3. 輸入LINE ID</h3>

@@ -1,13 +1,11 @@
 import styles from '../styles/FooterComponent.module.css';
-import Image from 'next/image';
-import logo from '../images/logo/white-text-circle.png'
 
 export default function Home() {
     return (
         <footer className={styles.footer}>
             <div>
                 <div id={styles.team_info}>
-                    <Image src={logo} width={500} height={500} alt="每日文大 logo"></Image>
+                    <img src="/images/logo/white-text-circle.png" alt="每日文大 logo"></img>
                     <p>每日文大創立於2020年，致力於設計和開發更方便及人性化的移動應用程序，提供更便捷的服務給文大學生，讓每日文大成為文大學生的日常。</p>
                 </div>
                 <div id={styles.page_info}>

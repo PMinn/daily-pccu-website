@@ -1,6 +1,4 @@
 import styles from '../styles/NavComponent.module.css';
-import Image from 'next/image';
-import logo from '../images/logo/transparent-noText.png';
 
 import Link from 'next/link';
 
@@ -10,7 +8,7 @@ export default function Home() {
             <nav class={styles.nav}>
                 <div>
                     <a href="/" class={styles.logo}>
-                        <Image src={logo} alt="每日文大 logo" class="headerLogo"></Image>
+                        <img src="/images/logo/transparent-noText.png" alt="每日文大 logo" class="headerLogo"></img>
                         <h1>每日文大</h1>
                     </a>
                 </div>
@@ -21,7 +19,7 @@ export default function Home() {
                         </a>
                     </li> */}
                     <li class={styles['nav-item']}>
-                    <Link href="/#add_friend"  class="btn-primary">加入好友</Link>
+                        <Link href="/#add_friend" class="btn-primary">加入好友</Link>
                     </li>
                 </ul>
             </nav>
