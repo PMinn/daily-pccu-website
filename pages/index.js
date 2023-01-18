@@ -20,7 +20,7 @@ export default function Home() {
         <div className={styles['left-block']}>
           <h1>提供各項最新即時資訊<br />的LINE BOT機器人</h1>
           <p className={styles['top-btn']}> ▼ 全功能免費，快速加入 </p>
-          <Link href="/#add_friend" class="btn-primary">加入好友</Link>
+          <Link href="/#add_friend" className="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
           <img src='/images/portrait.png' alt="" width="1314" height="2661"></img>
@@ -29,13 +29,15 @@ export default function Home() {
       <section id={styles.functions} className={styles.section}>
         <div className={"table center c2".split(' ').map(s => styles[s]).join(' ')}>
           {FunctionsData.map(func => {
-            return (<div>
-              <div dangerouslySetInnerHTML={{ __html: func.icon }}></div>
-              <h3>
-                <p>{func.title}</p>
-              </h3>
-              <p>{func.description}</p>
-            </div>)
+            return (
+              <div key={func.title}>
+                <div dangerouslySetInnerHTML={{ __html: func.icon }}></div>
+                <h3>
+                  <p>{func.title}</p>
+                </h3>
+                <p>{func.description}</p>
+              </div>
+            )
           })}
         </div>
       </section>
@@ -58,13 +60,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id={styles.history} className={styles.section}>
+      <section id="history" className={"history section".split(' ').map(s => styles[s]).join(' ')}>
         <h2>重大事件</h2>
-        <table cellspacing="0" cellpadding="0">
+        <table cellSpacing="0" cellPadding="0">
           <tbody>
             {HistoryData.map(history => {
               return (
-                <tr>
+                <tr key={history.time}>
                   <td>{history.time}</td>
                   <td>{history.description}</td>
                 </tr>

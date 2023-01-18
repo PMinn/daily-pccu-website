@@ -121,20 +121,20 @@
   padding: 80px 0;
 }
 
-#history {
+.history {
   padding: 80px 0;
 }
 
-#history table {
+.history table {
   margin: 0 auto;
   color: var(--second-color);
 }
 
-#history td {
+.history td {
   padding: 3vh 2vw;
 }
 
-#history td:first-child {
+.history td:first-child {
   border-right: 1px solid var(--second-color);
   border-top: 0;
   border-bottom: 0;
@@ -200,7 +200,7 @@
     margin-bottom: 20px;
   }
 
-  #history table {
+  .history table {
     width: 80%;
   }
 }
