@@ -4,7 +4,7 @@ import Script from 'next/script'
 export default function Document() {
     return (
         <Html lang="zh-Hant-TW">
-            <Head />
+            <Head></Head>
             <body>
                 <Main></Main>
                 <NextScript></NextScript>
