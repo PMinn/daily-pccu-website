@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Script from 'next/script'
 
-// import Script from './js/line-setting'
 import styles from '../../styles/LineSetting.module.css'
 
 
@@ -17,7 +16,7 @@ export default function LineSetting({ data }) {
         }).then(start);
       }
       }></Script> */}
-      {/* <Script strategy="afterInteractive" src='/js/line-setting.js' type="module"></Script> */}
+      <Script strategy="afterInteractive" src='/js/line-setting.js' type="module"></Script>
       <div className={styles['labels']}>
         <div  className={styles['check']}>天氣</div>
         <div>吃什麼</div>
@@ -71,7 +70,7 @@ function fetchWeatherList() {
     });
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps () {
   // var data = await fetchWeatherList();
   var data = [{
     "lat": "10.371770",
