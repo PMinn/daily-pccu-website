@@ -1,0 +1,11 @@
+
+.showAni {
+    transition: opacity 1s, transform 1s;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.showAni.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+}

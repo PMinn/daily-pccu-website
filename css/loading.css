@@ -1,0 +1,120 @@
+#loading {
+    --animation-duration-sun: 1s;
+    --animation-duration-build: 1s;
+    --animation-duration-text: .5s;
+}
+
+.noscroll {
+    position: fixed;
+    overflow-y: scroll;
+}
+
+#loading {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(0);
+    transition: transform 1s;
+    z-index: 999;
+}
+
+#loading>svg {
+    width: 300px;
+    max-width: 80vw;
+}
+
+#loading .sun,
+#loading .build {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 8px;
+}
+
+#loading .sun {
+    stroke: #fac600;
+    stroke-dasharray: 625;
+    stroke-dashoffset: 625;
+}
+
+#loading .build {
+    stroke: #895129;
+    stroke-dasharray: 485;
+    stroke-dashoffset: 485;
+}
+
+#loading .text {
+    fill: #895129;
+    stroke: #895129;
+    stroke-miterlimit: 10;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+#loading.start {
+    animation: bgChange calc(var(--animation-duration-sun) + 0.5s) forwards cubic-bezier(0.06, 0.57, 0.61, 0.79);
+}
+
+#loading.start .sun {
+    animation: rise var(--animation-duration-sun) forwards cubic-bezier(0.06, 0.57, 0.61, 0.79);
+}
+
+#loading.start .build {
+    animation: buildShow var(--animation-duration-build) forwards cubic-bezier(0.06, 0.57, 0.61, 0.79) var(--animation-duration-sun);
+}
+
+#loading.start .text {
+    animation: textShow var(--animation-duration-text) forwards cubic-bezier(0.06, 0.57, 0.61, 0.79) calc(var(--animation-duration-sun) + var(--animation-duration-build));
+}
+
+@keyframes bgChange {
+    from {
+        background-color: #242424;
+    }
+
+    to {
+        background-color: #fff;
+    }
+}
+
+@keyframes rise {
+    from {
+        stroke-dashoffset: 625;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes buildShow {
+    from {
+        stroke-dashoffset: 485;
+    }
+
+    to {
+        stroke-dashoffset: 970;
+    }
+}
+
+@keyframes textShow {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#loading.end {
+    transform: translateY(-100vh);
+}

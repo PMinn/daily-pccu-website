@@ -1,0 +1,96 @@
+footer {
+    background-color: #ffefb0;
+    width: 73.6vw;
+    height: 80vh;
+    padding: 10vh 13.2vw;
+    margin-top: 10vh;
+    position: relative;
+}
+
+footer>span {
+    position: absolute;
+    bottom: 5vh;
+    left: 5vw;
+    color: #ad9639;
+    font-size: 10px;
+}
+
+footer>div {
+    display: flex;
+}
+
+footer #team_info {
+    width: 20vw;
+}
+
+footer #page_info {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+footer #page_info a {
+    color: #000;
+    text-decoration: none;
+    position: relative;
+}
+
+footer #page_info a::after {
+    content: '';
+    width: 2em;
+    height: 1px;
+    background-color: #00000050;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+footer #page_info>div {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 300px;
+}
+
+footer #page_info>div>* {
+    margin-top: 5px;
+}
+
+footer p {
+    line-height: 200%;
+    margin-top: 5vh;
+}
+
+footer img {
+    width: 200px;
+    border-radius: 200px;
+    border: 1px solid #00000050;
+}
+
+@media screen and (max-width:600px) {
+    footer {
+        height: auto;
+    }
+
+    footer>div {
+        width: 60vw;
+        flex-direction: column;
+    }
+
+    footer #team_info {
+        width: 100%;
+    }
+
+    footer #page_info {
+        margin-top: 8vh;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    footer #page_info>div {
+        margin-top: 5vh;
+        margin-left: 0;
+    }
+}
