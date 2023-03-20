@@ -9,13 +9,8 @@ import FooterComponent from '../components/FooterComponent';
 import HistoryData from '../data/history.json';
 import FunctionsData from '../data/functions.json';
 
-import { analytics } from "../firebaseConfig.js";
-import { logEvent } from "firebase/analytics";
 
 export default function Home() {
-  const click_add_friend_button = () => {
-    logEvent(analytics, 'click_add_friend_button');
-  }
   return (
     <div>
       <Head>
@@ -52,7 +47,7 @@ export default function Home() {
         <div className={"table between c3".split(' ').map(s => styles[s]).join(' ')}>
           <div>
             <h3>1. 點擊按鈕</h3>
-            <a href="https://lin.ee/h0kZmTc" onClick={click_add_friend_button}>
+            <a href='https://lin.ee/h0kZmTc'>
               <img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入每日文大好友" border="0"></img>
             </a>
           </div>
