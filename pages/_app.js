@@ -1,6 +1,14 @@
 import '../styles/globals.css'
 import Head from 'next/head'
+
+import { analytics } from "../firebaseConfig.js";
+
+import { useEffect } from 'react';
+
 export default function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    analytics;
+  }, [])
   return (
     <div>
       <Head>

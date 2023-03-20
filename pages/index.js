@@ -9,13 +9,12 @@ import FooterComponent from '../components/FooterComponent';
 import HistoryData from '../data/history.json';
 import FunctionsData from '../data/functions.json';
 
-import { getAnalytics, logEvent } from "firebase/analytics";
-import { app } from "../firebaseConfig.js"
+import { analytics } from "../firebaseConfig.js";
+import { logEvent } from "firebase/analytics";
 
 export default function Home() {
   const click_add_friend_button = () => {
-    const analytics = getAnalytics(app);
-    logEvent(analytics, 'click_add_friend_button')
+    logEvent(analytics, 'click_add_friend_button');
   }
   return (
     <div>
