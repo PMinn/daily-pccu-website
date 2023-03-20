@@ -11,10 +11,10 @@ import FunctionsData from '../data/functions.json';
 
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { app } from "../firebaseConfig.js"
-const analytics = getAnalytics(app);
 
 export default function Home() {
   const click_add_friend_button = () => {
+    const analytics = getAnalytics(app);
     logEvent(analytics, 'click_add_friend_button')
   }
   return (
