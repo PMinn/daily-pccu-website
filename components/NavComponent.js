@@ -3,7 +3,7 @@ import styles from '../styles/NavComponent.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import logo from '../public/images/logo/logo.png'
+import logo from '../public/images/logo/logo.webp';
 
 export default function Home() {
     return (
