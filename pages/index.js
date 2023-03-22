@@ -10,6 +10,7 @@ import FooterComponent from '../components/FooterComponent';
 import HistoryData from '../data/history.json';
 import FunctionsData from '../data/functions.json';
 
+import portrait from '../public/images/portrait.png'
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
           <Link href="/#add_friend" className="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
-          <Image src='/images/portrait.png' alt="" width="1314" height="2661"></Image>
+          <Image src={portrait} alt="每日文大 實際使用 範例圖" width="1314" height="2661"></Image>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>
