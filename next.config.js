@@ -25,9 +25,9 @@ module.exports = (phase, { defaultConfig }) => {
             domains: ['scdn.line-apps.com', 'qr-official.line.me'],
             unoptimized: true
         },
-        async headers() {
-            return cache_Control;
-        },
+        // async headers() {
+        //     return cache_Control;
+        // },
     };
     // if (phase === PHASE_PRODUCTION_BUILD) { // run build
     //     nextConfig.images.loader = 'imgix';

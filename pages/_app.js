@@ -1,16 +1,19 @@
 import '../styles/globals.css'
 import Head from 'next/head'
+import localFont from 'next/font/local'
 
 import { analytics } from "../firebaseConfig.js";
 
 import { useEffect } from 'react';
+
+const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     analytics;
   }, [])
   return (
-    <div>
+    <main className={jf_openhuninn.className}>
       <Head>
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png" />
@@ -27,6 +30,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="description" content="「每日文大」是每個文化大學學生必備的工具，核心為line bot機器人，可以查詢天氣、公車進站時間、學校最新消息……等，只要有每日文大，不管何時何地，都可以掌握最新及時資訊。" />
       </Head>
       <Component {...pageProps} />
-    </div>
+    </main>
   )
 }

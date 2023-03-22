@@ -1,6 +1,9 @@
 import styles from '../styles/NavComponent.module.css';
 
 import Link from 'next/link';
+import Image from 'next/image';
+
+import logo from '../public/images/logo/logo.png'
 
 export default function Home() {
     return (
@@ -8,7 +11,7 @@ export default function Home() {
             <nav className={styles.nav}>
                 <div>
                     <a href="/" className={styles.logo}>
-                        <img src="/images/logo/logo.png" alt="每日文大 logo"></img>
+                        <Image src={logo} alt="每日文大 logo" width="37" height="32"></Image>
                         <h1>每日文大</h1>
                     </a>
                 </div>

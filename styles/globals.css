@@ -8,12 +8,6 @@
   --third-color: #FFE671;
 }
 
-@font-face {
-  font-family: 'jf-openhuninn-2.0';
-  src: url('/fonts/jf-openhuninn-2.0.ttf');
-  font-display: block;
-}
-
 html,
 body {
   padding: 0;
@@ -22,10 +16,6 @@ body {
 
 body {
   background-color: var(--background-color);
-}
-
-* {
-  font-family: 'jf-openhuninn-2.0', sans-serif;
 }
 
 .btn-primary {

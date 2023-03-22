@@ -1,0 +1,1 @@
+ffmpeg -i in.png -c:v libwebp out.webp
