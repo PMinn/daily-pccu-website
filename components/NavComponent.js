@@ -8,7 +8,7 @@ export default function Home() {
             <nav className={styles.nav}>
                 <div>
                     <a href="/" className={styles.logo}>
-                        <img src="/images/logo/transparent-noText.png" alt="每日文大 logo"></img>
+                        <img src="/images/logo/logo.png" alt="每日文大 logo"></img>
                         <h1>每日文大</h1>
                     </a>
                 </div>

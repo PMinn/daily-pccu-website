@@ -1,6 +1,16 @@
 :root {
-  --first-color: #FAC600;
-  --second-color: #895129;
+  --first-color: #FFB11B;
+  --second-color: #A76E00;
+  --background-color: #FCFAF2;
+  --background-cold-color: #F9F9F9;
+  --black: #242424;
+  --white: #fff;
+  --third-color: #FFE671;
+}
+
+@font-face {
+  font-family: 'jf-openhuninn-2.0';
+  src: url('/fonts/jf-openhuninn-2.0.ttf');
 }
 
 html,
@@ -10,11 +20,11 @@ body {
 }
 
 body {
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 
 * {
-  font-family: sans-serif;
+  font-family: 'jf-openhuninn-2.0', sans-serif;
 }
 
 .btn-primary {
@@ -35,8 +45,8 @@ body {
   border-radius: 15px;
   color: #fff;
   background: var(--first-color);
-  color: var(--second-color);
-  font-weight: 900;
+  color: var(--white);
+  /* font-weight: 900; */
   box-sizing: border-box;
   transition: all .2s cubic-bezier(.48, 0, .75, .72) 0s;
 }

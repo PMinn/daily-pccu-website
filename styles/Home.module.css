@@ -3,12 +3,12 @@
 }
 
 .section:nth-child(odd) {
-  background-color: #fff9e1;
+  background-color: var(--background-cold-color);
   color: var(--second-color);
 }
 
 .section:nth-child(even) {
-  background-color: #fff;
+  background-color: var(--background-color);
   color: #2a3b4c;
 }
 
