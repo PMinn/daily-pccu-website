@@ -36,6 +36,7 @@
     color: #000;
     text-decoration: none;
     position: relative;
+    padding-top: calc(48px - 1rem);
 }
 
 .footer #page_info a::after {
@@ -53,10 +54,6 @@
     flex-direction: column;
     padding: 10px;
     width: 300px;
-}
-
-.footer #page_info>div>* {
-    margin-top: 5px;
 }
 
 .footer p {
