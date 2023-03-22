@@ -10,7 +10,8 @@ import FooterComponent from '../components/FooterComponent';
 import HistoryData from '../data/history.json';
 import FunctionsData from '../data/functions.json';
 
-import portrait from '../public/images/portrait.webp'
+import portrait_w480 from '../public/images/portrait_w480.webp';
+import portrait_h741 from '../public/images/portrait_h741.webp';
 
 export default function Home() {
   return (
@@ -26,7 +27,7 @@ export default function Home() {
           <Link href="/#add_friend" className="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
-          <Image src={portrait} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)"></Image>
+          <Image src={portrait_h741} srcset={portrait_w480 + ' 600w, ' + portrait_h741 + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)"></Image>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>
