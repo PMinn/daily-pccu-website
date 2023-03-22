@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
@@ -24,7 +25,7 @@ export default function Home() {
           <Link href="/#add_friend" className="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
-          <img src='/images/portrait.png' alt="" width="1314" height="2661"></img>
+          <Image src='/images/portrait.png' alt="" width="1314" height="2661"></Image>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>

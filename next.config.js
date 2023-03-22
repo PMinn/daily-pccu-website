@@ -11,8 +11,10 @@ export const PHASE_TEST = 'phase-test'
 module.exports = (phase, { defaultConfig }) => {
     const nextConfig = {
         images: {
-            domains: ['scdn.line-apps.com', 'qr-official.line.me']
-        }
+            domains: ['scdn.line-apps.com', 'qr-official.line.me'],
+            unoptimized: true
+        },
+        // exportPathMap: "/out"
     };
     // if (phase === PHASE_PRODUCTION_BUILD) { // run build
     //     nextConfig.images.loader = 'imgix';
