@@ -176,6 +176,10 @@
     margin-bottom: 40px;
   }
 
+  .right-block {
+    height: calc(80vw * (2661 / 1314) + 40px);
+  }
+
   .right-block>img {
     height: auto;
     width: 80%;
