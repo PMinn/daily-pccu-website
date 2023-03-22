@@ -26,7 +26,7 @@ export default function Home() {
           <Link href="/#add_friend" className="btn-primary">加入好友</Link>
         </div>
         <div className={styles['right-block']}>
-          <Image src={portrait} alt="每日文大 實際使用 範例圖" width="1314" height="2661" loading="eager"></Image>
+          <Image src={portrait} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)"></Image>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>
