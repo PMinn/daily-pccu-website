@@ -12,7 +12,10 @@ module.exports = (phase, { defaultConfig }) => {
     const nextConfig = {
         images: {
             domains: ['scdn.line-apps.com', 'qr-official.line.me'],
-            unoptimized: true
+            unoptimized: true,
+            formats: ['image/webp'],
+            deviceSizes: [600, 1080, 1200, 1920, 2048, 3840],
+            imageSizes: [366, 480],
         }
     };
     // if (phase === PHASE_PRODUCTION_BUILD) { // run build
