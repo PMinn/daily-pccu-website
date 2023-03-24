@@ -6,6 +6,7 @@
   --black: #242424;
   --white: #fff;
   --third-color: #FFE671;
+  --fourth-color: #FFC147;
 }
 
 html,
@@ -33,15 +34,21 @@ body {
   max-width: 288px;
   padding: 10px 16px;
   height: 44px;
-  border-radius: 15px;
+  border-radius: 999px;
   color: #fff;
   background: var(--first-color);
   color: var(--white);
   /* font-weight: 900; */
   box-sizing: border-box;
   transition: all .2s cubic-bezier(.48, 0, .75, .72) 0s;
+  outline: 0;
+  border: 0;
 }
 
 .btn-primary:hover {
   background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), var(--first-color);
+}
+
+.btn-primary:disabled {
+  opacity: 0.3;
 }

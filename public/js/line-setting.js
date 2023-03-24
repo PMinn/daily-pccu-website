@@ -1,17 +1,17 @@
 import 'https://static.line-scdn.net/liff/edge/2/sdk.js'
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js'
-import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-
+import { getDatabase, ref as dbRef, child, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 const app = initializeApp({
-    apiKey: "AIzaSyBR131VC-b-_ch7qajjc5hlWJ6yZIkfeIw",
-    authDomain: "pccu-2.firebaseapp.com",
-    databaseURL: "https://pccu-2.firebaseio.com",
-    projectId: "pccu-2",
-    storageBucket: "pccu-2.appspot.com",
-    messagingSenderId: "804144825666",
-    appId: "1:804144825666:web:5ea09984cf37ec60bcb4db"
+    apiKey: "AIzaSyCPq-VtQask8BdUmwojqfp4tq_WbkTlbEw",
+    authDomain: "daily-pccu.firebaseapp.com",
+    databaseURL: "https://daily-pccu-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "daily-pccu",
+    storageBucket: "daily-pccu.appspot.com",
+    messagingSenderId: "805313945825",
+    appId: "1:805313945825:web:a966b8c9d9902dbca417a0",
+    measurementId: "G-FV6BTQPGNN"
 });
 const database = getDatabase(app);
 
@@ -28,7 +28,7 @@ function getUserId() {
 }
 
 function getUserInfo(userId) {
-    return get(child(ref(database), `users/${userId}`))
+    return get(child(dbRef(database), `users/${userId}`))
         .then((snapshot) => {
             if (snapshot.exists()) {
                 return snapshot.val();
@@ -81,8 +81,8 @@ function fetchWeatherList() {
 }
 
 
-init()
-    .then(getUserId)
-    // .then(getUserInfo)
-    // .then(fetchWeatherList)
-    .then(result => console.log(result))
+// init()
+//     .then(getUserId)
+// .then(getUserInfo)
+// .then(fetchWeatherList)
+// .then(result => console.log(result))
