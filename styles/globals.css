@@ -9,6 +9,10 @@
   --fourth-color: #FFC147;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   padding: 0;

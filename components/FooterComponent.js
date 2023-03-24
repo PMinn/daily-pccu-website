@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import logo from '../public/images/logo/logo-bg.webp';
 
-export default function Home() {
+export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div>

@@ -1,0 +1,67 @@
+.header,
+.setting-li {
+    box-shadow: 0 5px 10px #00000010;
+    color: var(--black);
+}
+
+.header {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: var(--white);
+    margin-top: 0;
+    margin-bottom: 5vh;
+    display: flex;
+    font-size: 1rem;
+}
+
+.header>* {
+    width: 33%;
+    margin: 0;
+    position: relative;
+}
+
+.header svg {
+    transform: rotate(180deg);
+    height: 1rem;
+    width: 1rem;
+}
+
+.header>*:first-child svg {
+    position: absolute;
+    left: 5vw;
+    top: 0;
+}
+
+.setting-li {
+    width: calc(90% - 3.6rem);
+    background-color: var(--white);
+    padding: 1rem 1.6rem;
+    margin: 3vh auto;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    line-height: 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.setting-li svg {
+    width: 1rem;
+    height: 1rem;
+    fill: var(--first-color);
+}
+
+.setting-li .title {
+    margin-left: 0.8rem;
+    margin-right: auto;
+}
+
+.setting-li .preview {
+    font-size: 0.6rem;
+    margin-right: 1rem;
+    opacity: 0.5;
+    white-space: nowrap;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

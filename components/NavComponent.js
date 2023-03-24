@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import logo from '../public/images/logo/logo.webp';
 
-export default function Home() {
+export default function Nav() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
