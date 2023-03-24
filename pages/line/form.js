@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Script from 'next/script'
 
-export default function LineSetting({ data }) {
+export default function LineForm({ data }) {
+  function radioOnclick() { return true }
   return (
     <div>
       <Head>
@@ -19,22 +20,22 @@ export default function LineSetting({ data }) {
         <input type="text" id="uuid" hidden />
         <h3>我要回饋的是...</h3>
         <div class="block">
-          {/* <div class="radio-group"> */}
-            <input type="radio" id="error" name="radio_group" value="error" checked />
+          <div class="radio-group">
+            <input type="radio" id="error" name="radio_group" value="error" checked onClick={radioOnclick} />
             <label for="error" class="radio">錯誤回報</label>
-          {/* </div>/ */}
-          {/* <div class="radio-group"> */}
-            <input type="radio" id="suggestion" name="radio_group" value="suggestion" />
+          </div>
+          <div class="radio-group">
+            <input type="radio" id="suggestion" name="radio_group" value="suggestion" checked onClick={radioOnclick} />
             <label for="suggestion" class="radio">建議</label>
-          {/* </div> */}
-          {/* <div class="radio-group"> */}
-            <input type="radio" id="cooperation" name="radio_group" value="cooperation" />
+          </div>
+          <div class="radio-group">
+            <input type="radio" id="cooperation" name="radio_group" value="cooperation" checked onClick={radioOnclick} />
             <label for="cooperation" class="radio">合作</label>
-          {/* </div> */}
-          {/* <div class="radio-group"> */}
-            <input type="radio" id="else" name="radio_group" value="else" />
+          </div>
+          <div class="radio-group">
+            <input type="radio" id="else" name="radio_group" value="else" checked onClick={radioOnclick} />
             <label for="else" class="radio">其他</label>
-          {/* </div> */}
+          </div>
         </div>
         <h3>內容是...</h3>
         <div class="block">
