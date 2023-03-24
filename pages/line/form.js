@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import Script from 'next/script'
 
-export default function LineForm({ data }) {
-  function radioOnclick() { return true }
+export default function LineForm({ }) {
   return (
     <div>
       <Head>
@@ -21,19 +20,19 @@ export default function LineForm({ data }) {
         <h3>我要回饋的是...</h3>
         <div class="block">
           <div class="radio-group">
-            <input type="radio" id="error" name="radio_group" value="error" checked onClick={radioOnclick} />
+            <input type="radio" id="error" name="radio_group" value="error" defaultChecked={true} />
             <label for="error" class="radio">錯誤回報</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="suggestion" name="radio_group" value="suggestion" onClick={radioOnclick} />
+            <input type="radio" id="suggestion" name="radio_group" value="suggestion" />
             <label for="suggestion" class="radio">建議</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="cooperation" name="radio_group" value="cooperation" onClick={radioOnclick} />
+            <input type="radio" id="cooperation" name="radio_group" value="cooperation" />
             <label for="cooperation" class="radio">合作</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="else" name="radio_group" value="else" onClick={radioOnclick} />
+            <input type="radio" id="else" name="radio_group" value="else" />
             <label for="else" class="radio">其他</label>
           </div>
         </div>
