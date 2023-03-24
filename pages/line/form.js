@@ -6,7 +6,7 @@ export default function LineSetting({ data }) {
     <div>
       <Head>
         <title>每日文大 | 回饋</title>
-        <link rel="stylesheet" href="/style/LineForm.css" />
+        <link rel="stylesheet" href="/css/LineForm.css" />
       </Head>
       <Script strategy="afterInteractive" src='/js/form.js' type="module"></Script>
       <div class="envelope">
