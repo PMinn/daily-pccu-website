@@ -34,6 +34,7 @@ init()
     .then(userId => document.getElementById('uuid').value = userId)
     .catch(() => {
         alert('獲取line權限失敗');
+        liff.closeWindow();
     })
 
 function getBase64(file) {
@@ -114,15 +115,15 @@ submit.addEventListener('click', () => {
     const typeValue = document.querySelector('input[name="type"]:checked').value;
     const contentValue = document.getElementById('content').value;
     const imagesValue = Array.from(document.querySelectorAll('.img-item')).map(imgItem => imgItem.dataset.path);
+    const uuidValue = document.getElementById('uuid').value;
     Promise.all([fetch('https://script.google.com/macros/s/AKfycbwP6matTZHqEB27idX-9M_9jnrah32rM41rjXSgcVdauqKQmIwg90bR_e3jXu2IELSFcA/exec', {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ typeValue, contentValue, imagesValue })
+        body: JSON.stringify({ typeValue, contentValue, imagesValue, uuidValue })
     }), packEnvelopeAnimation()])
         .then(sendEnvelopeAnimation)
-        .catch(() => {
-            alert('送出失敗')
-        })
+        .catch(() => alert('送出失敗'))
+        .finally(() => liff.closeWindow())
 })
 
 function packEnvelopeAnimation() {
@@ -148,7 +149,7 @@ function sendEnvelopeAnimation() {
         setTimeout(() => {
             document.querySelector('.envelope').style.transform = 'scale(0) rotateX(85deg)';
             document.querySelector('.envelope').style.top = '-40vh';
-            setTimeout(resolve, 1000)
+            setTimeout(resolve, 2000)
         }, 1000)
     })
 }
