@@ -20,19 +20,19 @@ export default function LineSetting({ data }) {
         <h3>我要回饋的是...</h3>
         <div class="block">
           {/* <div class="radio-group"> */}
-            <input type="radio" id="error" name="type" value="error" checked />
+            <input type="radio" id="error" name="radio_group" value="error" checked />
             <label for="error" class="radio">錯誤回報</label>
           {/* </div>/ */}
           {/* <div class="radio-group"> */}
-            <input type="radio" id="suggestion" name="type" value="suggestion" />
+            <input type="radio" id="suggestion" name="radio_group" value="suggestion" />
             <label for="suggestion" class="radio">建議</label>
           {/* </div> */}
           {/* <div class="radio-group"> */}
-            <input type="radio" id="cooperation" name="type" value="cooperation" />
+            <input type="radio" id="cooperation" name="radio_group" value="cooperation" />
             <label for="cooperation" class="radio">合作</label>
           {/* </div> */}
           {/* <div class="radio-group"> */}
-            <input type="radio" id="else" name="type" value="else" />
+            <input type="radio" id="else" name="radio_group" value="else" />
             <label for="else" class="radio">其他</label>
           {/* </div> */}
         </div>

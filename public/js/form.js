@@ -112,7 +112,7 @@ document.getElementById('image').addEventListener('change', e => {
 
 submit.addEventListener('click', () => {
     submit.setAttribute('disabled', 'disabled');
-    const typeValue = document.querySelector('input[name="type"]:checked').value;
+    const typeValue = document.querySelector('input[name="radio_group"]:checked').value;
     const contentValue = document.getElementById('content').value;
     const imagesValue = Array.from(document.querySelectorAll('.img-item')).map(imgItem => imgItem.dataset.path);
     const uuidValue = document.getElementById('uuid').value;
