@@ -15,6 +15,8 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <main className={jf_openhuninn.className}>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="194x194" href="/favicon_package/favicon-194x194.png" />

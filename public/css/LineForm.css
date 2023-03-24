@@ -17,9 +17,9 @@
 
 input[type="radio"],
 input[type="file"] {
-    display: none;
+    /* display: none;
     width: 0;
-    height: 0;
+    height: 0; */
 }
 
 label.radio {
