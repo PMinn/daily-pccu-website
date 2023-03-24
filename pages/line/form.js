@@ -25,15 +25,15 @@ export default function LineForm({ data }) {
             <label for="error" class="radio">錯誤回報</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="suggestion" name="radio_group" value="suggestion" checked onClick={radioOnclick} />
+            <input type="radio" id="suggestion" name="radio_group" value="suggestion" onClick={radioOnclick} />
             <label for="suggestion" class="radio">建議</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="cooperation" name="radio_group" value="cooperation" checked onClick={radioOnclick} />
+            <input type="radio" id="cooperation" name="radio_group" value="cooperation" onClick={radioOnclick} />
             <label for="cooperation" class="radio">合作</label>
           </div>
           <div class="radio-group">
-            <input type="radio" id="else" name="radio_group" value="else" checked onClick={radioOnclick} />
+            <input type="radio" id="else" name="radio_group" value="else" onClick={radioOnclick} />
             <label for="else" class="radio">其他</label>
           </div>
         </div>
