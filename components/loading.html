@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        svg {
+            width: 20vw;
+            height: 20vw;
+        }
+
+        path.mainline {
+            stroke-width: 10;
+            stroke: #09f;
+            stroke-linecap: round;
+            transition: stroke-dasharray 3s ease-in-out;
+            transform-origin: center;
+            /* transform: rotateY(180deg); */
+        }
+    </style>
+</head>
+
+<body>
+    <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="5.5 5.5 89 89">
+        <g>
+            <!-- <path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="none" class="baseline" stroke="#ddd"
+            stroke-width="0.5"></path> -->
+        </g>
+        <g>
+            <path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" class="mainline" clip-path="" fill="none"></path>
+        </g>
+    </svg>
+    <script>
+        var path = document.querySelector('.mainline');
+        var svg = document.querySelector('svg');
+        const totalDash = 251;
+        var dash = 1;
+        path.setAttribute('stroke-dasharray', `${dash} ${totalDash - dash}`);
+        path.setAttribute('stroke-dashoffset', `0`);
+        setTimeout(() => {
+            dash = 251;
+            path.setAttribute('stroke-dasharray', `${dash} ${totalDash - dash}`);
+            setTimeout(() => {
+                svg.style.transform = 'rotateY(180deg)';
+                setTimeout(() => {
+                    dash = 1;
+                    path.setAttribute('stroke-dasharray', `${dash} ${totalDash - dash}`);
+                }, 10)
+            }, 3000)
+        }, 1000)
+    </script>
+</body>
+
+</html>

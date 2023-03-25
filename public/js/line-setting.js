@@ -52,32 +52,8 @@ function getUserInfo(userId) {
 }
 
 function fetchWeatherList() {
-    return fetch('https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-2C162C9D-F4FB-4C4A-88CD-17745742A4BE&format=JSON&elementName=none&parameterName=CITY')
-        .then(response => response.json())
-        .then(response => response.records.location)
-        .then(response => {
-            return response.sort((a, b) => {
-                if (a.parameter[0].parameterValue < b.parameter[0].parameterValue) {
-                    return -1;
-                } else if (a.parameter[0].parameterValue > b.parameter[0].parameterValue) {
-                    return 1;
-                } else {
-                    if (a.locationName.length > b.locationName.length) {
-                        return 1;
-                    } else if (a.locationName.length < b.locationName.length) {
-                        return -1;
-                    } else {
-                        if (a.locationName > b.locationName) {
-                            return 1;
-                        } else if (a.locationName < b.locationName) {
-                            return -1;
-                        } else {
-                            return 0;
-                        }
-                    }
-                }
-            });
-        });
+    return get(child(dbRef(database), 'weatherLocations'))
+        .then(snapshot => snapshot.val());
 }
 
 
@@ -86,3 +62,8 @@ function fetchWeatherList() {
 // .then(getUserInfo)
 // .then(fetchWeatherList)
 // .then(result => console.log(result))
+
+fetchWeatherList()
+    .then(response => {
+        console.log(response)
+    })

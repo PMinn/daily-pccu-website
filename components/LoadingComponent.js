@@ -1,0 +1,7 @@
+export default function Loading() {
+    return (
+        <div>
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="100%" height="100%" viewBox="5.5 5.5 89 89"><defs><filter id="ldBar-76145fcaa446d-filter" x="-1" y="-1" width="3" height="3"><feMorphology operator="dilate" radius="3"></feMorphology><feColorMatrix values="0 0 0 0 1    0 0 0 0 1    0 0 0 0 1    0 0 0 1 0" result="cm"></feColorMatrix></filter><mask id="ldBar-76145fcaa446d-mask"><image xlink:href="" filter="url(#ldBar-76145fcaa446d-filter)" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid"></image></mask><g><mask id="ldBar-76145fcaa446d-mask-path"><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="#fff" stroke="#fff" filter="url(#ldBar-76145fcaa446d-filter)"></path></mask></g><clipPath id="ldBar-76145fcaa446d-clip"><rect class="mask" fill="#000"></rect></clipPath><pattern id="ldBar-76145fcaa446d-pattern" patternUnits="userSpaceOnUse" x="0" y="0" width="300" height="300"><image x="0" y="0" width="300" height="300"></image></pattern></defs><g><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="none" class="baseline" stroke="#ddd" stroke-width="0.5"></path></g><g><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" class="mainline" clip-path="" fill="none" stroke-width="3" stroke="#25b" stroke-dasharray="150.81762084960937 101.54508056640626"></path></g></svg>
+        </div>
+    )
+}
