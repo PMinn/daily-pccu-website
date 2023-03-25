@@ -83,13 +83,11 @@
     }
 
     .footer #page_info {
-        margin-top: 8vh;
-        margin-left: 0;
+        margin: 8vh 0;
         width: 100%;
     }
 
     .footer #page_info>div {
-        margin-top: 5vh;
-        margin-left: 0;
+        margin: 5vh 0;
     }
 }

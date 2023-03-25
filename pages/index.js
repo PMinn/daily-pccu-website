@@ -49,17 +49,17 @@ export default function Home() {
         <h2>如何加入</h2>
         <div className={"table between c3".split(' ').map(s => styles[s]).join(' ')}>
           <div>
-            <h3>1. 點擊按鈕</h3>
+            <h3>點擊按鈕</h3>
             <a href='https://lin.ee/h0kZmTc'>
               <img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入每日文大好友" border="0" width="232" height="72"></img>
             </a>
           </div>
           <div>
-            <h3>2. 掃描QR code</h3>
+            <h3>掃描QR code</h3>
             <img src="https://qr-official.line.me/sid/M/037gujtt.png" alt="加入每日文大好友" width="180" height="180"></img>
           </div>
           <div>
-            <h3>3. 輸入LINE ID</h3>
+            <h3>輸入LINE ID</h3>
             <p>line主頁右上方加入好友 &gt; 右上方搜尋 &gt; 選擇id &gt; 輸入:<span>@037gujtt</span></p>
           </div>
         </div>

@@ -12,7 +12,7 @@
     align-items: center;
     width: 100%;
     height: 72px;
-    background-color: var(--background-color);
+    background-color: var(--white);
     border-bottom: 1px solid #d8e3ee;
     z-index: 99;
 

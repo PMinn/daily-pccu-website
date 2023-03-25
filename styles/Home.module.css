@@ -3,13 +3,13 @@
 }
 
 .section:nth-child(odd) {
-  background-color: var(--background-cold-color);
+  background-color: var(--white);
   color: var(--second-color);
 }
 
 .section:nth-child(even) {
   background-color: var(--background-color);
-  color: #2a3b4c;
+  color: var(--black);
 }
 
 .section>h2 {
@@ -97,6 +97,8 @@
   width: 26%;
   border: 1px solid #d8e3ee;
   border-radius: 20px;
+  background-color: var(--white);
+  box-shadow: 0 10px 30px #00000010;
 }
 
 .table h3 {
@@ -124,7 +126,6 @@
 
 .history table {
   margin: 0 auto;
-  color: var(--second-color);
 }
 
 .history td {
