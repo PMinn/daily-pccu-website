@@ -1,1 +1,1 @@
-// "build": "next build && next export",
+// "build": "next build && next export && node minify.js",
