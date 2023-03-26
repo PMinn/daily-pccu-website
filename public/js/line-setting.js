@@ -51,6 +51,14 @@ function getUserInfo(userId) {
     //     })
 }
 
+// init()
+//     .then(getUserId)
+// .then(getUserInfo)
+// .then(fetchWeatherList)
+// .then(result => console.log(result))
+
+// weather
+
 function fetchWeatherList() {
     return get(child(dbRef(database), 'weatherLocations'))
         .then(snapshot => snapshot.val())
@@ -59,16 +67,12 @@ function fetchWeatherList() {
         }));
 }
 
-
-// init()
-//     .then(getUserId)
-// .then(getUserInfo)
-// .then(fetchWeatherList)
-// .then(result => console.log(result))
+const search = document.getElementById('search');
 const weather_view = document.getElementById('weather_view');
+var weatherLocationsData;
 fetchWeatherList()
     .then(weatherLocations => {
-        weatherLocations.forEach(weatherLocation => {
+        weatherLocationsData = weatherLocations.map(weatherLocation => {
             let location = document.createElement('div');
             location.classList.add('location');
             if (weatherLocation.checked) location.classList.add('checked');
@@ -93,19 +97,46 @@ fetchWeatherList()
             location.appendChild(icon);
             weather_view.appendChild(location);
 
-            location.onclick = e => {
-                let target = e.target;
-                while (!target.classList.contains('location')) {
-                    target = target.parentElement;
-                }
-                weatherLocations.forEach(l => {
-                    if (l.location == target.dataset.name) {
-                        l.checked = !l.checked;
-                        if (l.checked) target.classList.add('checked');
+            weatherLocation.DOM = { location, label, location_name, location_city, icon };
+            return weatherLocation;
+        });
+        return weatherLocationsData;
+    })
+    .then(weatherLocationsData => {
+        weatherLocationsData.forEach(weatherLocationData => {
+            var target = weatherLocationData.DOM.location;
+            target.onclick = e => {
+                for (var i = 0; i < weatherLocationsData.length; i++) {
+                    if (weatherLocationsData[i].DOM.location == target) {
+                        weatherLocationsData[i].checked = !weatherLocationsData[i].checked;
+                        if (weatherLocationsData[i].checked) target.classList.add('checked');
                         else target.classList.remove('checked');
+                        break;
                     }
-                });
+                }
                 e.stopPropagation();
             }
-        });
+        })
     })
+
+search.addEventListener('input', () => {
+    let filter = search.value;
+    weatherLocationsData.forEach(weatherLocationData => {
+        if (weatherLocationData.location.includes(filter) || weatherLocationData.city.includes(filter)) weatherLocationData.DOM.location.style.display = 'block';
+        else weatherLocationData.DOM.location.style.display = 'none';
+    })
+})
+
+// eat
+
+const switch_default = document.getElementById('switch_default');
+const switch_custom = document.getElementById('switch_custom');
+
+switch_default.addEventListener('click', () => {
+    switch_default.classList.add('checked');
+    switch_custom.classList.remove('checked');
+})
+switch_custom.addEventListener('click', () => {
+    switch_custom.classList.add('checked');
+    switch_default.classList.remove('checked');
+})
