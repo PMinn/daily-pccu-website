@@ -24,7 +24,7 @@ export default function Home() {
         <div className={styles['left-block']}>
           <h1>提供各項最新即時資訊<br />的LINE BOT機器人</h1>
           <p className={styles['top-btn']}> ▼ 全功能免費，快速加入 </p>
-          <Link href="/#add_friend" className="btn-primary">加入好友</Link>
+          <Link href="/#add_friend" className="btn-primary" id='cover_addFriend_btn'>加入好友</Link>
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
@@ -50,9 +50,9 @@ export default function Home() {
         <div className={"table between c3".split(' ').map(s => styles[s]).join(' ')}>
           <div>
             <h3>點擊按鈕</h3>
-            <a href='https://lin.ee/h0kZmTc'>
+            <div data-href='https://lin.ee/h0kZmTc' id='line_btn' className={styles['line-btn']}>
               <img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入每日文大好友" border="0" width="232" height="72"></img>
-            </a>
+            </div>
           </div>
           <div>
             <h3>掃描QR code</h3>
@@ -80,6 +80,7 @@ export default function Home() {
         </table>
       </section>
       <FooterComponent></FooterComponent>
+      <script type="module" src="/js/index.js"></script>
     </div>
   )
 }

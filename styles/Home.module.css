@@ -138,6 +138,10 @@
   border-bottom: 0;
 }
 
+.line-btn {
+  cursor: pointer;
+}
+
 @media screen and (max-width:600px) {
   #cover {
     flex-direction: column;

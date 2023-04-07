@@ -2,19 +2,9 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import localFont from 'next/font/local'
 
-import { analytics } from "../firebaseConfig.js";
-
-import { useEffect } from 'react';
-
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    if (window.location.hostname == "daily-pccu.web.app") {
-      analytics;
-      console.log(window.location.hostname)
-    }
-  }, [])
   return (
     <main className={jf_openhuninn.className}>
       <Head>

@@ -22,7 +22,7 @@ export default function Nav() {
                         </a>
                     </li> */}
                     <li className={styles['nav-item']}>
-                        <Link href="/#add_friend" className="btn-primary">加入好友</Link>
+                        <Link href="/#add_friend" className="btn-primary" id='nav_addFriend_btn'>加入好友</Link>
                     </li>
                 </ul>
             </nav>
