@@ -26,7 +26,7 @@ body {
     margin: 0.3rem 1rem 0.3rem 0;
     display: inline-flex;
     border-radius: 10px;
-    line-height: calc(0.8rem + 10px);
+    line-height: calc(1rem + 10px);
     font-size: 1rem;
     text-decoration: none;
     color: var(--second-color);
@@ -38,11 +38,11 @@ body {
 }
 
 .setting-li .icon {
-    border: 1px solid var(--second-color-op50);
-    border-radius: 999px;
+    border: 1px solid rgba(var(--second-color-rgb), 0.6);
     padding: 5px;
-    width: 0.8rem;
-    height: 0.8rem;
+    border-radius: 999px;
+    width: 1.2rem;
+    height: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,12 +91,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .location {
     padding: 7vw;
     border-radius: 15px;
+    border: 3px solid rgba(var(--first-color-rgb), 0);
 }
 
 .location .label>div:last-child {
@@ -105,24 +106,9 @@ body {
     margin-top: 0.5rem;
 }
 
-.location .icon {
-    height: 1.6rem;
-    transition: opacity 0.3s;
-    opacity: 0;
-}
-
-.location svg {
-    width: auto;
-    height: 100%;
-    fill: var(--first-color);
-}
-
 .location.checked {
-    background-color: var(--third-color);
-}
-
-.location.checked .icon {
-    opacity: 1;
+    background-color: rgba(var(--first-color-rgb), 0.1);
+    border: 3px solid var(--first-color);
 }
 
 .search-bar {

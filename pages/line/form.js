@@ -48,7 +48,7 @@ export default function LineForm({ }) {
           <input type="file" name="image" id="image" accept="image/*" />
           <label for="image">選擇照片上傳</label>
         </div>
-        <button id="submit" class="btn-primary">送出</button>
+        <button id="submit" class="btn btn-second">送出</button>
       </div>
     </div>
   )

@@ -95,7 +95,7 @@ document.getElementById('image').addEventListener('change', e => {
                         imgItem.dataset.path = gsPath;
                         uploadJobsCount--;
                         setTimeout(() => {
-                            progress.style.backgroundColor = 'var(--fourth-color)';
+                            imgItem.classList.add('done');
                             if (uploadJobsCount == 0) submit.removeAttribute('disabled');
                         }, 500)
                     })
