@@ -1,25 +1,21 @@
 .header {
     width: 100%;
-    height: 72px;
+    position: fixed;
+    top: 32px;
+    left: 0;
+    z-index: 99;
 }
 
 .nav {
-    position: fixed;
-    top: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 72px;
-    background-color: var(--white);
-    border-bottom: 1px solid #d8e3ee;
-    z-index: 99;
-
     box-sizing: border-box;
     overflow: hidden;
 
-    padding: 0 32px;
+    padding: 0 10vw;
 }
 
 .logo {
@@ -36,8 +32,7 @@
 
 .logo h1 {
     margin: 0 18px;
-    color: var(--second-color);
-    font-weight: 500;
+    color: var(--black);
     font-size: 20px;
 }
 

@@ -1,0 +1,1 @@
+ffmpeg -i logo-bg.jpg -c:v libwebp logo-bg.webp

@@ -24,14 +24,16 @@ export default function Home() {
         <div className={styles['left-block']}>
           <h1>提供各項最新即時資訊<br />的LINE BOT機器人</h1>
           <p className={styles['top-btn']}> ▼ 全功能免費，快速加入 </p>
-          <Link href="/#add_friend" className="btn-primary" id='cover_addFriend_btn'>加入好友</Link>
+          <Link href="/#add_friend" className="btn btn-second" id='cover_addFriend_btn'>加入好友</Link>
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
+          <img src="/images/blob.svg" />
         </div>
+        <img src="/images/wave.svg" />
       </section>
       <section id={styles.functions} className={styles.section}>
-        <div className={"table center c2".split(' ').map(s => styles[s]).join(' ')}>
+        <div className={"table center".split(' ').map(s => styles[s]).join(' ')}>
           {FunctionsData.map(func => {
             return (
               <div key={func.title}>

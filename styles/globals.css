@@ -1,14 +1,14 @@
 :root {
   --first-color: #FFB11B;
-  --second-color: #A76E00;
-  --second-color-op50: #a76f007f;
-  --background-color: #FCFAF2;
+  --second-color: #A78558;
+  --third-color: #FFECCB;
+  --fourth-color: #005248;
+
+  --background-color: #fff;
   --background-cold-color: #F9F9F9;
   --black: #242424;
   --black-op50: #2424247f;
   --white: #fff;
-  --third-color: #FFE671;
-  --fourth-color: #FFC147;
 }
 
 html {
@@ -27,7 +27,7 @@ body {
   width: 100%;
 }
 
-.btn-primary {
+.btn {
   cursor: pointer;
   outline: 0;
   -webkit-appearance: none;
@@ -40,23 +40,33 @@ body {
   text-align: center;
   width: 100%;
   max-width: 288px;
-  padding: 10px 16px;
-  height: 44px;
+  padding: 1rem 2rem;
   border-radius: 999px;
-  color: #fff;
-  background: var(--first-color);
-  color: var(--white);
-  /* font-weight: 900; */
   box-sizing: border-box;
   transition: all .2s cubic-bezier(.48, 0, .75, .72) 0s;
   outline: 0;
   border: 0;
+  font-size: 1.1rem;
 }
 
-.btn-primary:hover {
+.btn-second {
+  background: var(--second-color);
+  color: var(--white);
+}
+
+.btn-second:hover {
+  background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), var(--second-color);
+}
+
+.btn-first {
+  background: var(--first-color);
+  color: var(--white);
+}
+
+.btn-first:hover {
   background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), var(--first-color);
 }
 
-.btn-primary:disabled {
+.btn:disabled {
   opacity: 0.3;
 }

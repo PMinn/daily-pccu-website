@@ -11,7 +11,7 @@ export default function Nav() {
             <nav className={styles.nav}>
                 <div>
                     <a href="/" className={styles.logo}>
-                        <Image src={logo} alt="每日文大 logo" width="37" height="32"></Image>
+                        {/* <Image src={logo} alt="每日文大 logo" width="37" height="32"></Image> */}
                         <h1>每日文大</h1>
                     </a>
                 </div>
@@ -22,7 +22,7 @@ export default function Nav() {
                         </a>
                     </li> */}
                     <li className={styles['nav-item']}>
-                        <Link href="/#add_friend" className="btn-primary" id='nav_addFriend_btn'>加入好友</Link>
+                        <Link href="/#add_friend" className="btn btn-first" id='nav_addFriend_btn'>加入好友</Link>
                     </li>
                 </ul>
             </nav>
