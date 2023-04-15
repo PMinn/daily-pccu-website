@@ -32,7 +32,7 @@ label.radio {
 input[type="radio"]:checked+label {
     background-color: var(--first-color);
     border-color: var(--first-color);
-    color: var(--white);
+    color: var(--black);
 }
 
 textarea {
@@ -62,7 +62,7 @@ label[for="image"],
 .img-item .progress {
     width: 100%;
     height: 100%;
-    background-color: var(--third-color);
+    background-color: rgba(var(--first-color-rgb), 0.3);
     transition: all 0.3s;
     transform-origin: left;
 }
@@ -129,7 +129,7 @@ label[for="image"],
     left: -100%;
     z-index: 10;
     width: 100%;
-    background-color: var(--third-color);
+    background-color: rgba(var(--first-color-rgb), 0.3);
 }
 
 .envelope-cover {

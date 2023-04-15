@@ -53,8 +53,8 @@
 
 .left-block {
   position: absolute;
-  left: calc(10vw - 32px);
-  top: 20%;
+  left: calc(17vw - 32px);
+  top: 30%;
   display: inline-block;
 }
 
@@ -76,7 +76,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10vw;
+  margin-right: 17vw;
   position: relative;
 }
 
