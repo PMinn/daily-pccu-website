@@ -11,8 +11,6 @@ import FunctionsData from '../data/functions.json';
 
 import portrait_w480 from '../public/images/portrait_w480.webp';
 import portrait_h741 from '../public/images/portrait_h741.webp';
-import wave from '../public/images/wave.svg';
-import blob from '../public/images/blob.svg';
 
 export default function Home() {
   return (
@@ -29,14 +27,20 @@ export default function Home() {
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
-          <Image src={blob} alt='每日文大 實際使用 範例圖 底部裝飾' loading="eager" />
+          <svg class={styles["blob"]} viewBox="0 0 900 900" width="900" height="900" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" xmlnsSvgjs="http://svgjs.dev/svgjs" xmlnsData="ApexChartsNS">
+            <g transform="translate(464.5299756263622 420.5024700757476)">
+              <path d="M221.4 -207.5C289.5 -153.2 349.3 -76.6 347.5 -1.8C345.7 73.1 282.5 146.1 214.3 211C146.1 275.8 73.1 332.4 -9.7 342.1C-92.4 351.7 -184.8 314.5 -259.8 249.6C-334.8 184.8 -392.4 92.4 -372.7 19.7C-353 -53 -256.1 -106.1 -181.1 -160.4C-106.1 -214.7 -53 -270.4 11.8 -282.2C76.6 -293.9 153.2 -261.9 221.4 -207.5"></path>
+            </g>
+          </svg>
         </div>
         <div className={styles["wave-out"]} >
-          <Image src={wave} alt='每日文大 實際使用 範例圖 底部裝飾' loading="eager" />
+          <svg class={styles["wave"]} viewBox="0 0 960 540" width="960" height="540" mlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" xmlnsSvgjs="http://svgjs.dev/svgjs" xmlnsData="ApexChartsNS">
+            <path d="M0 390L53.3 409C106.7 428 213.3 466 320 460.3C426.7 454.7 533.3 405.3 640 375.3C746.7 345.3 853.3 334.7 906.7 329.3L960 324L960 541L906.7 541C853.3 541 746.7 541 640 541C533.3 541 426.7 541 320 541C213.3 541 106.7 541 53.3 541L0 541Z" stroke-linecap="round" stroke-linejoin="miter"></path>
+          </svg>
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>
-        <div className={"table center".split(' ').map(s => styles[s]).join(' ')}>
+        <div className={styles.table}>
           {FunctionsData.map(func => {
             return (
               <div key={func.title}>
@@ -52,7 +56,7 @@ export default function Home() {
       </section>
       <section id='add_friend' className={"section add_friend".split(' ').map(s => styles[s]).join(' ')}>
         <h2>如何加入</h2>
-        <div className={"table between c3".split(' ').map(s => styles[s]).join(' ')}>
+        <div className={styles.table}>
           <div>
             <h3>點擊按鈕</h3>
             <div data-href='https://lin.ee/h0kZmTc' id='line_btn' className={styles['line-btn']}>

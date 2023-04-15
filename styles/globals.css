@@ -6,8 +6,10 @@
   --fourth-color: #005248;
 
   --background-color: #fff;
-  --black: #242424;
-  --white: #fff;
+  --black: #212121;
+  --white: #f0f0f0;
+  --white-24dp: rgba(255, 255, 255, 0.16);
+  --black-06dp: rgba(0, 0, 0, 0.11);
 }
 
 html {
@@ -76,4 +78,15 @@ body {
 
 .btn:disabled {
   opacity: 0.3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --first-color: #DD6902;
+    --first-color-rgb: 221, 105, 2;
+    --second-color: #6E4F3A;
+    --second-color-rgb: 110, 79, 58;
+    --fourth-color: #003D38; */
+    --background-color: var(--black);
+  }
 }

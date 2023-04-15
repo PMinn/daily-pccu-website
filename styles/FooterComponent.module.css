@@ -91,3 +91,17 @@
         margin: 5vh 0;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .footer {
+        color: var(--white);
+    }
+
+    .footer #page_info a {
+        color: var(--white);
+    }
+
+    .footer #page_info a::after {
+        background-color: #ffffff50;
+    }
+}

@@ -34,10 +34,14 @@
   height: calc(100vw * 54 / 96);
 }
 
-.wave-out img {
+.wave {
   width: 100%;
   max-width: 100%;
   height: auto;
+}
+
+.wave path {
+  fill: var(--first-color);
 }
 
 #cover>img {
@@ -80,7 +84,7 @@
   position: relative;
 }
 
-.right-block>img:first-child {
+.right-block>img {
   width: auto;
   height: 80%;
   -webkit-filter: drop-shadow(0 0 10px #000000a0);
@@ -88,7 +92,7 @@
   z-index: 5;
 }
 
-.right-block>img:last-child {
+.right-block .blob {
   width: auto;
   height: 80%;
   position: absolute;
@@ -101,7 +105,7 @@
   letter-spacing: .02em;
   line-height: 24px;
   padding-left: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 4vh;
   opacity: 0.8;
 }
 
@@ -115,15 +119,6 @@
   width: 60px;
   margin-bottom: 16px;
   fill: var(--black);
-}
-
-.table.c3>div {
-  padding: 24px;
-  width: 26%;
-  border: 1px solid #d8e3ee;
-  border-radius: 20px;
-  background-color: var(--white);
-  box-shadow: 0 10px 30px #00000010;
 }
 
 .table h3 {
@@ -144,6 +139,7 @@
 #functions .table {
   width: 90%;
   text-align: center;
+  justify-content: center;
 }
 
 #functions .table>div {
@@ -159,16 +155,17 @@
   letter-spacing: 0.1em;
 }
 
-.table.center {
-  justify-content: center;
-}
-
-.table.between {
+.add_friend .table {
+  max-width: 1072px;
   justify-content: space-between;
 }
 
-.add_friend .table {
-  max-width: 1072px;
+.add_friend .table>div {
+  padding: 24px;
+  width: 26%;
+  border-radius: 20px;
+  background-color: var(--black-06dp);
+  box-shadow: 0 10px 30px #00000010;
 }
 
 .history table {
@@ -190,6 +187,10 @@
   cursor: pointer;
 }
 
+.blob path {
+  fill: var(--fourth-color);
+}
+
 @media screen and (max-width:600px) {
   .section {
     padding: 5vh 0;
@@ -205,8 +206,8 @@
     margin: 0;
   }
 
-  #cover>img {
-    position: relative;
+  .top-btn {
+    margin-bottom: 2vh;
   }
 
   .left-block,
@@ -246,12 +247,12 @@
     padding-bottom: 15vh;
   }
 
-  .right-block>img:first-child {
+  .right-block>img {
     height: auto;
     width: 80%;
   }
 
-  .right-block>img:last-child {
+  .right-block .blob {
     height: 100%;
   }
 
@@ -281,5 +282,31 @@
 
   .history table {
     width: 80%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .left-block h1 {
+    color: var(--white);
+  }
+
+  /* .section:nth-child(odd) {
+    color: var(--white);
+  } */
+
+  .section:nth-child(even) {
+    color: var(--white);
+  }
+
+  /* .history td:first-child {
+    border-color: var(--white);
+  }
+
+  .table svg {
+    fill: var(--white);
+  } */
+
+  .add_friend .table>div {
+    background-color: var(--white-24dp);
   }
 }
