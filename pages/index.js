@@ -9,9 +9,10 @@ import FooterComponent from '../components/FooterComponent';
 import HistoryData from '../data/history.json';
 import FunctionsData from '../data/functions.json';
 
-import portrait_w480 from '../public/images/portrait_w480.webp';
-import portrait_h741 from '../public/images/portrait_h741.webp';
-
+// import portrait_w480 from '../public/images/portrait_w480.webp';
+// import portrait_h741 from '../public/images/portrait_h741.webp';
+import portrait from '../public/images/portrait.webp';
+// srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)"
 export default function Home() {
   return (
     <div>
@@ -26,7 +27,7 @@ export default function Home() {
           <a data-target="#add_friend" className="btn btn-second" id='cover_addFriend_btn'>加入好友</a>
         </div>
         <div className={styles['right-block']}>
-          <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
+          <Image src={portrait} alt="每日文大 實際使用 範例圖" loading="eager" priority="true" as={"image"}></Image>
           <svg class={styles["blob"]} viewBox="0 0 900 900" width="900" height="900" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" xmlnsSvgjs="http://svgjs.dev/svgjs" xmlnsData="ApexChartsNS">
             <g transform="translate(464.5299756263622 420.5024700757476)">
               <path d="M221.4 -207.5C289.5 -153.2 349.3 -76.6 347.5 -1.8C345.7 73.1 282.5 146.1 214.3 211C146.1 275.8 73.1 332.4 -9.7 342.1C-92.4 351.7 -184.8 314.5 -259.8 249.6C-334.8 184.8 -392.4 92.4 -372.7 19.7C-353 -53 -256.1 -106.1 -181.1 -160.4C-106.1 -214.7 -53 -270.4 11.8 -282.2C76.6 -293.9 153.2 -261.9 221.4 -207.5"></path>
