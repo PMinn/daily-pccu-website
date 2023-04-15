@@ -27,6 +27,14 @@ body {
   width: 100%;
 }
 
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-thumb {
+  display: none;
+}
+
 .btn {
   cursor: pointer;
   outline: 0;

@@ -24,6 +24,7 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 .wave-out {
@@ -64,6 +65,10 @@
   line-height: 150%;
   text-align: center;
   color: var(--black);
+}
+
+.left-block a {
+  box-shadow: 0 10px 20px rgba(var(--second-color-rgb), 0.5);
 }
 
 .right-block {
@@ -226,7 +231,7 @@
   }
 
   .left-block a {
-    margin-bottom: 40px;
+    margin: 20px 0 40px 0;
   }
 
   .right-block {
