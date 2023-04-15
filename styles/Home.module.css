@@ -156,17 +156,18 @@
 }
 
 .add_friend h3 {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .add_friend .table {
-  max-width: 1072px;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
 }
 
 .add_friend .table>div {
   padding: 24px;
-  width: 26%;
+  width: 240px;
+  margin: 0 30px;
   border-radius: 20px;
   background-color: var(--black-06dp);
   box-shadow: 0 10px 30px #00000010;
@@ -189,7 +190,7 @@
 
 .line-btn {
   cursor: pointer;
-  max-width: 288px;
+  max-width: 140px;
 }
 
 .line-btn img {
@@ -239,7 +240,7 @@
 
   .left-block h1 {
     font-weight: 700;
-    font-size: 36px;
+    font-size: 200%;
     letter-spacing: .03em;
     line-height: 150%;
     margin-bottom: 40px;
@@ -287,7 +288,7 @@
 
   .add_friend .table>div {
     width: 60%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .history table {
