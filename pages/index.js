@@ -30,10 +30,10 @@ export default function Home() {
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
-          <Image src={blob} alt='每日文大 實際使用 範例圖 底部裝飾' />
+          <Image src={blob} alt='每日文大 實際使用 範例圖 底部裝飾' loading="eager" />
         </div>
         <div className={styles["wave-out"]} >
-          <Image src={wave} alt='每日文大 實際使用 範例圖 底部裝飾' />
+          <Image src={wave} alt='每日文大 實際使用 範例圖 底部裝飾' loading="eager" />
         </div>
       </section>
       <section id={styles.functions} className={styles.section}>

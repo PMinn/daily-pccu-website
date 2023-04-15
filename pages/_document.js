@@ -8,7 +8,7 @@ export default function Document() {
             <body>
                 <Main></Main>
                 <NextScript></NextScript>
-                <Script type="module" src="https://cdn.jsdelivr.net/gh/pminn/banner/src/banner.mjs" strategy="lazyOnload"></Script>
+                <Script type="module" src="https://cdn.jsdelivr.net/gh/pminn/banner/src/banner.min.mjs" strategy="lazyOnload"></Script>
             </body>
         </Html>
     )
