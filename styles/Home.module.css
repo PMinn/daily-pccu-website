@@ -4,7 +4,7 @@
 
 .section:nth-child(odd) {
   background-color: var(--first-color);
-  color: var(--white);
+  color: var(--black);
 }
 
 .section:nth-child(even) {
@@ -26,10 +26,20 @@
   position: relative;
 }
 
-#cover>img {
+.wave-out {
   position: absolute;
   bottom: 0;
+  width: 100vw;
+  height: calc(100vw * 54 / 96);
+}
+
+.wave-out img {
   width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+#cover>img {
   margin: 0;
   z-index: 0;
 }
@@ -99,7 +109,7 @@
 .table svg {
   width: 60px;
   margin-bottom: 16px;
-  fill: var(--white);
+  fill: var(--black);
 }
 
 .table.c3>div {
@@ -166,7 +176,7 @@
 }
 
 .history td:first-child {
-  border-right: 1px solid var(--white);
+  border-right: 1px solid var(--black);
   border-top: 0;
   border-bottom: 0;
 }

@@ -12,6 +12,8 @@ import FunctionsData from '../data/functions.json';
 
 import portrait_w480 from '../public/images/portrait_w480.webp';
 import portrait_h741 from '../public/images/portrait_h741.webp';
+import wave from '../public/images/wave.svg';
+import blob from '../public/images/blob.svg';
 
 export default function Home() {
   return (
@@ -28,9 +30,11 @@ export default function Home() {
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait_w480} srcset={portrait_w480.src + ' 600w, ' + portrait_h741.src + ' 2000w'} alt="每日文大 實際使用 範例圖" loading="eager" sizes="(max-width:600px) 80vw, calc((380px + 19vw)) * (1314 / 2661)" priority="true" as={"image"}></Image>
-          <img src="/images/blob.svg" />
+          <Image src={blob} alt='每日文大 實際使用 範例圖 底部裝飾' />
         </div>
-        <img src="/images/wave.svg" />
+        <div className={styles["wave-out"]} >
+          <Image src={wave} alt='每日文大 實際使用 範例圖 底部裝飾' />
+        </div>
       </section>
       <section id={styles.functions} className={styles.section}>
         <div className={"table center".split(' ').map(s => styles[s]).join(' ')}>
