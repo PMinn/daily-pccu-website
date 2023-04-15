@@ -129,7 +129,7 @@
 #functions,
 .history,
 .add_friend {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -153,6 +153,10 @@
 
 #functions .table h3 {
   letter-spacing: 0.1em;
+}
+
+.add_friend h3 {
+  margin: 1rem 0;
 }
 
 .add_friend .table {
@@ -185,6 +189,12 @@
 
 .line-btn {
   cursor: pointer;
+  max-width: 288px;
+}
+
+.line-btn img {
+  width: 100%;
+  height: auto;
 }
 
 .blob path {
