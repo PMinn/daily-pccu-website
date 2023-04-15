@@ -29,7 +29,7 @@
 
 .wave-out {
   position: absolute;
-  bottom: 0;
+  bottom: -3px;
   width: 100vw;
   height: calc(100vw * 54 / 96);
 }
@@ -191,9 +191,14 @@
 }
 
 @media screen and (max-width:600px) {
+  .section {
+    padding: 5vh 0;
+  }
+
   #cover {
     flex-direction: column;
     height: auto;
+    min-height: 100vh;
   }
 
   #cover>* {
@@ -238,6 +243,7 @@
     height: calc(80vw * (2661 / 1314) + 40px);
     width: 100%;
     overflow: hidden;
+    padding-bottom: 15vh;
   }
 
   .right-block>img:first-child {
