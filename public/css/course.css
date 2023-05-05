@@ -116,6 +116,10 @@
     margin: 0 auto;
 }
 
+.block.hidden {
+    display: none;
+}
+
 .block>* {
     margin-top: 10px;
 }
