@@ -28,6 +28,10 @@
     ],
     "rewrites": [
       {
+        "source": "/course/**",
+        "destination": "/course.html"
+      },
+      {
         "source": "/**",
         "destination": "/index.html"
       }
