@@ -12,12 +12,6 @@
     left: 7vw;
 }
 
-#main {
-    width: calc(81vw - 400px);
-    min-height: 90vh;
-    margin: 5vh 7vw 0 auto;
-}
-
 .collapse-label {
     background-color: var(--second-color);
     border-radius: 10px;
@@ -85,6 +79,9 @@
 
 #main {
     padding-top: 5vh;
+    width: calc(81vw - 400px);
+    min-height: 85vh;
+    margin: 5vh 7vw 0 auto;
 }
 
 .search-bar {
