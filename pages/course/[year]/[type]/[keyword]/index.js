@@ -14,7 +14,7 @@ export default function Course() {
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
-        const q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where(type, '==', keyword));//
+        const q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where(type, '==', keyword));
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
             var d = [];
@@ -28,13 +28,16 @@ export default function Course() {
         }
     }
 
+    function pageOnLoad(url) {
+        var uriSplit = decodeURI(url).split('/');
+        if (uriSplit.length == 5) {
+            fetchFirestore(uriSplit[2], uriSplit[3], uriSplit[4]);
+        }
+    }
+
     useEffect(() => {
-        var [t, t, year, type, ketword] = decodeURI(location.pathname).split('/');
-        fetchFirestore(year, type, ketword);
-        router.events.on('routeChangeStart', (url, { }) => {
-            var [t, t, year, type, ketword] = decodeURI(url).split('/');
-            fetchFirestore(year, type, ketword);
-        });
+        pageOnLoad(location.pathname)
+        router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
         get(ref(database, 'courseConfig/'))
             .then(snapshot => setCollapseData(snapshot.val()))
             .catch((error) => {
@@ -52,6 +55,9 @@ export default function Course() {
 
     function openCollapse(e) {
         var collapseLabel = e.target;
+        if (collapseLabel.tagName.toUpperCase() != 'DIV') {
+            collapseLabel = collapseLabel.parentNode;
+        }
         if (collapseLabel.classList.contains('open')) {
             collapseLabel.classList.remove('open');
             document.getElementById(collapseLabel.dataset.for).classList.remove('open');

@@ -1,15 +1,63 @@
 import Head from 'next/head'
 // import NavComponent from '../../../components/NavComponent';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { database } from '../../firebaseConfig.js';
+
+import { database, firestore } from '../../firebaseConfig.js';
 import { ref, get } from "firebase/database";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export default function Course() {
+    const router = useRouter();
+    const [data, setData] = useState([]);
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
+
+    async function fetchFirestore(year, type, keyword) {
+        const q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where(type, '==', keyword));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            var d = [];
+            querySnapshot.forEach(doc => {
+                d.push(doc.data());// doc.id
+            });
+            setData(d);
+        } else {
+            console.log("No such document!");
+            setData([]);
+        }
+    }
+
+    function pageOnLoad(url) {
+        var uriSplit = decodeURI(url).split('/');
+        if (uriSplit.length == 5) {
+            fetchFirestore(uriSplit[2], uriSplit[3], uriSplit[4]);
+        }
+    }
+
+    useEffect(() => {
+        pageOnLoad(location.pathname)
+        router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
+        get(ref(database, 'courseConfig/'))
+            .then(snapshot => setCollapseData(snapshot.val()))
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    function search(e) {
+        var keyWord = e.target.value;
+        document.querySelectorAll('.block').forEach(block => {
+            if (block.innerText.includes(keyWord)) block.style.display = 'block';
+            else block.style.display = 'none';
+        })
+    }
 
     function openCollapse(e) {
         var collapseLabel = e.target;
+        if (collapseLabel.tagName.toUpperCase() != 'DIV') {
+            collapseLabel = collapseLabel.parentNode;
+        }
         if (collapseLabel.classList.contains('open')) {
             collapseLabel.classList.remove('open');
             document.getElementById(collapseLabel.dataset.for).classList.remove('open');
@@ -18,13 +66,6 @@ export default function Course() {
             document.getElementById(collapseLabel.dataset.for).classList.add('open');
         }
     }
-
-    useEffect(() => {
-        get(ref(database, 'courseConfig/')).then(snapshot => setCollapseData(snapshot.val()))
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
 
     return (
         <div>
@@ -52,12 +93,30 @@ export default function Course() {
             </section>
             <section id='main'>
                 <label className="search-bar" for="search">
-                    <input type="text" id="search" placeholder="搜尋" />
+                    <input type="text" id="search" onInput={search} placeholder="搜尋" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
                 </label>
                 <div id="blocks">
+                    {
+                        data.map(e => {
+                            return (
+                                <div className='block'>
+                                    <div className="className">{e.className}</div>
+                                    <div className="department">{e.department}</div>
+                                    <Link href={`/course/${e.year}/teacher/${e.teacher}`} className='teacher'>{e.teacher}</Link>
+                                    <div className="way">上課方式: {e.way}</div>
+                                    <div className="exam">考試方式: {e.exam}</div>
+                                    <div className="point">推薦程度: {e.point}</div>
+                                    <div className="evaluation">評論: {e.evaluation.replaceAll('\\n', '\n')}</div>
+                                    <div className="date">{new Date(e.date).toLocaleDateString()}</div>
+                                    <hr />
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-            </section>
-        </div>
+            </section >
+            {/* <script type="module" src="/js/course.js"></script> */}
+        </div >
     )
 }
