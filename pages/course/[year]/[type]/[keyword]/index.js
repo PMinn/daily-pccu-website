@@ -4,12 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import evaluation from './evaluation.json';
 import { database, firestore } from '../../../../../firebaseConfig.js';
 import { ref, get } from "firebase/database";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-const evaluationArray = Object.keys(evaluation).map(e => evaluation[e]);
 export default function Course() {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -33,21 +31,15 @@ export default function Course() {
     useEffect(() => {
         var [t, t, year, type, ketword] = decodeURI(location.pathname).split('/');
         fetchFirestore(year, type, ketword);
-        // var college = uri[uri.length - 1];
-        // var evaluationArrayFilter = evaluationArray.filter(e => e.college == college);
-        // setData(evaluationArrayFilter);
-        get(ref(database, 'courseConfig/')).then(snapshot => setCollapseData(snapshot.val()))
-            .catch((error) => {
-                console.error(error);
-            });
         router.events.on('routeChangeStart', (url, { }) => {
             var [t, t, year, type, ketword] = decodeURI(url).split('/');
             fetchFirestore(year, type, ketword);
-
-            // college = uri[uri.length - 1];
-            // evaluationArrayFilter = evaluationArray.filter(e => e.college == college);
-            // setData(evaluationArrayFilter);
         });
+        get(ref(database, 'courseConfig/'))
+            .then(snapshot => setCollapseData(snapshot.val()))
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
 
     function search(e) {
