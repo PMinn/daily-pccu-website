@@ -10,6 +10,16 @@
     position: fixed;
     top: 5vh;
     left: 7vw;
+    transition: all 0.3s;
+}
+
+.menu>* {
+    height: calc(1rem + 70px);
+    overflow: hidden;
+}
+
+.menu>*.open {
+    height: auto;
 }
 
 .collapse-label {
@@ -41,11 +51,11 @@
     padding: 0 20px;
     margin: 15px auto;
     transform: scaleY(0);
-    transform-origin: top center;
     transition: all 0.3s;
+    transform-origin: top center;
 }
 
-.collapse-area.open {
+.menu>*.open .collapse-area {
     transform: scaleY(1);
 }
 
@@ -129,9 +139,12 @@
 .block .date {
     text-align: right;
     font-size: 0.8rem;
-    opacity: 0.5;
 }
 
 .block hr {
     border-top: 1px solid var(--fourth-color);
+}
+
+.block .teacher{
+    color: var(--black);
 }
