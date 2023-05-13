@@ -14,7 +14,17 @@ export default function Course() {
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
-        const q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where(type, '==', keyword));
+        var q;
+        if (type == 'college') {
+            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('college', '==', keyword));
+        }
+        else if (type == 'teacher') {
+            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
+        } else {
+            console.log("paramaters are wrong");
+            setData([]);
+            return;
+        }
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
             var d = [];
@@ -104,7 +114,15 @@ export default function Course() {
                                 <div className='block'>
                                     <div className="className">{e.className}</div>
                                     <div className="department">{e.department}</div>
-                                    <Link href={`/course/${e.year}/teacher/${e.teacher}`} className='teacher'>{e.teacher}</Link>
+                                    <div className='teacher'>
+                                        {
+                                            e.teacher.map(teacher => {
+                                                return (
+                                                    <Link href={`/course/${e.year}/teacher/${teacher}`} className='teacher'>{teacher}</Link>
+                                                )
+                                            })
+                                        }
+                                    </div>
                                     <div className="way">上課方式: {e.way}</div>
                                     <div className="exam">考試方式: {e.exam}</div>
                                     <div className="point-progress">

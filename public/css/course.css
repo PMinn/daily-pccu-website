@@ -159,8 +159,9 @@ body {
     border-top: 1px solid var(--black-06dp);
 }
 
-.block .teacher {
+.block .teacher>* {
     color: var(--black);
+    margin-right: 1rem;
 }
 
 .block .point-progress {
