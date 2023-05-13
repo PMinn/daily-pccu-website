@@ -15,9 +15,9 @@ export default function Nav() {
                             連結
                         </a>
                     </li> */}
-                    <li className={styles['nav-item']}>
+                    {/* <li className={styles['nav-item']}>
                         <a data-target="#add_friend" className="btn btn-first" id='nav_addFriend_btn'>加入好友</a>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </header>

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-// import NavComponent from '../../../components/NavComponent';
+import NavComponent from '../../../../../components/NavComponent';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -73,6 +73,7 @@ export default function Course() {
                 <title>每日文大</title>
                 <link rel="stylesheet" href="/css/course.css" />
             </Head>
+            <NavComponent></NavComponent>
             <section className="menu">
                 {collapseData.years.map(year => {
                     return (
@@ -106,8 +107,15 @@ export default function Course() {
                                     <Link href={`/course/${e.year}/teacher/${e.teacher}`} className='teacher'>{e.teacher}</Link>
                                     <div className="way">上課方式: {e.way}</div>
                                     <div className="exam">考試方式: {e.exam}</div>
-                                    <div className="point">推薦程度: {e.point}</div>
-                                    <div className="evaluation">評論: {e.evaluation.replaceAll('\\n', '\n')}</div>
+                                    <div className="point-progress">
+                                        <div className="point-progress-bar">
+                                            <div className="point-progress-bar-value" style={{ transform: `scaleX(${e.point / 100})` }}></div>
+                                        </div>
+                                        <div className="point-progress-text">{e.point}</div>
+                                    </div>
+                                    <div className="evaluation">評論:<br />
+                                        {e.evaluation.replaceAll('\\n', '\n')}
+                                    </div>
                                     <div className="date">{new Date(e.date).toLocaleDateString()}</div>
                                     <hr />
                                 </div>
@@ -116,7 +124,6 @@ export default function Course() {
                     }
                 </div>
             </section >
-            {/* <script type="module" src="/js/course.js"></script> */}
         </div >
     )
 }

@@ -296,28 +296,15 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .left-block h1 {
     color: var(--white);
   }
 
-  /* .section:nth-child(odd) {
-    color: var(--white);
-  } */
-
   .section:nth-child(even) {
     color: var(--white);
   }
-
-  /* .history td:first-child {
-    border-color: var(--white);
-  }
-
-  .table svg {
-    fill: var(--white);
-  } */
-
   .add_friend .table>div {
     background-color: var(--white-24dp);
   }
-}
+} */

@@ -50,8 +50,8 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     .logo h1 {
         color: var(--white);
     }
-}
+} */

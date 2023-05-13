@@ -7,7 +7,7 @@ var analytics;
 if (isDailyPCCU) analytics = getAnalytics(app);
 
 const cover_addFriend_btn = document.getElementById('cover_addFriend_btn');
-const nav_addFriend_btn = document.getElementById('nav_addFriend_btn');
+// const nav_addFriend_btn = document.getElementById('nav_addFriend_btn');
 const line_btn = document.getElementById('line_btn');
 
 platform.os = String(platform.os);
@@ -23,7 +23,7 @@ async function addFriendBtnOnClick(e, btn, btnType) {
 }
 
 cover_addFriend_btn.addEventListener('click', e => addFriendBtnOnClick(e, cover_addFriend_btn, 'cover'));
-nav_addFriend_btn.addEventListener('click', e => addFriendBtnOnClick(e, nav_addFriend_btn, 'nav'));
+// nav_addFriend_btn.addEventListener('click', e => addFriendBtnOnClick(e, nav_addFriend_btn, 'nav'));
 line_btn.addEventListener('click', async () => {
     if (isDailyPCCU) await logEvent(analytics, 'line_btn_click', new_platform);
     location = line_btn.dataset.href;

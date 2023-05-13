@@ -1,20 +1,25 @@
+body {
+    --background-color: var(--white);
+}
+
 #main,
 .menu {
-    background-color: var(--white);
-    border-radius: 15px;
+    background-color: #fff;
+    border-radius: 10px;
 }
 
 .menu {
-    width: 400px;
-    height: 90vh;
+    width: 280px;
+    height: calc(100vh - 104px - 104px - 40px);
     position: fixed;
-    top: 5vh;
-    left: 7vw;
+    top: 104px;
+    left: 10vw;
     transition: all 0.3s;
+    padding: 20px;
 }
 
 .menu>* {
-    height: calc(1rem + 70px);
+    height: calc(1rem + 55px);
     overflow: hidden;
 }
 
@@ -26,9 +31,9 @@
     background-color: var(--second-color);
     border-radius: 10px;
     color: var(--white);
-    margin: 15px auto;
+    margin: 0 auto 15px auto;
     cursor: pointer;
-    width: calc(80% - 20px);
+    width: calc(100% - 40px);
     padding: 20px;
     display: flex;
 }
@@ -89,20 +94,20 @@
 
 #main {
     padding-top: 5vh;
-    width: calc(81vw - 400px);
-    min-height: 85vh;
-    margin: 5vh 7vw 0 auto;
+    width: calc(75vw - 300px);
+    min-height: calc(100vh - 104px - 104px - 5vh);
+    margin: 104px 10vw 0 auto;
 }
 
 .search-bar {
     width: 80%;
     margin: 0 auto;
     padding: 1rem 0;
-    background-color: #cfcfcf;
+    background-color: var(--black-06dp);
     border-radius: 999px;
     display: flex;
     justify-content: space-evenly;
-    cursor: pointer;
+    cursor: text;
 }
 
 .search-bar input {
@@ -121,6 +126,14 @@
     width: 80%;
     padding: 2vh 0;
     margin: 0 auto;
+    --green: #72D282;
+    -yellow: #F2E16D;
+    --red: #E47272;
+}
+
+.block .evaluation {
+    white-space: pre-line;
+    width: 100%;
 }
 
 .block.hidden {
@@ -129,6 +142,7 @@
 
 .block>* {
     margin-top: 10px;
+    display: block;
 }
 
 .block .className {
@@ -142,9 +156,33 @@
 }
 
 .block hr {
-    border-top: 1px solid var(--fourth-color);
+    border-top: 1px solid var(--black-06dp);
 }
 
-.block .teacher{
+.block .teacher {
     color: var(--black);
+}
+
+.block .point-progress {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.block .point-progress .point-progress-bar {
+    width: calc(100% - 5rem);
+    height: 2px;
+    background-color: var(--black-06dp);
+}
+
+.block .point-progress .point-progress-bar-value {
+    background-color: var(--green);
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    transition: all 0.3s;
+}
+
+.block .point-progress .point-progress-text {
+    margin-left: 1rem;
 }
