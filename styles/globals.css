@@ -28,14 +28,6 @@ body {
   width: 100%;
 }
 
-*::-webkit-scrollbar,
-*::-webkit-scrollbar-button,
-*::-webkit-scrollbar-track,
-*::-webkit-scrollbar-track-piece,
-*::-webkit-scrollbar-thumb {
-  display: none;
-}
-
 .btn {
   cursor: pointer;
   outline: 0;
@@ -91,3 +83,13 @@ body {
     --background-color: var(--black);
   }
 } */
+
+*::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--first-color);
+  border-radius: 10px;
+}

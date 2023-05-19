@@ -16,7 +16,7 @@ export default function Course() {
     async function fetchFirestore(year, type, keyword) {
         var q;
         if (type == 'college') {
-            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('college', '==', keyword));
+            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
         }
         else if (type == 'teacher') {
             q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
@@ -123,15 +123,29 @@ export default function Course() {
                                             })
                                         }
                                     </div>
-                                    <div className="way">上課方式: {e.way}</div>
-                                    <div className="exam">考試方式: {e.exam}</div>
                                     <div className="point-progress">
                                         <div className="point-progress-bar">
-                                            <div className="point-progress-bar-value" style={{ transform: `scaleX(${e.point / 100})` }}></div>
+                                            <div className="point-progress-bar-value" style={{ transform: `scaleX(${e.point / 100})`, backgroundColor: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}></div>
                                         </div>
-                                        <div className="point-progress-text">{e.point}</div>
+                                        <div className="point-progress-text" style={{ color: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}>{e.point}</div>
                                     </div>
-                                    <div className="evaluation">評論:<br />
+                                    <div className="exam">
+                                        {
+                                            (e.exam != '' ?
+                                                e.exam.split(',').map(exam => {
+                                                    return (
+                                                        <div >{exam}</div>
+                                                    )
+                                                })
+                                                :
+                                                ''
+                                            )
+                                        }
+                                    </div>
+                                    <div className="way">授課方式:<br />
+                                        {e.way}
+                                    </div>
+                                    <div className="evaluation">課程評語:<br />
                                         {e.evaluation.replaceAll('\\n', '\n')}
                                     </div>
                                     <div className="date">{new Date(e.date).toLocaleDateString()}</div>

@@ -6,6 +6,7 @@ body {
 .menu {
     background-color: #fff;
     border-radius: 10px;
+    box-shadow: 0 .125rem .25rem #00000013;
 }
 
 .menu {
@@ -96,7 +97,7 @@ body {
     padding-top: 5vh;
     width: calc(75vw - 300px);
     min-height: calc(100vh - 104px - 104px - 5vh);
-    margin: 104px 10vw 0 auto;
+    margin: 104px 10vw 104px auto;
 }
 
 .search-bar {
@@ -126,9 +127,9 @@ body {
     width: 80%;
     padding: 2vh 0;
     margin: 0 auto;
-    --green: #72D282;
-    -yellow: #F2E16D;
-    --red: #E47272;
+    --green: #0DCF00;
+    --yellow: var(--first-color);
+    --red: #FE0002;
 }
 
 .block .evaluation {
@@ -156,7 +157,7 @@ body {
 }
 
 .block hr {
-    border-top: 1px solid var(--black-06dp);
+    border-top: 1px solid #f1f1f1;
 }
 
 .block .teacher>* {
@@ -172,18 +173,34 @@ body {
 
 .block .point-progress .point-progress-bar {
     width: calc(100% - 5rem);
-    height: 2px;
+    height: 4px;
+    border-radius: 99px;
     background-color: var(--black-06dp);
 }
 
 .block .point-progress .point-progress-bar-value {
-    background-color: var(--green);
     height: 100%;
     width: 100%;
     transform-origin: left;
     transition: all 0.3s;
+    border-radius: 99px;
 }
 
 .block .point-progress .point-progress-text {
     margin-left: 1rem;
+    font-weight: 800;
+}
+
+.block .exam {
+    display: flex;
+}
+
+.block .exam>* {
+    padding: 3px 8px;
+    border: 1px solid var(--fourth-color);
+    border-radius: 99px;
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--fourth-color);
+    line-height: 1rem;
 }
