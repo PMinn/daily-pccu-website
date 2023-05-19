@@ -12,6 +12,10 @@
   --black-06dp: rgba(0, 0, 0, 0.11);
 }
 
+*:not(body)::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -24,6 +28,23 @@ body {
 
 body {
   background-color: var(--background-color);
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--first-color);
+  border-radius: 10px;
+}
+
+html,
+body,
+body>*,
+main,
+main>* {
   height: 100%;
   width: 100%;
 }
@@ -83,13 +104,3 @@ body {
     --background-color: var(--black);
   }
 } */
-
-*::-webkit-scrollbar {
-  width: 8px;
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: var(--first-color);
-  border-radius: 10px;
-}

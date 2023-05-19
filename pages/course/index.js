@@ -42,8 +42,11 @@ export default function Course() {
         var uriSplit = decodeURI(url).split('/');
         if (uriSplit.length == 5) {
             fetchFirestore(uriSplit[2], uriSplit[3], uriSplit[4]);
+            document.getElementById('search').value = '';
+            closeMenu();
         }
     }
+
 
     useEffect(() => {
         pageOnLoad(location.pathname)
@@ -63,18 +66,23 @@ export default function Course() {
         })
     }
 
-    function openCollapse(e) {
-        var collapseLabel = e.target;
-        if (collapseLabel.tagName.toUpperCase() != 'DIV') {
-            collapseLabel = collapseLabel.parentNode;
-        }
+    function openCollapse(year) {
+        var collapseLabel = document.getElementById('label_' + year);
         if (collapseLabel.classList.contains('open')) {
             collapseLabel.classList.remove('open');
-            document.getElementById(collapseLabel.dataset.for).classList.remove('open');
+            document.getElementById("y_" + year).classList.remove('open');
         } else {
             collapseLabel.classList.add('open');
-            document.getElementById(collapseLabel.dataset.for).classList.add('open');
+            document.getElementById("y_" + year).classList.add('open');
         }
+    }
+
+    function openMenu() {
+        document.getElementById('menu').classList.add('open');
+    }
+
+    function closeMenu() {
+        document.getElementById('menu').classList.remove('open');
     }
 
     return (
@@ -84,24 +92,35 @@ export default function Course() {
                 <link rel="stylesheet" href="/css/course.css" />
             </Head>
             <NavComponent></NavComponent>
-            <section className="menu">
-                {collapseData.years.map(year => {
-                    return (
-                        <div id={'y_' + year}>
-                            <div className="collapse-label" data-for={"y_" + year} onClick={openCollapse}>{year}學年
-                                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.34,24.34,0,0,0,40.55,224h174.9a24.34,24.34,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8Z"></path></svg>
-                            </div>
-                            <div className="collapse-area">
-                                {collapseData.colleges.map(college => {
-                                    return (
-                                        <Link href={`/course/${year}/college/${college}`} className='college-link'>{college}</Link>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    )
-                })}
+            <section id="menu">
+                <div className="close" onClick={closeMenu}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+                </div>
+                <div className="collapse-scroll">
+                    {
+                        collapseData.years.map(year => {
+                            return (
+                                <div id={'y_' + year}>
+                                    <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.34,24.34,0,0,0,40.55,224h174.9a24.34,24.34,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8Z"></path></svg>
+                                    </div>
+                                    <div className="collapse-area">
+                                        {collapseData.colleges.map(college => {
+                                            return (
+                                                <Link href={`/course/${year}/college/${college}`} className='college-link'>{college}</Link>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </section>
+            <div className="cover"></div>
+            <div id='menu_btn' onClick={openMenu}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
+            </div>
             <section id='main'>
                 <label className="search-bar" for="search">
                     <input type="text" id="search" onInput={search} placeholder="搜尋" />
