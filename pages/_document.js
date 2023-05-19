@@ -3,7 +3,7 @@ import Script from 'next/script'
 
 export default function Document() {
     return (
-        <Html lang="zh-Hant-TW" style={{ scrollBehavior: 'smooth' }}>
+        <Html lang="zh-TW" style={{ scrollBehavior: 'smooth' }}>
             <Head></Head>
             <body>
                 <Main></Main>

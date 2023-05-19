@@ -11,7 +11,7 @@ body {
 
 #menu {
     width: 280px;
-    height: calc(100vh - 104px - 104px - 40px);
+    height: calc(100% - 104px - 104px - 40px);
     position: fixed;
     top: 104px;
     left: 10vw;
@@ -34,7 +34,7 @@ body {
 }
 
 #menu .collapse-scroll {
-    height: calc(100% - 50px);
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -133,9 +133,9 @@ body {
 }
 
 #main {
-    padding: 5vh 0;
+    padding: 20px 0;
     width: calc(75vw - 300px);
-    min-height: calc(100vh - 104px - 104px - 10vh);
+    min-height: calc(100% - 104px - 104px - 40px);
     margin: 0 10vw 0 auto;
     transform: translateY(104px);
 }
@@ -291,6 +291,10 @@ body {
         display: block;
     }
 
+    #menu .collapse-scroll {
+        height: calc(100% - 50px);
+    }
+
     #menu_btn {
         display: flex;
         z-index: 90;
@@ -299,7 +303,7 @@ body {
     #main {
         width: 86vw;
         margin: 0 auto;
-        min-height: calc(100% - 104px - 104px - 10%);
+        min-height: calc(100% - 104px - 104px - 40px);
     }
 
     .search-bar input {
