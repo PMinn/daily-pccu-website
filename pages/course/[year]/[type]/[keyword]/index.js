@@ -14,6 +14,7 @@ export default function Course() {
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
+        document.getElementById('loading').classList.add('show');
         var q;
         if (type == 'college') {
             q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
@@ -36,6 +37,7 @@ export default function Course() {
             console.log("No such document!");
             setData([]);
         }
+        document.getElementById('loading').classList.remove('show');
     }
 
     function pageOnLoad(url) {
@@ -91,6 +93,12 @@ export default function Course() {
                 <link rel="stylesheet" href="/css/course.css" />
             </Head>
             <NavComponent></NavComponent>
+            <div className="cover" id="loading">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"></path>
+                    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"></path>
+                </svg>
+            </div>
             <section id="menu">
                 <div className="close" onClick={closeMenu}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
@@ -101,7 +109,7 @@ export default function Course() {
                             return (
                                 <div id={'y_' + year}>
                                     <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.34,24.34,0,0,0,40.55,224h174.9a24.34,24.34,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8Z"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
                                     </div>
                                     <div className="collapse-area">
                                         {collapseData.colleges.map(college => {
@@ -115,6 +123,7 @@ export default function Course() {
                         })
                     }
                 </div>
+                <div className="btn btn-first">新增評價</div>
             </section>
             <div className="cover"></div>
             <div id='menu_btn' onClick={openMenu}>
@@ -130,7 +139,14 @@ export default function Course() {
                         data.map(e => {
                             return (
                                 <div className='block'>
-                                    <div className="className">{e.className}</div>
+                                    <div className="title-bar">
+                                        <div className="className">{e.className}</div>
+                                        <div>
+                                            <div title="檢舉">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="department">{e.department}</div>
                                     <div className='teacher'>
                                         {

@@ -19,7 +19,14 @@ body {
     padding: 20px;
 }
 
-#menu+.cover {
+.cover {
+    width: 100%;
+    height: 100%;
+    background-color: #00000040;
+    z-index: 98;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: none;
 }
 
@@ -34,7 +41,7 @@ body {
 }
 
 #menu .collapse-scroll {
-    height: 100%;
+    height: calc(100% - 3.1rem);
     overflow-y: auto;
 }
 
@@ -176,11 +183,6 @@ body {
     --red: #FE0002;
 }
 
-.block .evaluation {
-    white-space: pre-line;
-    width: 100%;
-}
-
 .block.hidden {
     display: none;
 }
@@ -190,9 +192,27 @@ body {
     display: block;
 }
 
+.block .title-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
 .block .className {
     font-weight: 700;
     font-size: 1.2rem;
+}
+
+.block .title-bar svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: var(--black);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.block .evaluation {
+    white-space: pre-line;
+    width: 100%;
 }
 
 .block .date {
@@ -220,6 +240,7 @@ body {
     height: 4px;
     border-radius: 99px;
     background-color: var(--black-06dp);
+    overflow: hidden;
 }
 
 .block .point-progress .point-progress-bar-value {
@@ -251,6 +272,63 @@ body {
     line-height: 1rem;
 }
 
+#loading {
+    justify-content: center;
+    align-items: center;
+}
+
+#loading.show {
+    display: flex;
+}
+
+#loading svg {
+    width: 80px;
+    height: 80px;
+}
+
+#loading svg path {
+    transform-origin: center;
+}
+
+#loading svg path:first-child {
+    fill: var(--first-color);
+    animation: loading1 1s infinite linear;
+}
+
+#loading svg path:last-child {
+    transform: scale(0.5);
+    fill: var(--second-color);
+    animation: loading2 0.6s infinite linear;
+}
+
+@keyframes loading1 {
+    from {
+        transform: rotateZ(0);
+    }
+
+    50% {
+        transform: rotateZ(180deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes loading2 {
+    from {
+        transform: rotateZ(360deg) scale(0.5);
+    }
+
+    50% {
+        transform: rotateZ(180deg) scale(0.5);
+    }
+
+    to {
+        transform: rotateZ(0) scale(0.5);
+    }
+}
+
 @media screen and (max-width:600px) {
     #menu {
         width: calc(86vw - 40px);
@@ -262,17 +340,6 @@ body {
         padding: 20px;
         overflow-y: auto;
         z-index: 99;
-        display: none;
-    }
-
-    #menu+.cover {
-        width: 100%;
-        height: 100%;
-        background-color: #00000050;
-        z-index: 98;
-        position: fixed;
-        top: 0;
-        left: 0;
         display: none;
     }
 
@@ -292,7 +359,7 @@ body {
     }
 
     #menu .collapse-scroll {
-        height: calc(100% - 50px);
+        height: calc(100% - 50px - 3.1rem);
     }
 
     #menu_btn {
