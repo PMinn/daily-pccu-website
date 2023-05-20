@@ -17,8 +17,10 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>每日文大|首頁</title>
+        <title>每日文大</title>
+        <meta property="og:title" content="每日文大" />
         <meta name="description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
+        <meta property="og:description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
       </Head>
       <NavComponent></NavComponent>
       <section id={styles.cover} className={styles.section}>
