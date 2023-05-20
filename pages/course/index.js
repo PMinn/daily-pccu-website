@@ -37,6 +37,7 @@ export default function Course() {
             console.log("No such document!");
             setData([]);
         }
+        document.title = `每日文大|課程評價-${year}學年-${keyword}`;
         document.getElementById('loading').classList.remove('show');
     }
 
@@ -89,7 +90,7 @@ export default function Course() {
     return (
         <div>
             <Head>
-                <title>每日文大</title>
+                <title>每日文大|課程評價</title>
                 <link rel="stylesheet" href="/css/course.css" />
             </Head>
             <NavComponent></NavComponent>
