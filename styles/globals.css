@@ -73,7 +73,7 @@ main>* {
 
 .btn-second {
   background: var(--second-color);
-  color: var(--white);
+  color: #fff;
 }
 
 .btn-second:hover {
@@ -82,7 +82,7 @@ main>* {
 
 .btn-first {
   background: var(--first-color);
-  color: var(--white);
+  color: #fff;
 }
 
 .btn-first:hover {
