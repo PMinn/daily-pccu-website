@@ -19,7 +19,7 @@ let analytics;
 let firestore;
 let database;
 if (typeof window != undefined) {
-    analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);
+    analytics = isSupported().then(yes => yes ? getAnalytics : null);
     firestore = getFirestore(app);
     database = getDatabase(app);
 }

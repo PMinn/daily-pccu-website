@@ -96,10 +96,7 @@ export default function Course() {
             </Head>
             <NavComponent></NavComponent>
             <div className="cover" id="loading">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"></path>
-                    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"></path>
-                </svg>
+                <div class="custom-loader"></div>
             </div>
             <section id="menu">
                 <div className="close" onClick={closeMenu}>
@@ -133,8 +130,8 @@ export default function Course() {
             </div>
             <section id='main'>
                 <label className="search-bar" for="search">
-                    <input type="text" id="search" onInput={search} placeholder="搜尋" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+                    <input type="text" id="search" onInput={search} placeholder="搜尋" />
                 </label>
                 <div id="blocks">
                     {
@@ -185,7 +182,6 @@ export default function Course() {
                                         {e.evaluation.replaceAll('\\n', '\n')}
                                     </div>
                                     <div className="date">{new Date(e.date).toLocaleDateString()}</div>
-                                    <hr />
                                 </div>
                             )
                         })

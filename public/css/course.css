@@ -1,28 +1,36 @@
-body {
-    --background-color: var(--white);
+header[class*="NavComponent_"] {
+    z-index: -1;
 }
 
-#main,
+body {
+    --background-color: #F2F2F6;
+    --white: #fff;
+    overflow-y: scroll;
+}
+
+.block,
 #menu {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 .125rem .25rem #00000013;
+    background-color: var(--white);
+    border-radius: 16px;
+    -webkit-box-shadow: 17px 20px 40px #5f5f5f36;
+    box-shadow: 17px 20px 40px #5f5f5f36;
 }
 
 #menu {
     width: 280px;
     height: calc(100% - 104px - 104px - 40px);
     position: fixed;
+    display: flex;
+    flex-direction: column;
     top: 104px;
     left: 10vw;
     transition: all 0.3s;
-    padding: 20px;
 }
 
 .cover {
     width: 100%;
     height: 100%;
-    background-color: #00000040;
+    background-color: #00000060;
     z-index: 98;
     position: fixed;
     top: 0;
@@ -41,17 +49,24 @@ body {
 }
 
 #menu .collapse-scroll {
-    height: calc(100% - 3.1rem);
+    height: calc(100% - 3.1rem - 40px);
+    margin-top: 20px;
     overflow-y: auto;
 }
 
 #menu .collapse-scroll>* {
     height: calc(1rem + 55px);
-    overflow: hidden;
+    width: calc(100% - 40px);
+    margin: 0 auto;
 }
 
 #menu .collapse-scroll>*.open {
     height: auto;
+}
+
+#menu>.btn {
+    width: calc(100% - 40px);
+    margin: 0 auto 20px auto;
 }
 
 .collapse-label {
@@ -63,6 +78,12 @@ body {
     width: calc(100% - 40px);
     padding: 20px;
     display: flex;
+    transition: all 0.3s;
+    transform-origin: center;
+}
+
+.collapse-label:hover {
+    transform: scale(1.02);
 }
 
 .collapse-label svg {
@@ -79,9 +100,7 @@ body {
 }
 
 .collapse-area {
-    width: calc(80% - 20px);
-    padding: 0 20px;
-    margin: 15px auto;
+    width: 100%;
     transform: scaleY(0);
     transition: all 0.3s;
     transform-origin: top center;
@@ -93,30 +112,19 @@ body {
 
 .collapse-area .college-link {
     height: 2rem;
+    width: calc(100% - 40px);
     line-height: 2rem;
     cursor: pointer;
-    position: relative;
     display: block;
     color: var(--black);
     text-decoration: none;
-}
-
-.collapse-area .college-link::before {
-    position: absolute;
-    left: -20px;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    border-radius: 3px;
-    content: '';
-    display: block;
-    background-color: var(--first-color);
-    opacity: 0;
+    padding: 5px 20px;
+    border-radius: 8px;
     transition: all 0.3s;
 }
 
-.collapse-area .college-link:hover::before {
-    opacity: 1;
+.collapse-area .college-link:hover {
+    background-color: var(--black-opacity);
 }
 
 #menu_btn {
@@ -140,29 +148,29 @@ body {
 }
 
 #main {
-    padding: 20px 0;
     width: calc(75vw - 300px);
     min-height: calc(100% - 104px - 104px - 40px);
     margin: 0 10vw 0 auto;
     transform: translateY(104px);
+    padding-bottom: 20px;
 }
 
 .search-bar {
     width: 80%;
     height: 1rem;
     margin: 0 auto;
-    padding: 1rem 0;
-    background-color: var(--black-06dp);
-    border-radius: 999px;
+    padding: 20px;
+    background-color: var(--black-opacity);
+    border-radius: 16px;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     cursor: text;
 }
 
 .search-bar input {
-    width: calc(90% - 1rem);
+    width: calc(100% - 1rem - 5px);
+    margin-left: 5px;
     height: 1rem;
+    padding: 0;
     border: 0;
     outline: 0;
     background-color: transparent;
@@ -176,11 +184,17 @@ body {
 
 .block {
     width: 80%;
-    padding: 2vh 0;
-    margin: 0 auto;
-    --green: #0DCF00;
+    padding: 20px;
+    margin: 40px auto;
+    --green: #65C466;
     --yellow: var(--first-color);
-    --red: #FE0002;
+    --red: #EB4D3D;
+    transition: all 0.5s;
+    transform-origin: center;
+}
+
+.block:hover {
+    transform: scale(1.01);
 }
 
 .block.hidden {
@@ -218,10 +232,6 @@ body {
 .block .date {
     text-align: right;
     font-size: 0.8rem;
-}
-
-.block hr {
-    border-top: 1px solid #f1f1f1;
 }
 
 .block .teacher>* {
@@ -281,51 +291,23 @@ body {
     display: flex;
 }
 
-#loading svg {
-    width: 80px;
-    height: 80px;
+.custom-loader {
+    width: 90px;
+    height: 14px;
+    background:
+        linear-gradient(90deg, #0000 16px, var(--first-color) 0 30px, #0000 0),
+        radial-gradient(circle closest-side at 68% 50%, var(--first-color) 92%, #0000),
+        conic-gradient(from 45deg at calc(100% - 7px) 50%, var(--first-color) 90deg, #0000 0),
+        conic-gradient(from -135deg at 7px 50%, var(--first-color) 90deg, #0000 0);
+    background-position: 0 0;
+    background-size: calc(3*100%/4) 100%;
+    background-repeat: repeat-x;
+    animation: i9 1s infinite linear;
 }
 
-#loading svg path {
-    transform-origin: center;
-}
-
-#loading svg path:first-child {
-    fill: var(--first-color);
-    animation: loading1 1s infinite linear;
-}
-
-#loading svg path:last-child {
-    transform: scale(0.5);
-    fill: var(--second-color);
-    animation: loading2 0.6s infinite linear;
-}
-
-@keyframes loading1 {
-    from {
-        transform: rotateZ(0);
-    }
-
-    50% {
-        transform: rotateZ(180deg);
-    }
-
-    to {
-        transform: rotateZ(360deg);
-    }
-}
-
-@keyframes loading2 {
-    from {
-        transform: rotateZ(360deg) scale(0.5);
-    }
-
-    50% {
-        transform: rotateZ(180deg) scale(0.5);
-    }
-
-    to {
-        transform: rotateZ(0) scale(0.5);
+@keyframes i9 {
+    100% {
+        background-position: -300% 0;
     }
 }
 
@@ -344,7 +326,7 @@ body {
     }
 
     #menu.open {
-        display: block;
+        display: flex;
     }
 
     #menu.open+.cover {
@@ -353,13 +335,27 @@ body {
 
     #menu .close {
         width: 25px;
-        height: 50px;
+        height: 25px;
         margin-left: auto;
         display: block;
     }
 
     #menu .collapse-scroll {
-        height: calc(100% - 50px - 3.1rem);
+        height: calc(100% - 25px - 20px - 3.1rem);
+    }
+
+    #menu .collapse-scroll>* {
+        width: 100%;
+    }
+
+    .collapse-label:hover {
+        transform: scale(1);
+    }
+
+    #menu>.btn {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
     }
 
     #menu_btn {
@@ -373,7 +369,11 @@ body {
         min-height: calc(100% - 104px - 104px - 40px);
     }
 
-    .search-bar input {
-        width: calc(80% - 1rem);
+    .search-bar {
+        width: calc(100% - 40px);
+    }
+
+    .block {
+        width: calc(100% - 40px);
     }
 }

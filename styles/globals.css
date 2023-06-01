@@ -10,6 +10,7 @@
   --white: #f0f0f0;
   --white-24dp: rgba(255, 255, 255, 0.16);
   --black-06dp: rgba(0, 0, 0, 0.11);
+  --black-opacity: #E3E3E8;
 }
 
 *:not(body)::-webkit-scrollbar {
@@ -69,6 +70,7 @@ main>* {
   outline: 0;
   border: 0;
   font-size: 1.1rem;
+  transition: all 0.3s;
 }
 
 .btn-second {

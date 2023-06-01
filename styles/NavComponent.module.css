@@ -15,6 +15,11 @@
     box-sizing: border-box;
     overflow: hidden;
     padding: 0 10vw;
+
+    /* background-color: rgba(37,38,40,.21); 
+    background-image: radial-gradient(circle at 25%,hsla(0,0%,100%,.2),rgba(50,50,50,.2) 80%);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px); */
 }
 
 .logo {
