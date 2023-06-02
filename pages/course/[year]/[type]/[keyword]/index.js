@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import { database, firestore } from '../../../../../firebaseConfig.js';
+import { database, firestore } from '../../../../../js/firebaseConfig.js';
 import { ref, get } from "firebase/database";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
@@ -30,7 +30,9 @@ export default function Course() {
         if (!querySnapshot.empty) {
             var d = [];
             querySnapshot.forEach(doc => {
-                d.push(doc.data());// doc.id
+                var docData = doc.data();
+                docData.id = doc.id;
+                d.push(docData);
             });
             setData(d);
         } else {
@@ -87,6 +89,15 @@ export default function Course() {
         document.getElementById('menu').classList.remove('open');
     }
 
+    function revelation(id) {
+        document.getElementById('confirm').classList.add('show');
+        console.log(id);
+    }
+
+    function closeConfirm() {
+        document.getElementById('confirm').classList.remove('show');
+    }
+
     return (
         <div>
             <Head>
@@ -98,29 +109,40 @@ export default function Course() {
             <div className="cover" id="loading">
                 <div class="custom-loader"></div>
             </div>
+            <div className="cover" id="confirm">
+                <div class="confirm">
+                    <div className="btn-bar">
+                        <div className="btn" onClick={closeConfirm}>取消</div>
+                        <div className="btn" onClick={closeConfirm}>確認</div>
+                    </div>
+                </div>
+            </div>
             <section id="menu">
                 <div className="close" onClick={closeMenu}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
                 </div>
-                <div className="collapse-scroll">
-                    {
-                        collapseData.years.map(year => {
-                            return (
-                                <div id={'y_' + year}>
-                                    <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
+                <div className="collapse">
+                    <div className="collapse-scroll">
+                        {
+                            collapseData.years.map(year => {
+                                return (
+                                    <div id={'y_' + year} className="collapse-one-block">
+                                        <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
+                                        </div>
+                                        <div className="collapse-area">
+                                            {collapseData.colleges.map(college => {
+                                                return (
+                                                    <Link href={`/course/${year}/college/${college}`} className='college-link'>{college}</Link>
+                                                )
+                                            })}
+                                        </div>
                                     </div>
-                                    <div className="collapse-area">
-                                        {collapseData.colleges.map(college => {
-                                            return (
-                                                <Link href={`/course/${year}/college/${college}`} className='college-link'>{college}</Link>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                    </div>
+                    <div className="gradient"></div>
                 </div>
                 <div className="btn btn-first">新增評價</div>
             </section>
@@ -141,7 +163,7 @@ export default function Course() {
                                     <div className="title-bar">
                                         <div className="className">{e.className}</div>
                                         <div>
-                                            <div title="檢舉">
+                                            <div title="檢舉" onClick={() => revelation(e.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
                                             </div>
                                         </div>

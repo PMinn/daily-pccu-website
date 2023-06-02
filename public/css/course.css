@@ -20,8 +20,6 @@ body {
     width: 280px;
     height: calc(100% - 104px - 104px - 40px);
     position: fixed;
-    display: flex;
-    flex-direction: column;
     top: 104px;
     left: 10vw;
     transition: all 0.3s;
@@ -48,25 +46,48 @@ body {
     fill: var(--black);
 }
 
-#menu .collapse-scroll {
+#menu .collapse {
     height: calc(100% - 3.1rem - 40px);
+    width: 100%;
     margin-top: 20px;
+    position: relative;
+}
+
+#menu .collapse .collapse-scroll {
+    height: 100%;
+    width: 100%;
     overflow-y: auto;
 }
 
-#menu .collapse-scroll>* {
+#menu .collapse .collapse-scroll>.collapse-one-block {
     height: calc(1rem + 55px);
     width: calc(100% - 40px);
     margin: 0 auto;
 }
 
-#menu .collapse-scroll>*.open {
+#menu .collapse .collapse-scroll>.collapse-one-block.open {
     height: auto;
+}
+
+#menu .collapse .collapse-scroll>.collapse-one-block:last-child {
+    margin-bottom: 60px;
+}
+
+#menu .collapse .gradient {
+    pointer-events: none;
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #ffffff;
+    background: linear-gradient(0deg, #ffffff 22%, #ffffff00 100%);
 }
 
 #menu>.btn {
     width: calc(100% - 40px);
     margin: 0 auto 20px auto;
+    position: relative;
 }
 
 .collapse-label {
@@ -106,7 +127,7 @@ body {
     transform-origin: top center;
 }
 
-#menu .collapse-scroll>*.open .collapse-area {
+#menu .collapse-scroll>.collapse-one-block.open .collapse-area {
     transform: scaleY(1);
 }
 
@@ -311,6 +332,23 @@ body {
     }
 }
 
+#confirm.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm {
+    width: 500px;
+    border-radius: 16px;
+    background-color: var(--white);
+}
+
+.confirm .btn-bar {
+    width: 100%;
+    display: flex;
+}
+
 @media screen and (max-width:600px) {
     #menu {
         width: calc(86vw - 40px);
@@ -323,6 +361,8 @@ body {
         overflow-y: auto;
         z-index: 99;
         display: none;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     #menu.open {
@@ -340,11 +380,12 @@ body {
         display: block;
     }
 
-    #menu .collapse-scroll {
+    #menu .collapse {
         height: calc(100% - 25px - 20px - 3.1rem);
+        margin: 0;
     }
 
-    #menu .collapse-scroll>* {
+    #menu .collapse .collapse-scroll>.collapse-one-block {
         width: 100%;
     }
 
