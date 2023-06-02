@@ -11,10 +11,10 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 export default function Course() {
     const router = useRouter();
     const [data, setData] = useState([]);
+    const [title, setTitle] = useState("課程評價 | 每日文大");
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
-        console.log('fetchFirestore')
         document.getElementById('loading').classList.add('show');
         var q;
         if (type == 'college') {
@@ -40,7 +40,7 @@ export default function Course() {
             console.log("No such document!");
             setData([]);
         }
-        document.title = `課程評價-${year}學年-${keyword} | 每日文大`;
+        setTitle(`課程評價-${year}學年-${keyword} | 每日文大`);
         document.getElementById('loading').classList.remove('show');
     }
 
@@ -102,8 +102,8 @@ export default function Course() {
     return (
         <div>
             <Head>
-                <title>課程評價 | 每日文大</title>
-                <meta property="og:title" content="課程評價 | 每日文大" />
+                <title>{title}</title>
+                <meta property="og:title" content={title} />
                 <link rel="stylesheet" href="/css/course.css" />
             </Head>
             <NavComponent></NavComponent>
