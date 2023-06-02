@@ -29,7 +29,7 @@
     "rewrites": [
       {
         "source": "/course{,/**}",
-        "destination": "/course.html"
+        "destination": "/course/[[...params]].html"
       },
       {
         "source": "/**",

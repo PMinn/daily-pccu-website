@@ -27,20 +27,21 @@
   overflow: hidden;
 }
 
-.wave-out {
+.wave {
   position: absolute;
   bottom: -3px;
   width: 100vw;
   height: calc(100vw * 54 / 96);
 }
 
-.wave {
+.wave svg {
   width: 100%;
   max-width: 100%;
   height: auto;
 }
 
-.wave path {
+
+.wave svg path {
   fill: var(--first-color);
 }
 
@@ -127,8 +128,8 @@
 }
 
 #functions,
-.history,
-.add_friend {
+#history,
+#add_friend {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -155,16 +156,16 @@
   letter-spacing: 0.1em;
 }
 
-.add_friend h3 {
+#add_friend h3 {
   margin: 0 0 1rem 0;
 }
 
-.add_friend .table {
+#add_friend .table {
   width: 100%;
   justify-content: center;
 }
 
-.add_friend .table>div {
+#add_friend .table>div {
   padding: 24px;
   width: 240px;
   margin: 0 30px;
@@ -173,27 +174,27 @@
   box-shadow: 0 10px 30px #00000010;
 }
 
-.history table {
+#history table {
   margin: 0 auto;
 }
 
-.history td {
+#history td {
   padding: 3vh 2vw;
   letter-spacing: 0.1rem;
 }
 
-.history td:first-child {
+#history td:first-child {
   border-right: 1px solid var(--black);
   border-top: 0;
   border-bottom: 0;
 }
 
-.line-btn {
+#line_btn {
   cursor: pointer;
   max-width: 140px;
 }
 
-.line-btn img {
+#line_btn img {
   width: 100%;
   height: auto;
 }
@@ -281,17 +282,17 @@
     margin: 0;
   }
 
-  .add_friend .table {
+  #add_friend .table {
     flex-direction: column;
     align-content: center;
   }
 
-  .add_friend .table>div {
+  #add_friend .table>div {
     width: 60%;
     margin-bottom: 30px;
   }
 
-  .history table {
+  #history table {
     width: 80%;
   }
 }
@@ -304,7 +305,7 @@
   .section:nth-child(even) {
     color: var(--white);
   }
-  .add_friend .table>div {
+  #add_friend .table>div {
     background-color: var(--white-24dp);
   }
 } */

@@ -1,15 +1,18 @@
-import styles from '../styles/NavComponent.module.css';
+import Head from 'next/head';
 
 export default function Nav() {
     return (
-        <header className={styles.header}>
-            <nav className={styles.nav}>
+        <header className="header">
+            <Head>
+                <link rel="stylesheet" href="/css/NavComponent.css" />
+            </Head>
+            <nav className="nav">
                 <div>
-                    <a href="/" className={styles.logo}>
+                    <a href="/" className="logo">
                         <h1>每日文大</h1>
                     </a>
                 </div>
-                <ul className={styles['nav-list']}>
+                <ul className="nav-list">
                     {/* <li className="nav-item">
                         <a href="#" className="nav-item__link">
                             連結
