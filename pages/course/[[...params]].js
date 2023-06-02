@@ -14,6 +14,7 @@ export default function Course() {
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
+        console.log('fetchFirestore')
         document.getElementById('loading').classList.add('show');
         var q;
         if (type == 'college') {
@@ -30,7 +31,9 @@ export default function Course() {
         if (!querySnapshot.empty) {
             var d = [];
             querySnapshot.forEach(doc => {
-                d.push(doc.data());// doc.id
+                var docData = doc.data();
+                docData.id = doc.id;
+                d.push(docData);
             });
             setData(d);
         } else {
@@ -51,7 +54,7 @@ export default function Course() {
     }
 
     useEffect(() => {
-        pageOnLoad(location.pathname)
+        pageOnLoad(location.pathname);
         router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
         get(ref(database, 'courseConfig/'))
             .then(snapshot => setCollapseData(snapshot.val()))
@@ -85,6 +88,15 @@ export default function Course() {
 
     function closeMenu() {
         document.getElementById('menu').classList.remove('open');
+    }
+
+    function revelation(id) {
+        document.getElementById('confirm').classList.add('show');
+        console.log(id);
+    }
+
+    function closeConfirm() {
+        document.getElementById('confirm').classList.remove('show');
     }
 
     return (
@@ -152,7 +164,7 @@ export default function Course() {
                                     <div className="title-bar">
                                         <div className="className">{e.className}</div>
                                         <div>
-                                            <div title="檢舉">
+                                            <div title="檢舉" onClick={() => revelation(e.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
                                             </div>
                                         </div>
