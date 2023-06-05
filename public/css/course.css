@@ -349,7 +349,7 @@ body {
     display: flex;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:850px) {
     #menu {
         width: calc(86vw - 40px);
         height: calc(86% - 40px);

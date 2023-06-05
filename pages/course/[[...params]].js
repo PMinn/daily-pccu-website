@@ -40,7 +40,7 @@ export default function Course() {
             console.log("No such document!");
             setData([]);
         }
-        setTitle(`課程評價-${year}學年-${keyword} | 每日文大`);
+        setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
         document.getElementById('loading').classList.remove('show');
     }
 
