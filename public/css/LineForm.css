@@ -1,6 +1,7 @@
 .container {
     width: 80vw;
-    margin: 15vw auto;
+    padding: 15vw 0;
+    margin: 0 auto;
     color: var(--black);
     position: relative;
 }
@@ -38,7 +39,7 @@ input[type="radio"]:checked+label {
 textarea {
     width: calc(100% - 4px);
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 16px;
     border: 2px solid #00000030;
     background-color: var(--background-color);
     line-height: 1rem;
@@ -145,4 +146,21 @@ label[for="image"],
     height: 100%;
     width: 100%;
     background-color: var(--first-color);
+}
+
+.filepond--credits {
+    display: none !important;
+}
+
+.filepond--drop-label {
+    border-radius: 16px;
+}
+
+[data-filepond-item-state*='error'] .filepond--item-panel,
+[data-filepond-item-state*='invalid'] .filepond--item-panel {
+    background-color: var(--red);
+}
+
+[data-filepond-item-state='processing-complete'] .filepond--item-panel {
+    background-color: var(--green);
 }

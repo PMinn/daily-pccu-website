@@ -1,11 +1,38 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import React, { useEffect, useState } from 'react';
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 export default function LineForm({ }) {
+  const [files, setFiles] = useState([]);
+
+  function onupdatefiles(fileItems) {
+    setFiles(fileItems);
+    console.log(fileItems)
+  }
+
+  function handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
+    //doing some stuff here 
+    // if (socket is open) {
+    //   progress(true, data.received, blobSize);
+    //   // you could compare data.received with blobSize I guess?
+    //   if (progress is at 100 %) {
+    //     load()
+    //   }
+    // }
+    console.log("handleProcessing", fieldName)
+    load()
+  }
   return (
     <div>
       <Head>
-        <title>每日文大 | 回饋</title>
+        <title>回饋 | 每日文大</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/css/LineForm.css?t=2" />
       </Head>
@@ -43,10 +70,37 @@ export default function LineForm({ }) {
         </div>
         <h3>有沒有相關圖片...</h3>
         <div class="block">
-          <div id="file_block">
-          </div>
+          {/* <div id="file_block"></div>
           <input type="file" name="image" id="image" accept="image/*" />
-          <label for="image">選擇照片上傳</label>
+          <label for="image">選擇照片上傳</label> */}
+          {/* https://pqina.nl/filepond/docs/api/instance/properties/ */}
+          <FilePond files={files}
+            onupdatefiles={onupdatefiles}
+            allowMultiple={true}
+            acceptedFileTypes={['image/*']}
+            server={{ process: handleProcessing }}
+            labelIdle='點擊上傳'
+            labelInvalidField='包含無效的檔案'
+            labelFileWaitingForSize='等待檔案大小'
+            labelFileSizeNotAvailable='無效的檔案大小'
+            labelFileLoading='載入中'
+            labelFileLoadError='讀取檔案失敗'
+            labelFileProcessing='上傳中'
+            labelFileProcessingComplete='上傳成功'
+            labelFileProcessingAborted='取消上傳'
+            labelFileProcessingError='檔案上傳失敗'
+            labelFileProcessingRevertError='重新上傳失敗'
+            labelFileRemoveError='刪除失敗'
+            labelTapToCancel='點擊取消'
+            labelTapToRetry='點擊重新上傳'
+            labelTapToUndo='點擊刪除'
+            labelButtonRemoveItem='刪除'
+            labelButtonAbortItemLoad='取消'
+            labelButtonRetryItemLoad='重新上傳'
+            labelButtonAbortItemProcessing='取消'
+            labelButtonRetryItemProcessing='重新上傳'
+            labelButtonProcessItem='上傳'
+          />
         </div>
         <button id="submit" class="btn btn-second">送出</button>
       </div>

@@ -207,9 +207,6 @@ body {
     width: 80%;
     padding: 20px;
     margin: 40px auto;
-    --green: #65C466;
-    --yellow: var(--first-color);
-    --red: #EB4D3D;
     transition: all 0.5s;
     transform-origin: center;
 }

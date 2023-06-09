@@ -59,55 +59,55 @@ function saveImage(file, DOMs) {
     })
 }
 
-document.getElementById('image').addEventListener('change', e => {
-    if (e.target.files.length == 1) {
-        var file = e.target.files[0];
-        uploadJobsCount++;
-        submit.setAttribute('disabled', 'disabled');
-        getBase64(file)
-            .then(base64 => {
-                var imgItem = document.createElement('div');
-                imgItem.classList.add('img-item');
+// document.getElementById('image').addEventListener('change', e => {
+//     if (e.target.files.length == 1) {
+//         var file = e.target.files[0];
+//         uploadJobsCount++;
+//         submit.setAttribute('disabled', 'disabled');
+//         getBase64(file)
+//             .then(base64 => {
+//                 var imgItem = document.createElement('div');
+//                 imgItem.classList.add('img-item');
 
-                var progress = document.createElement('div');
-                progress.classList.add('progress');
+//                 var progress = document.createElement('div');
+//                 progress.classList.add('progress');
 
-                var imgData = document.createElement('div');
-                imgData.classList.add('img-data');
+//                 var imgData = document.createElement('div');
+//                 imgData.classList.add('img-data');
 
-                var imgBlock = document.createElement('div');
-                imgBlock.classList.add('img-block');
+//                 var imgBlock = document.createElement('div');
+//                 imgBlock.classList.add('img-block');
 
-                var img = document.createElement('img');
-                img.src = base64;
+//                 var img = document.createElement('img');
+//                 img.src = base64;
 
-                var name = document.createElement('div');
-                name.innerText = file.name;
+//                 var name = document.createElement('div');
+//                 name.innerText = file.name;
 
-                imgBlock.appendChild(img);
-                imgData.appendChild(imgBlock);
-                imgData.appendChild(name);
-                imgItem.appendChild(progress);
-                imgItem.appendChild(imgData);
-                document.getElementById('file_block').appendChild(imgItem);
-                saveImage(file, { imgItem, progress, imgData, imgBlock, img, name })
-                    .then(gsPath => {
-                        imgItem.dataset.path = gsPath;
-                        uploadJobsCount--;
-                        setTimeout(() => {
-                            imgItem.classList.add('done');
-                            if (uploadJobsCount == 0) submit.removeAttribute('disabled');
-                        }, 500)
-                    })
-                    .catch(error => {
-                        uploadJobsCount--;
-                        alert('上傳失敗');
-                        imgItem.remove();
-                    })
-                    .finally(() => window.scrollTo(0, document.body.scrollHeight));
-            })
-    }
-})
+//                 imgBlock.appendChild(img);
+//                 imgData.appendChild(imgBlock);
+//                 imgData.appendChild(name);
+//                 imgItem.appendChild(progress);
+//                 imgItem.appendChild(imgData);
+//                 // document.getElementById('file_block').appendChild(imgItem);
+//                 saveImage(file, { imgItem, progress, imgData, imgBlock, img, name })
+//                     .then(gsPath => {
+//                         imgItem.dataset.path = gsPath;
+//                         uploadJobsCount--;
+//                         setTimeout(() => {
+//                             imgItem.classList.add('done');
+//                             if (uploadJobsCount == 0) submit.removeAttribute('disabled');
+//                         }, 500)
+//                     })
+//                     .catch(error => {
+//                         uploadJobsCount--;
+//                         alert('上傳失敗');
+//                         imgItem.remove();
+//                     })
+//                     .finally(() => window.scrollTo(0, document.body.scrollHeight));
+//             })
+//     }
+// })
 
 
 submit.addEventListener('click', () => {

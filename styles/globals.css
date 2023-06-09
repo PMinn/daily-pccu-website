@@ -11,6 +11,10 @@
   --white-24dp: rgba(255, 255, 255, 0.16);
   --black-06dp: rgba(0, 0, 0, 0.11);
   --black-opacity: #E3E3E8;
+
+  --green: #65C466;
+  --yellow: var(--first-color);
+  --red: #EB4D3D;
 }
 
 *:not(body)::-webkit-scrollbar {
