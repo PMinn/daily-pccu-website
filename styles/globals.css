@@ -4,12 +4,14 @@
   --second-color: #A78558;
   --second-color-rgb: 167, 133, 88;
   --fourth-color: #005248;
+  --fourth-color-rgb: 0, 82, 72;
 
   --background-color: #fff;
   --black: #212121;
   --white: #f0f0f0;
   --white-24dp: rgba(255, 255, 255, 0.16);
   --black-06dp: rgba(0, 0, 0, 0.11);
+  --gray: #767679;
   --black-opacity: #E3E3E8;
 
   --green: #65C466;

@@ -6,6 +6,8 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { database } from '../../js/firebaseConfig.js';
+import { ref, set } from "firebase/database";
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
@@ -15,6 +17,29 @@ export default function LineForm({ }) {
   function onupdatefiles(fileItems) {
     setFiles(fileItems);
     console.log(fileItems)
+  }
+
+  useEffect(() => {
+  }, []);
+
+  function submit() {
+    let uuid = document.getElementById('uuid').value;
+    let type = document.querySelector('input[name="radio_group"]:checked').value;
+    let content = document.getElementById('content').value;
+
+    // let files = document.getElementById('filepond').files;
+    // let filesUrl = [];
+    // for (let i = 0; i < files.length; i++) {
+    //   filesUrl.push(files[i].serverId);
+    // }
+
+    set(ref(database, 'form/' + new Date().getTime()), {
+      type,
+      content,
+      uuid
+      // files: filesUrl
+    });
+    alert("回報成功！感謝您的回饋！")
   }
 
   function handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
@@ -29,6 +54,7 @@ export default function LineForm({ }) {
     console.log("handleProcessing", fieldName)
     load()
   }
+
   return (
     <div>
       <Head>
@@ -36,13 +62,13 @@ export default function LineForm({ }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/css/LineForm.css?t=2" />
       </Head>
-      <Script strategy="afterInteractive" src='/js/form.js' type="module"></Script>
-      <div class="envelope">
+      {/* <Script strategy="afterInteractive" src='/js/form.js' type="module"></Script> */}
+      {/* <div class="envelope">
         <div class="envelope-body"></div>
         <div class="envelope-cover">
           <div></div>
         </div>
-      </div>
+      </div> */}
       <div class="container">
         <input type="text" id="uuid" hidden />
         <h3>我要回饋的是...</h3>
@@ -70,13 +96,11 @@ export default function LineForm({ }) {
         </div>
         <h3>有沒有相關圖片...</h3>
         <div class="block">
-          {/* <div id="file_block"></div>
-          <input type="file" name="image" id="image" accept="image/*" />
-          <label for="image">選擇照片上傳</label> */}
           {/* https://pqina.nl/filepond/docs/api/instance/properties/ */}
           <FilePond files={files}
             onupdatefiles={onupdatefiles}
             allowMultiple={true}
+            allowReplace={false}
             acceptedFileTypes={['image/*']}
             server={{ process: handleProcessing }}
             labelIdle='點擊上傳'
@@ -102,7 +126,7 @@ export default function LineForm({ }) {
             labelButtonProcessItem='上傳'
           />
         </div>
-        <button id="submit" class="btn btn-second">送出</button>
+        <button id="submit" class="btn btn-second" onClick={submit}>送出</button>
       </div>
     </div>
   )

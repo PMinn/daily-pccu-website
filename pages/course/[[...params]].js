@@ -145,7 +145,7 @@ export default function Course() {
                     </div>
                     <div className="gradient"></div>
                 </div>
-                <div className="btn btn-first">新增評價</div>
+                <Link href={"/addCourse"} className='btn btn-first' target='_blank'>新增評價</Link>
             </section>
             <div className="cover"></div>
             <div id='menu_btn' onClick={openMenu}>

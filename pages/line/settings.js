@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import functions from '../../data/functions.json';
+import { database } from '../../js/firebaseConfig.js';
+import { ref, get } from "firebase/database";
 
 export default function LineSetting({ }) {
   const settingsFunction = functions.filter(f => f.setting);
@@ -14,6 +16,9 @@ export default function LineSetting({ }) {
     setView(target.dataset.id);
     e.stopPropagation();
   }
+
+  useEffect(() => {
+  }, []);
 
   return (
     <div>
