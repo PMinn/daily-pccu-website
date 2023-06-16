@@ -21,6 +21,10 @@ export default function Footer() {
                         <Link href='/#add_friend'>如何加入</Link>
                         <Link href='/#history'>重大事件</Link>
                     </div>
+                    <div>
+                        <h3><Link href='/course'>課程評價</Link></h3>
+                        <Link href='/addCourse'>新增課程評價</Link>
+                    </div>
                 </div>
             </div>
             <small>© 2022 All Rights Reserved - <a href="https://github.com/PMinn">P'MIN</a>.</small>

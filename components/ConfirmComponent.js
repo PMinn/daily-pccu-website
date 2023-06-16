@@ -9,21 +9,7 @@ export default function Confirm({ title, content, btn, onClick, show }) {
             </Head>
             <div class="confirm">
                 <div className="title">{title}</div>
-                <div className="content">
-                    {
-                        content.split('\n').map(line => {
-                            return (
-                                <div>
-                                    {
-                                        line.split('\\n').map(word => {
-                                            return (<div>{word}</div>)
-                                        })
-                                    }
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                <div className="content">{content}</div>
                 <div className="btn-bar">
                     {
                         btn.map((item, index) => {

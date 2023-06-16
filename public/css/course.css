@@ -1,11 +1,13 @@
-.header {
-    z-index: -1;
-}
-
 body {
     --background-color: #F2F2F6;
     --white: #fff;
     overflow-y: scroll;
+}
+
+.panel {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
 }
 
 .block,
@@ -18,8 +20,8 @@ body {
 
 #menu {
     width: 280px;
-    height: calc(100% - 104px - 104px - 40px);
-    position: fixed;
+    height: calc(100vh - 104px - 104px - 40px);
+    position: sticky;
     top: 104px;
     left: 10vw;
     transition: all 0.3s;
@@ -160,9 +162,7 @@ body {
 #main {
     width: calc(75vw - 300px);
     min-height: calc(100% - 104px - 104px - 40px);
-    margin: 0 10vw 0 auto;
-    transform: translateY(104px);
-    padding-bottom: 20px;
+    margin: 104px auto 0 auto;
 }
 
 .search-bar {
@@ -195,7 +195,7 @@ body {
 .block {
     width: 80%;
     padding: 20px;
-    margin: 40px auto;
+    margin: 40px auto 0 auto;
     transition: all 0.5s;
     transform-origin: center;
 }
@@ -289,6 +289,61 @@ body {
     line-height: 1rem;
 }
 
+.revelation {
+    display: flex;
+    flex-direction: column;
+}
+
+.revelation label {
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.revelation input[type="radio"] {
+    visibility: hidden;
+    position: relative;
+    margin-right: 0.5rem;
+}
+
+.revelation input[type="radio"]::before {
+    display: block;
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.3rem;
+    outline: 0.1rem solid var(--fourth-color);
+    outline-offset: 0.2rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    transition: all 0.3s;
+    visibility: visible;
+}
+
+.revelation input[type="radio"]:checked::before {
+    background-color: var(--fourth-color);
+}
+
+.success {
+    width: 100%;
+    height: calc(100vh - 288px);
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--green);
+    letter-spacing: 1rem;
+    font-size: 1.5rem;
+}
+
+.success svg {
+    fill: var(--green);
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width:850px) {
     #menu {
         width: calc(86vw - 40px);
@@ -346,7 +401,6 @@ body {
 
     #main {
         width: 86vw;
-        margin: 0 auto;
         min-height: calc(100% - 104px - 104px - 40px);
     }
 

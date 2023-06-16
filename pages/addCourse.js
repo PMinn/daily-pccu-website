@@ -152,7 +152,19 @@ export default function Course({ fontClass }) {
                 <link rel="stylesheet" href="/css/addCourse.css" />
                 <link rel="stylesheet" href="/css/confirm.css" />
             </Head>
-            <ConfirmComponent title='確認新增' content={confirmContent} btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow}></ConfirmComponent>
+            <ConfirmComponent title='確認新增' content={
+                confirmContent.split('\n').map(line => {
+                    return (
+                        <div>
+                            {
+                                line.split('\\n').map(word => {
+                                    return (<>{word}<br /></>)
+                                })
+                            }
+                        </div>
+                    )
+                })
+            } btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow} ></ConfirmComponent >
             <LoadingComponent show={loading}></LoadingComponent>
             <div className="outter">
                 <div className='intro'>
@@ -260,7 +272,6 @@ export default function Course({ fontClass }) {
                         </div>
                         <div>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
                         <div className="btn btn-second" onClick={submit}>完成</div>
-
                     </div>
                     <div className='success' style={{ display: (!success ? 'none' : '') }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>

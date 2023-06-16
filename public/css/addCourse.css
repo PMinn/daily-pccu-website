@@ -1,13 +1,7 @@
-.header {
-    z-index: -1;
-}
-
 body {
     --background-color: #F2F2F6;
     --white: #fff;
     overflow-y: scroll;
-    position: relative;
-
 }
 
 .outter {
