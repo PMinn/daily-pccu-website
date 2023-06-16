@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import NavComponent from '../../components/NavComponent';
+import LoadingComponent from '../../components/LoadingComponent';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -10,12 +11,13 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 
 export default function Course() {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [title, setTitle] = useState("課程評價 | 每日文大");
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
 
     async function fetchFirestore(year, type, keyword) {
-        document.getElementById('loading').classList.add('show');
+        setLoading(true);
         var q;
         if (type == 'college') {
             q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
@@ -41,7 +43,7 @@ export default function Course() {
             setData([]);
         }
         setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
-        document.getElementById('loading').classList.remove('show');
+        setLoading(false);
     }
 
     function pageOnLoad(url) {
@@ -105,11 +107,10 @@ export default function Course() {
                 <title>{title}</title>
                 <meta property="og:title" content={title} />
                 <link rel="stylesheet" href="/css/course.css" />
+                <link rel="stylesheet" href="/css/confirm.css" />
             </Head>
             <NavComponent></NavComponent>
-            <div className="cover" id="loading">
-                <div class="custom-loader"></div>
-            </div>
+            <LoadingComponent show={loading}></LoadingComponent>
             <div className="cover" id="confirm">
                 <div class="confirm">
                     <div className="btn-bar">
@@ -145,7 +146,7 @@ export default function Course() {
                     </div>
                     <div className="gradient"></div>
                 </div>
-                <Link href={"/addCourse"} className='btn btn-first' target='_blank'>新增評價</Link>
+                <Link href="/addCourse" className='btn btn-first' target='_blank'>新增評價</Link>
             </section>
             <div className="cover"></div>
             <div id='menu_btn' onClick={openMenu}>

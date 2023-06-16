@@ -25,7 +25,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:image" content="/favicon_package/android-chrome-384x384.png" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Component {...pageProps} />
+      <Component {...pageProps} fontClass={jf_openhuninn.className} />
     </main>
   )
 }

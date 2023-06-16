@@ -1,0 +1,30 @@
+.confirm-outter.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm .title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 1rem auto;
+}
+
+.confirm .content {
+    font-size: 1rem;
+    width: 90%;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    display: block;
+}
+
+.confirm {
+    width: 500px;
+    border-radius: 16px;
+    background-color: var(--white);
+}
+
+.confirm .btn-bar {
+    width: 100%;
+    display: flex;
+}

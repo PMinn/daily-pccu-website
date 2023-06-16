@@ -34,25 +34,27 @@ body {
     margin-bottom: 16px;
 }
 
-.category {
+.radio {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.category input {
+.radio input {
     display: none;
 }
 
-.category label {
+.radio label {
     border-radius: 16px;
     padding: 8px 16px;
     cursor: pointer;
     transition: all 0.3s;
+    color: var(--gray);
 }
 
-.category input.checked+label {
+.radio input.checked+label {
     background-color: var(--first-color);
+    color: #000;
 }
 
 .input-group {
@@ -64,12 +66,14 @@ body {
     flex-direction: column;
 }
 
-.input-group input[type="text"] {
+.input-group input[type="text"],
+.input-group select {
     height: 1rem;
 }
 
 .input-group input[type="text"],
-.input-group textarea {
+.input-group textarea,
+.input-group select {
     width: 100%;
     line-height: 1rem;
     border: none;
@@ -97,7 +101,8 @@ body {
     width: 100%;
 }
 
-.input-group input[type="number"]+.label {
+.input-group input[type="number"]+.label,
+.input-group select+.label {
     position: absolute;
     top: 0;
     color: var(--gray);
@@ -162,4 +167,27 @@ input[type="checkbox"]:checked+label {
 .container .btn {
     margin-top: 16px;
     max-width: unset;
+}
+
+.noClassName .className,
+.noTeacher .teacher,
+.noDepartment .department {
+    border-color: var(--red);
+}
+
+.success {
+    width: 400px;
+    height: calc(100vh - 288px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--green);
+    letter-spacing: 1rem;
+    font-size: 1.5rem;
+}
+
+.success svg {
+    fill: var(--green);
+    margin-bottom: 1rem;
 }
