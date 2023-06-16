@@ -49,7 +49,7 @@ export default function Course({ fontClass }) {
     function yearOnBlur(e) {
         try {
             var tYear = parseInt(e.target.value);
-            if (tYear < new Date().getFullYear() - 1911 - 5 || tYear > new Date().getFullYear() - 1911 + 5) {
+            if (tYear < new Date().getFullYear() - 1911 - 5 || tYear > new Date().getFullYear() - 1911) {
                 setYear(new Date().getFullYear() - 1911);
             }
         } catch {
@@ -155,6 +155,13 @@ export default function Course({ fontClass }) {
             <ConfirmComponent title='確認新增' content={confirmContent} btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow}></ConfirmComponent>
             <LoadingComponent show={loading}></LoadingComponent>
             <div className="outter">
+                <div className='intro'>
+                    <h1>新增課程評價</h1>
+                    <div>
+                        您可以提供課程具體的資訊、分享您的觀點，以幫助所有同學未來選課有資訊可以參考。感謝您抽出寶貴的時間新增課程評價，您的參與將幫助大家獲得更多選課參考資訊。
+                    </div>
+                </div>
+
                 <div className="container" id='container'>
                     <div style={{ display: (success ? 'none' : '') }}>
                         <div className="border radio">
@@ -190,7 +197,7 @@ export default function Course({ fontClass }) {
                         </div>
                         <div className="border" >
                             <label className="input-group" htmlFor="year">
-                                <input type="number" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911 + 5} step={1} value={year} id="year" onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
+                                <input type="number" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911} step={1} value={year} id="year" onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
                                 <div className='label'>開課學年</div>
                             </label>
                         </div>

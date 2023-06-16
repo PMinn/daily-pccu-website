@@ -6,20 +6,31 @@ body {
     --background-color: #F2F2F6;
     --white: #fff;
     overflow-y: scroll;
+    position: relative;
+
 }
 
 .outter {
-    padding-top: 104px;
-    padding-bottom: 104px;
-    width: 100%;
+    width: calc(80vw - 36px);
+    margin: 104px auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     z-index: 1;
 }
 
+.intro {
+    width: calc(40% - 80px);
+}
+
+.intro>div {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
 .container {
-    max-width: 400px;
+    width: 50%;
     background-color: var(--white);
     border-radius: 16px;
     padding: 40px;
@@ -176,7 +187,7 @@ input[type="checkbox"]:checked+label {
 }
 
 .success {
-    width: 400px;
+    width: 100%;
     height: calc(100vh - 288px);
     display: flex;
     justify-content: center;
@@ -190,4 +201,21 @@ input[type="checkbox"]:checked+label {
 .success svg {
     fill: var(--green);
     margin-bottom: 1rem;
+}
+
+@media screen and (max-width:850px) {
+    .outter {
+        width: calc(100% - 68px);
+        flex-direction: column;
+    }
+
+    .intro {
+        width: 100%;
+    }
+
+    .container {
+        margin-top: 5%;
+        width: calc(100% - 32px);
+        padding: 16px;
+    }
 }

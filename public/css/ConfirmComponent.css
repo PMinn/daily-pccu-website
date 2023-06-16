@@ -28,3 +28,10 @@
     width: 100%;
     display: flex;
 }
+
+@media screen and (max-width:850px) {
+    .confirm {
+        max-width: 500px;
+        width: 90%;
+    }
+}
