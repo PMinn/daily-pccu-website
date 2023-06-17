@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc } from "firebase/firestore";
 
 export default function Course() {
     const database = getDatabase(app);
@@ -24,7 +24,7 @@ export default function Course() {
     const [successConfirmShow, setSuccessConfirmShow] = useState(false);
     const [revelationID, setRevelationID] = useState("");
 
-    async function fetchFirestore(year, type, keyword) {
+    async function fetchFirestoreWithYear(year, type, keyword) {
         setLoading(true);
         var q;
         if (type == 'college') {
@@ -54,10 +54,26 @@ export default function Course() {
         setLoading(false);
     }
 
-    function pageOnLoad(url) {
-        var uriSplit = decodeURI(url).split('/');
-        if (uriSplit.length == 5) {
-            fetchFirestore(uriSplit[2], uriSplit[3], uriSplit[4]);
+    async function fetchFirestoreById(id) {
+        setLoading(true);
+        const docSnap = await getDocs(doc(firestore, "evaluations", id));
+        if (docSnap.exists()) {
+            setData([docSnap.data()]);
+        } else {
+            console.log("No such document!");
+            setData([]);
+        }
+        setLoading(false);
+    }
+
+    function pageOnLoad(pathname) {
+        var pathArray = decodeURI(pathname).split('/'); // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
+        if (pathArray.length == 5) {
+            fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
+            document.getElementById('search').value = '';
+            closeMenu();
+        } else if (pathArray.length == 3) {
+            fetchFirestoreById(pathArray[2]);
             document.getElementById('search').value = '';
             closeMenu();
         }

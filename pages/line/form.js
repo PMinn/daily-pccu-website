@@ -41,18 +41,20 @@ export default function Form() {
         return;
       }
       setLoading(true);
-      await set(databaseRef(database, 'form/' + formId), {
+      var data = {
         type: radioGroup,
         content,
         uuid: liffContext.userId,
         files: files.map(file => file.serverId)
-      })
+      };
+      await set(databaseRef(database, 'form/' + formId), data);
+      data.id = formId;
       await fetch('https://script.google.com/macros/s/AKfycbxc63j004-VBZ6PpN4mbjtaMCmUcBsnQ8Vdz3R_wXEZQTS7k2MZWok-IkKYmL5_x_3AKQ/exec', {
         method: "POST",
         headers: {
           "Content-Type": "text/plain; charset=utf-8"
         },
-        body: JSON.stringify({ id: formId })
+        body: JSON.stringify(data)
       })
       setLoading(false);
       setSuccess(true);
