@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@line/liff": "^2.22.1",
     "eslint-config-next": "^13.2.4",
     "filepond": "^4.30.4",
     "filepond-plugin-file-validate-type": "^1.2.8",

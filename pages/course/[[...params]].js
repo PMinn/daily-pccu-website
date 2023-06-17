@@ -7,11 +7,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import { database, firestore } from '../../js/firebaseConfig.js';
-import { ref, get } from "firebase/database";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { app } from '../../js/firebaseConfig.js';
+import { getDatabase, ref, get } from "firebase/database";
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 
 export default function Course() {
+    const database = getDatabase(app);
+    const firestore = getFirestore(app);
+
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);

@@ -5,11 +5,14 @@ import ConfirmComponent from '../components/ConfirmComponent';
 import LoadingComponent from '../components/LoadingComponent';
 import React, { useEffect, useState } from 'react';
 
-import { database, firestore } from '../js/firebaseConfig.js';
-import { ref, get } from "firebase/database";
-import { collection, addDoc } from "firebase/firestore";
+import { app } from '../js/firebaseConfig.js';
+import { getDatabase, ref, get } from "firebase/database";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 export default function Course({ fontClass }) {
+    const database = getDatabase(app);
+    const firestore = getFirestore(app);
+
     const [collegeData, setCollegeData] = useState([]);
     const [className, setClassName] = useState("");
     const [categoryType, setCategoryType] = useState(1);

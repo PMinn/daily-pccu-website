@@ -1,0 +1,33 @@
+.textareaComponent {
+    position: relative;
+}
+
+.textareaComponent pre,
+.textareaComponent textarea,
+.textareaComponent br {
+    font-size: 1rem;
+    line-height: 1rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: 0;
+}
+
+.textareaComponent pre {
+    visibility: hidden;
+}
+
+.textareaComponent textarea {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    resize: none;
+}
+
+.textareaComponent br {
+    height: 1rem;
+    width: 1rem;
+}
