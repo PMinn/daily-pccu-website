@@ -46,7 +46,14 @@ export default function Form() {
         content,
         uuid: liffContext.userId,
         files: files.map(file => file.serverId)
-      });
+      })
+      await fetch('https://script.google.com/macros/s/AKfycbxc63j004-VBZ6PpN4mbjtaMCmUcBsnQ8Vdz3R_wXEZQTS7k2MZWok-IkKYmL5_x_3AKQ/exec', {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8"
+        },
+        body: JSON.stringify({ id: formId })
+      })
       setLoading(false);
       setSuccess(true);
     } else {
