@@ -23,7 +23,7 @@ export default function Footer() {
                     </div>
                     <div>
                         <h3><Link href='/course'>課程評價</Link></h3>
-                        <Link href='/addCourse'>新增課程評價</Link>
+                        <Link href='/addCourse' target='_blank'>新增課程評價</Link>
                     </div>
                 </div>
             </div>

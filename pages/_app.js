@@ -21,7 +21,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="msapplication-config" content="/favicon_package/browserconfig.xml?v=4.0" />
         <meta name="theme-color" content="#ffffff" />
 
-        <meta property="og:title" content="每日文大" />
         <meta property="og:image" content="/favicon_package/android-chrome-384x384.png" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

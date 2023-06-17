@@ -202,7 +202,7 @@ export default function Course({ fontClass }) {
                         </div>
                         <div className="border teacher" >
                             <label className="input-group" htmlFor="teacher">
-                                <input type="text" className={fontClass} placeholder=" " id="teacher" onChange={e => setTeacher(e.target.value.split(','))} value={teacher.join(',')} />
+                                <input type="text" className={fontClass} placeholder=" " id="teacher" onChange={e => setTeacher(e.target.value.replace(/ /gi, '').split(','))} value={teacher.join(',')} />
                                 <div className='label'>授課教師</div>
                                 <div className="note">多位教師請使用半形逗號(,)分隔</div>
                             </label>
