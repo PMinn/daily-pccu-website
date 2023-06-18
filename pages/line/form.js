@@ -9,7 +9,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
-import { getStorage, ref as storageRef, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import ConfirmComponent from '../../components/ConfirmComponent';
 import TextareaComponent from '../../components/TextareaComponent';
@@ -45,7 +45,10 @@ export default function Form() {
         type: radioGroup,
         content,
         uuid: liffContext.userId,
-        files: files.map(file => file.serverId)
+        files: files.map(file => {
+          var f = file.serverId.split('^');
+          return { filePath: f[0], downloadURL: f[1] };
+        })
       };
       await set(databaseRef(database, 'form/' + formId), data);
       data.id = formId;
@@ -69,7 +72,11 @@ export default function Form() {
     uploadTask.on('state_changed',
       snapshot => progress(true, snapshot.bytesTransferred, snapshot.totalBytes),
       err => error(err),
-      () => load(filePath)
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+          load(`${filePath}^${downloadURL}`);
+        });
+      }
     );
     return {
       abort: () => {
