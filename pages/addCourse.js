@@ -4,17 +4,22 @@ import FooterComponent from '../components/FooterComponent';
 import ConfirmComponent from '../components/ConfirmComponent';
 import LoadingComponent from '../components/LoadingComponent';
 import TextareaComponent from '../components/TextareaComponent';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useSWR from 'swr';
 
 import { app } from '../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-export default function Course({ fontClass }) {
-    const database = getDatabase(app);
-    const firestore = getFirestore(app);
+const database = getDatabase(app);
+const firestore = getFirestore(app);
 
-    const [collegeData, setCollegeData] = useState([]);
+function fetchConfig() {
+    return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
+}
+
+export default function Course({ fontClass }) {
+    const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
     const [className, setClassName] = useState("");
     const [categoryType, setCategoryType] = useState(1);
     const [generalType, setGeneralType] = useState(1);
@@ -85,10 +90,6 @@ export default function Course({ fontClass }) {
         });
     }
 
-    function dataToString(data) {
-        return '名稱: "' + data.className + '"\n教師: ' + data.teacher.length + '位("' + data.teacher.join('","') + '")\n學年: "' + data.year + '"\n系所: "' + data.department + '"\n學院: "' + data.college + '"\n評分: "' + data.point + '"\n上課方式: "' + data.way + '"\n考試方式: "' + data.exam + '"\n評價: "' + data.evaluation + '"';
-    }
-
     function submit() {
         var check = true;
         if (className == '') {
@@ -122,10 +123,9 @@ export default function Course({ fontClass }) {
             data.exam = examArray.join(',');
             data.evaluation = data.evaluation.replace(/\n/gi, '\\n');
             setConfirmShow(true);
-            setConfirmContent(dataToString(data));
-            console.log(data);
+            setConfirmContent(`名稱: "${data.className}"\n教師: ${data.teacher.length}位("${data.teacher.join('","')}")\n學年: "${data.year}"\n系所: "${data.department}"\n學院: "${data.college}"\n評分: "${data.point}"\n上課方式: "${data.way}"\n考試方式: "${data.exam}"\n評價: "${data.evaluation}"`);
             setData(data);
-        }
+        } else window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     async function upload() {
@@ -136,16 +136,6 @@ export default function Course({ fontClass }) {
         setLoading(false);
         setSuccess(true);
     }
-
-    useEffect(() => {
-        get(ref(database, 'courseConfig/colleges/'))
-            .then(snapshot => {
-                setCollegeData(snapshot.val().filter(value => (!value.includes('通識'))));
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
 
     return (
         <div>
@@ -224,14 +214,16 @@ export default function Course({ fontClass }) {
                             </label>
                         </div>
                         <div className="border" style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
-                            <label className="input-group" htmlFor="college">
-                                <select onChange={e => setCollege(e.target.value)}>
-                                    {
-                                        collegeData.map(c => {
-                                            return (<option value={c}>{c}</option>);
-                                        })
-                                    }
-                                </select>
+                            <label className="input-group">
+                                {/* <select onChange={e => setCollege(e.target.value)}> */}
+                                {
+                                    (
+                                        courseConfig ?
+                                            courseConfig.colleges.filter(c => !c.includes('通識')).map(c => <label className='college'><input type="radio" name="college" value={c} onClick={() => setCollege(c)} checked={college === c} />{c}<br /></label>)
+                                            :
+                                            <></>
+                                    )
+                                }
                                 <div className='label'>開課系所屬之院別</div>
                             </label>
                         </div>

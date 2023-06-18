@@ -5,8 +5,7 @@ import LoadingComponent from '../../components/LoadingComponent';
 import ConfirmComponent from '../../components/ConfirmComponent';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
 import useSWR from 'swr';
 
 import { app } from '../../js/firebaseConfig.js';

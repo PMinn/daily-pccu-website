@@ -72,13 +72,16 @@ body {
 }
 
 .input-group input[type="text"],
-.input-group select {
+.input-group .college {
     height: 1rem;
 }
 
+.input-group .college {
+    margin-bottom: 5px;
+}
+
 .input-group input[type="text"],
-.input-group textarea,
-.input-group select {
+.input-group textarea {
     width: 100%;
     line-height: 1rem;
     border: none;
@@ -107,7 +110,7 @@ body {
 }
 
 .input-group input[type="number"]+.label,
-.input-group select+.label {
+.input-group .college+.label {
     position: absolute;
     top: 0;
     color: var(--gray);
@@ -185,6 +188,38 @@ input[type="checkbox"]:checked+label {
 .success svg {
     fill: var(--green);
     margin-bottom: 1rem;
+}
+
+.input-group .college label {
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.input-group .college input[type="radio"] {
+    visibility: hidden;
+    position: relative;
+    margin-right: 0.5rem;
+}
+
+.input-group .college input[type="radio"]::before {
+    display: block;
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.3rem;
+    outline: 0.1rem solid var(--fourth-color);
+    outline-offset: 0.2rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    transition: all 0.3s;
+    visibility: visible;
+}
+
+.input-group .college input[type="radio"]:checked::before {
+    background-color: var(--fourth-color);
 }
 
 @media screen and (max-width:850px) {
