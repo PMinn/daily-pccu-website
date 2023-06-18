@@ -3,6 +3,7 @@ import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
 import ConfirmComponent from '../components/ConfirmComponent';
 import LoadingComponent from '../components/LoadingComponent';
+import TextareaComponent from '../components/TextareaComponent';
 import React, { useEffect, useState } from 'react';
 
 import { app } from '../js/firebaseConfig.js';
@@ -265,11 +266,7 @@ export default function Course({ fontClass }) {
                         </div>
                         <div className="border">
                             <label className="input-group" htmlFor="evaluation">
-                                <pre>
-                                    <span id='textarea_preview'>{evaluation}</span>
-                                    <br />
-                                </pre>
-                                <textarea placeholder=" " id="evaluation" rows="2" onInput={e => setEvaluation(e.target.value)} />
+                                <TextareaComponent rows={4} value={[evaluation, setEvaluation]}></TextareaComponent>
                                 <div className='label'>課程評語</div>
                             </label>
                         </div>

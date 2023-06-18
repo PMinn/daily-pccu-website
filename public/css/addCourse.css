@@ -90,7 +90,7 @@ body {
 }
 
 .input-group input[type="text"]+.label,
-.input-group textarea+.label {
+.input-group .textareaComponent+.label {
     position: absolute;
     top: 0.5rem;
     left: 0;
@@ -115,19 +115,9 @@ body {
 }
 
 .input-group input[type="text"]:is(:focus, :not(:placeholder-shown))+.label,
-.input-group textarea:is(:focus, :not(:placeholder-shown))+.label {
+.input-group .textareaComponent.focus+.label {
     top: 0;
     font-size: 0.5rem;
-}
-
-.input-group textarea {
-    position: absolute;
-    top: 1rem;
-    left: 0;
-    height: calc(100% - 1rem);
-    font-size: 1rem;
-    line-height: 1rem;
-    resize: none;
 }
 
 .input-group pre {

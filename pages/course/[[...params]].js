@@ -45,7 +45,7 @@ async function fetchFirestoreById(id) {
     return [];
 }
 
-async function fetcher(pathname) {
+async function fetchDatabase(pathname) {
     pathname = decodeURI(pathname);
     if (pathname == '/course/[[...params]]') return { title: '', data: [] };
     var pathArray = decodeURI(pathname).split('/');
@@ -63,9 +63,17 @@ async function fetcher(pathname) {
     return { title: '', data: [] };
 }
 
+async function fetchConfig() {
+    return await get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
+    // .then(data => {
+    //     console.log(data);
+    //     return data;
+    // })
+}
+
 export default function Course() {
     const [loading, setLoading] = useState(false);
-    const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
+    // const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
     const [successConfirmShow, setSuccessConfirmShow] = useState(false);
     const [revelationID, setRevelationID] = useState("");
@@ -74,15 +82,8 @@ export default function Course() {
 
     const router = useRouter();
     var pathname = router.asPath.replace(/([^#]+)#[^#]+/g, "$1");
-    const { data, error } = useSWR(pathname, fetcher);
-
-    useEffect(() => {
-        get(ref(database, 'courseConfig/'))
-            .then(snapshot => setCollapseData(snapshot.val()))
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+    const { data, error: dataError } = useSWR(pathname, fetchDatabase);
+    const { courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
 
     function search(e) {
         var keyWord = e.target.value;
@@ -193,22 +194,26 @@ export default function Course() {
                         <div className="collapse">
                             <div className="collapse-scroll">
                                 {
-                                    collapseData.years.map(year => {
-                                        return (
-                                            <div id={'y_' + year} className="collapse-one-block" key={'y_' + year}>
-                                                <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
+                                    (courseConfig ?
+                                        courseConfig.years.map(year => {
+                                            return (
+                                                <div id={'y_' + year} className="collapse-one-block" key={'y_' + year}>
+                                                    <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
+                                                    </div>
+                                                    <div className="collapse-area">
+                                                        {courseConfig.colleges.map((college, index) => {
+                                                            return (
+                                                                <Link href={`/course/${year}/college/${college}`} className='college-link' key={'college_link_' + index}>{college}</Link>
+                                                            )
+                                                        })}
+                                                    </div>
                                                 </div>
-                                                <div className="collapse-area">
-                                                    {collapseData.colleges.map((college, index) => {
-                                                        return (
-                                                            <Link href={`/course/${year}/college/${college}`} className='college-link' key={'college_link_' + index}>{college}</Link>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </div>
-                                        )
-                                    })
+                                            )
+                                        })
+                                        :
+                                        <div>Loading...</div>
+                                    )
                                 }
                             </div>
                             <div className="gradient"></div>
@@ -226,58 +231,59 @@ export default function Course() {
                         </label>
                         <div id="blocks">
                             {
-                                (data ? data.data.map(e => {
-                                    return (
-                                        <div className='block' key={'course_' + e.id}>
-                                            <div className="title-bar">
-                                                <div className="className">{e.className}</div>
-                                                <div className='mini-btn-group'>
-                                                    <div title="分享" onClick={() => shareOnClick({
-                                                        title: `${e.teacher.join('和')}的${e.className} 的課程評價`,
-                                                        text: `在每日文大課程評價查看${e.teacher.join('和')}的${e.className}。`,
-                                                        url: 'https://daily-pccu.web.app/course/' + e.id,
-                                                    })}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"></path></svg>
-                                                    </div>
-                                                    <div title="審查" onClick={() => revelation(e.id)}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
+                                (data ?
+                                    data.data.map(e => {
+                                        return (
+                                            <div className='block' key={'course_' + e.id}>
+                                                <div className="title-bar">
+                                                    <div className="className">{e.className}</div>
+                                                    <div className='mini-btn-group'>
+                                                        <div title="分享" onClick={() => shareOnClick({
+                                                            title: `${e.teacher.join('和')}的${e.className} 的課程評價`,
+                                                            text: `在每日文大課程評價查看${e.teacher.join('和')}的${e.className}。`,
+                                                            url: 'https://daily-pccu.web.app/course/' + e.id,
+                                                        })}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"></path></svg>
+                                                        </div>
+                                                        <div title="審查" onClick={() => revelation(e.id)}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="department">{e.department}</div>
-                                            <div className='teacher'>
-                                                {
-                                                    e.teacher.map(teacher => {
-                                                        return (
-                                                            <Link href={`/course/${e.year}/teacher/${teacher}`} className='teacher' key={`course_${e.year}_${teacher}`}>{teacher}</Link>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="point-progress">
-                                                <div className="point-progress-bar">
-                                                    <div className="point-progress-bar-value" style={{ transform: `scaleX(${e.point / 100})`, backgroundColor: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}></div>
+                                                <div className="department">{e.department}</div>
+                                                <div className='teacher'>
+                                                    {
+                                                        e.teacher.map(teacher => {
+                                                            return (
+                                                                <Link href={`/course/${e.year}/teacher/${teacher}`} className='teacher' key={`course_${e.year}_${teacher}`}>{teacher}</Link>
+                                                            )
+                                                        })
+                                                    }
                                                 </div>
-                                                <div className="point-progress-text" style={{ color: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}>{e.point}</div>
+                                                <div className="point-progress">
+                                                    <div className="point-progress-bar">
+                                                        <div className="point-progress-bar-value" style={{ transform: `scaleX(${e.point / 100})`, backgroundColor: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}></div>
+                                                    </div>
+                                                    <div className="point-progress-text" style={{ color: (e.point >= 80 ? 'var(--green)' : (e.point >= 60 ? 'var(--yellow)' : 'var(--red)')) }}>{e.point}</div>
+                                                </div>
+                                                <div className="exam">
+                                                    {
+                                                        (e.exam != '' ? e.exam.split(',').map((exam, index) => <div key={'exam_' + index}>{exam}</div>) : '')
+                                                    }
+                                                </div>
+                                                <div className="way">授課方式:<br />
+                                                    {e.way}
+                                                </div>
+                                                <div className="evaluation">課程評語:<br />
+                                                    {e.evaluation.replaceAll('\\n', '\n')}
+                                                </div>
+                                                <div className="date">
+                                                    <div>{e.year}學年</div>
+                                                    <div>{new Date(e.date).toLocaleDateString()}</div>
+                                                </div>
                                             </div>
-                                            <div className="exam">
-                                                {
-                                                    (e.exam != '' ? e.exam.split(',').map((exam, index) => <div key={'exam_' + index}>{exam}</div>) : '')
-                                                }
-                                            </div>
-                                            <div className="way">授課方式:<br />
-                                                {e.way}
-                                            </div>
-                                            <div className="evaluation">課程評語:<br />
-                                                {e.evaluation.replaceAll('\\n', '\n')}
-                                            </div>
-                                            <div className="date">
-                                                <div>{e.year}學年</div>
-                                                <div>{new Date(e.date).toLocaleDateString()}</div>
-                                            </div>
-                                        </div>
-                                    )
-                                })
+                                        )
+                                    })
                                     :
                                     <LoadingComponent show={true}></LoadingComponent>
                                 )

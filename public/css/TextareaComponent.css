@@ -2,6 +2,11 @@
     position: relative;
 }
 
+.textareaComponent pre span {
+    overflow-wrap: break-word;
+    text-wrap: wrap;
+}
+
 .textareaComponent pre,
 .textareaComponent textarea,
 .textareaComponent br {
