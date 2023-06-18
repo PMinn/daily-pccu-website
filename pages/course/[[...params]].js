@@ -63,12 +63,8 @@ async function fetchDatabase(pathname) {
     return { title: '', data: [] };
 }
 
-async function fetchConfig() {
-    return await get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
-    // .then(data => {
-    //     console.log(data);
-    //     return data;
-    // })
+function fetchConfig(pathname) {
+    return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
 export default function Course() {
@@ -83,7 +79,7 @@ export default function Course() {
     const router = useRouter();
     var pathname = router.asPath.replace(/([^#]+)#[^#]+/g, "$1");
     const { data, error: dataError } = useSWR(pathname, fetchDatabase);
-    const { courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
+    const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
 
     function search(e) {
         var keyWord = e.target.value;
@@ -152,7 +148,6 @@ export default function Course() {
             setShareErrorText('您的瀏覽器不支援分享功能，請使用其他瀏覽器。');
         }
     }
-
     return (
         <div>
             <Head>
@@ -214,6 +209,9 @@ export default function Course() {
                                         :
                                         <div>Loading...</div>
                                     )
+                                }
+                                {
+                                    (courseConfigError ? 'error' : '')
                                 }
                             </div>
                             <div className="gradient"></div>
