@@ -4,6 +4,12 @@
     align-items: center;
 }
 
+.confirm {
+    width: 500px;
+    border-radius: 16px;
+    background-color: var(--white);
+}
+
 .confirm .title {
     text-align: center;
     font-size: 1.5rem;
@@ -18,10 +24,9 @@
     display: block;
 }
 
-.confirm {
-    width: 500px;
-    border-radius: 16px;
-    background-color: var(--white);
+.confirm .content * {
+    inline-size: 100%;
+    overflow-wrap: break-word;
 }
 
 .confirm .btn-bar {

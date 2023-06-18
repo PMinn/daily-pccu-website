@@ -228,6 +228,14 @@ body {
     font-size: 1.2rem;
 }
 
+.block .mini-btn-group {
+    display: flex;
+}
+
+.block .mini-btn-group>* {
+    margin-left: 10px;
+}
+
 .block .title-bar svg {
     width: 1.2rem;
     height: 1.2rem;
@@ -242,8 +250,9 @@ body {
 }
 
 .block .date {
-    text-align: right;
     font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .block .teacher>* {
@@ -415,5 +424,9 @@ body {
 
     .block {
         width: calc(100% - 40px);
+    }
+
+    .block:hover {
+        transform: scale(1);
     }
 }

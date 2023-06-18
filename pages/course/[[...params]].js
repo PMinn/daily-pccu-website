@@ -7,9 +7,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+// import { RWebShare } from "react-web-share";
+
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
-import { getFirestore, collection, query, where, getDocs, doc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 
 export default function Course() {
     const database = getDatabase(app);
@@ -23,6 +25,8 @@ export default function Course() {
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
     const [successConfirmShow, setSuccessConfirmShow] = useState(false);
     const [revelationID, setRevelationID] = useState("");
+    const [shareErrorConfirmShow, setShareErrorConfirmShow] = useState(false);
+    const [shareErrorText, setShareErrorText] = useState("");
 
     async function fetchFirestoreWithYear(year, type, keyword) {
         setLoading(true);
@@ -52,30 +56,34 @@ export default function Course() {
         }
         setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
         setLoading(false);
+        return;
     }
 
     async function fetchFirestoreById(id) {
         setLoading(true);
-        const docSnap = await getDocs(doc(firestore, "evaluations", id));
+        const docSnap = await getDoc(doc(firestore, "evaluations", id));
         if (docSnap.exists()) {
-            setData([docSnap.data()]);
+            var data = docSnap.data();
+            data.id = id;
+            setData([data]);
         } else {
             console.log("No such document!");
             setData([]);
         }
         setLoading(false);
+        return;
     }
 
-    function pageOnLoad(pathname) {
+    async function pageOnLoad(pathname) {
         var pathArray = decodeURI(pathname).split('/'); // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
         if (pathArray.length == 5) {
-            fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
             document.getElementById('search').value = '';
             closeMenu();
-        } else if (pathArray.length == 3) {
-            fetchFirestoreById(pathArray[2]);
+            await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
+        } else if (pathArray.length == 3) { // '/course/-MTyASIvwwbHs9Vz-fu9'
             document.getElementById('search').value = '';
             closeMenu();
+            await fetchFirestoreById(pathArray[2]);
         }
     }
 
@@ -141,6 +149,17 @@ export default function Course() {
         }
     }
 
+    function shareOnClick(data) {
+        if (navigator.share) {
+            navigator.share(data).then(() => {
+                console.log('Thanks for sharing!');
+            })
+                .catch(console.error);
+        } else {
+            alert('error share');
+        }
+    }
+
     return (
         <div>
             <Head>
@@ -171,6 +190,7 @@ export default function Course() {
                     <div>成功</div>
                 </div>
             } btn={['確認']} onClick={[() => setSuccessConfirmShow(false)]} show={successConfirmShow}></ConfirmComponent>
+            <ConfirmComponent title='分享錯誤' content={<div>{shareErrorText}</div>} btn={['確認']} onClick={[() => setShareErrorConfirmShow(false)]} show={shareErrorConfirmShow}></ConfirmComponent>
             <div className="page">
                 <div className='panel'>
                     <section id="menu">
@@ -218,7 +238,14 @@ export default function Course() {
                                         <div className='block'>
                                             <div className="title-bar">
                                                 <div className="className">{e.className}</div>
-                                                <div>
+                                                <div className='mini-btn-group'>
+                                                    <div title="分享" onClick={() => shareOnClick({
+                                                        title: `${e.teacher.join('和')}的${e.className}的課程評價`,
+                                                        text: '文字描述',
+                                                        url: 'https://daily-pccu.web.app/course/' + e.id,
+                                                    })}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"></path></svg>
+                                                    </div>
                                                     <div title="審查" onClick={() => revelation(e.id)}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
                                                     </div>
@@ -259,7 +286,10 @@ export default function Course() {
                                             <div className="evaluation">課程評語:<br />
                                                 {e.evaluation.replaceAll('\\n', '\n')}
                                             </div>
-                                            <div className="date">{new Date(e.date).toLocaleDateString()}</div>
+                                            <div className="date">
+                                                <div>{e.year}學年</div>
+                                                <div>{new Date(e.date).toLocaleDateString()}</div>
+                                            </div>
                                         </div>
                                     )
                                 })
