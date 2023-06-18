@@ -63,13 +63,13 @@ async function fetchDatabase(pathname) {
     return { title: '', data: [] };
 }
 
-function fetchConfig(pathname) {
+function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
 export default function Course() {
     const [loading, setLoading] = useState(false);
-    // const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
+    const [openMenu, setOpenMenu] = useState(false);
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
     const [successConfirmShow, setSuccessConfirmShow] = useState(false);
     const [revelationID, setRevelationID] = useState("");
@@ -98,14 +98,6 @@ export default function Course() {
             collapseLabel.classList.add('open');
             document.getElementById("y_" + year).classList.add('open');
         }
-    }
-
-    function openMenu() {
-        document.getElementById('menu').classList.add('open');
-    }
-
-    function closeMenu() {
-        document.getElementById('menu').classList.remove('open');
     }
 
     function revelation(id) {
@@ -182,8 +174,8 @@ export default function Course() {
             <ConfirmComponent title='分享錯誤' content={<div>{shareErrorText}</div>} btn={['確認']} onClick={[() => setShareErrorConfirmShow(false)]} show={shareErrorConfirmShow}></ConfirmComponent>
             <div className="page">
                 <div className='panel'>
-                    <section id="menu">
-                        <div className="close" onClick={closeMenu}>
+                    <section id="menu" className={(openMenu ? 'open' : '')}>
+                        <div className="close" onClick={() => setOpenMenu(false)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
                         </div>
                         <div className="collapse">
@@ -199,7 +191,7 @@ export default function Course() {
                                                     <div className="collapse-area">
                                                         {courseConfig.colleges.map((college, index) => {
                                                             return (
-                                                                <Link href={`/course/${year}/college/${college}`} className='college-link' key={'college_link_' + index}>{college}</Link>
+                                                                <Link href={`/course/${year}/college/${college}`} className='college-link' key={'college_link_' + index} onClick={() => setOpenMenu(false)}>{college}</Link>
                                                             )
                                                         })}
                                                     </div>
@@ -207,11 +199,8 @@ export default function Course() {
                                             )
                                         })
                                         :
-                                        <div>Loading...</div>
+                                        <></>
                                     )
-                                }
-                                {
-                                    (courseConfigError ? 'error' : '')
                                 }
                             </div>
                             <div className="gradient"></div>
@@ -219,7 +208,7 @@ export default function Course() {
                         <Link href="/addCourse" className='btn btn-first' target='_blank'>新增評價</Link>
                     </section>
                     <div className="cover"></div>
-                    <div id='menu_btn' onClick={openMenu}>
+                    <div id='menu_btn' onClick={() => setOpenMenu(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
                     </div>
                     <section id='main'>
