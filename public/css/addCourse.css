@@ -76,10 +76,6 @@ body {
     height: 1rem;
 }
 
-.input-group .college {
-    margin-bottom: 5px;
-}
-
 .input-group input[type="text"],
 .input-group textarea {
     width: 100%;
@@ -190,7 +186,7 @@ input[type="checkbox"]:checked+label {
     margin-bottom: 1rem;
 }
 
-.input-group .college label {
+.input-group .college {
     margin-bottom: 0.5rem;
     cursor: pointer;
 }
