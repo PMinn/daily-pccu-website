@@ -7,19 +7,59 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-// import { RWebShare } from "react-web-share";
+import useSWR from 'swr';
 
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 
-export default function Course() {
-    const database = getDatabase(app);
-    const firestore = getFirestore(app);
+const database = getDatabase(app);
+const firestore = getFirestore(app);
 
-    const router = useRouter();
+async function fetchFirestoreWithYear(year, type, keyword) {
+    var q;
+    if (type == 'college') {
+        q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
+    } else if (type == 'teacher') {
+        q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
+    } else return [];
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        var d = [];
+        querySnapshot.forEach(doc => {
+            var docData = doc.data();
+            docData.id = doc.id;
+            d.push(docData);
+        });
+        return d;
+    } else return [];
+}
+
+async function fetchFirestoreById(id) {
+    const docSnap = await getDoc(doc(firestore, "evaluations", id));
+    if (docSnap.exists()) {
+        var data = docSnap.data();
+        data.id = id;
+        return [data];
+    }
+    return [];
+}
+
+async function fetcher(pathname) {
+    pathname = decodeURI(pathname);
+    if (pathname == '/course/[[...params]]') return [];
+    var pathArray = decodeURI(pathname).split('/');
+    if (pathArray.length == 5) { // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
+        return await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
+    } else if (pathArray.length == 3) { // '/course/-MTyASIvwwbHs9Vz-fu9'
+        return await fetchFirestoreById(pathArray[2]);
+    }
+    return [];
+}
+
+export default function Course() {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const [title, setTitle] = useState("課程評價 | 每日文大");
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
@@ -28,51 +68,66 @@ export default function Course() {
     const [shareErrorConfirmShow, setShareErrorConfirmShow] = useState(false);
     const [shareErrorText, setShareErrorText] = useState("");
 
-    async function fetchFirestoreWithYear(year, type, keyword) {
-        setLoading(true);
-        var q;
-        if (type == 'college') {
-            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
-        }
-        else if (type == 'teacher') {
-            q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
-        } else {
-            console.log("paramaters are wrong");
-            setData([]);
-            return;
-        }
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-            var d = [];
-            querySnapshot.forEach(doc => {
-                var docData = doc.data();
-                docData.id = doc.id;
-                d.push(docData);
-            });
-            setData(d);
-        } else {
-            console.log("No such document!");
-            setData([]);
-        }
-        setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
-        setLoading(false);
-        return;
-    }
+    const router = useRouter();
+    var pathname = router.asPath.replace(/([^#]+)#[^#]+/g, "$1");
+    console.log(pathname)
+    const { data, error } = useSWR(pathname, fetcher);
+    console.log(data, error)
+    // if (router.query.params) {
+    //     const pathname = '/' + router.query.params.join('/');
+    //     console.log(pathname)
+    //     
+    //     console.log(data)
+    // } else {
+    //     console.log(router)
+    // }
 
-    async function fetchFirestoreById(id) {
-        setLoading(true);
-        const docSnap = await getDoc(doc(firestore, "evaluations", id));
-        if (docSnap.exists()) {
-            var data = docSnap.data();
-            data.id = id;
-            setData([data]);
-        } else {
-            console.log("No such document!");
-            setData([]);
-        }
-        setLoading(false);
-        return;
-    }
+
+    // async function fetchFirestoreWithYear(year, type, keyword) {
+    //     setLoading(true);
+    //     var q;
+    //     if (type == 'college') {
+    //         q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
+    //     }
+    //     else if (type == 'teacher') {
+    //         q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
+    //     } else {
+    //         console.log("paramaters are wrong");
+    //         setData([]);
+    //         return;
+    //     }
+    //     const querySnapshot = await getDocs(q);
+    //     if (!querySnapshot.empty) {
+    //         var d = [];
+    //         querySnapshot.forEach(doc => {
+    //             var docData = doc.data();
+    //             docData.id = doc.id;
+    //             d.push(docData);
+    //         });
+    //         setData(d);
+    //     } else {
+    //         console.log("No such document!");
+    //         setData([]);
+    //     }
+    //     setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
+    //     setLoading(false);
+    //     return;
+    // }
+
+    // async function fetchFirestoreById(id) {
+    //     setLoading(true);
+    //     const docSnap = await getDoc(doc(firestore, "evaluations", id));
+    //     if (docSnap.exists()) {
+    //         var data = docSnap.data();
+    //         data.id = id;
+    //         setData([data]);
+    //     } else {
+    //         console.log("No such document!");
+    //         setData([]);
+    //     }
+    //     setLoading(false);
+    //     return;
+    // }
 
     async function pageOnLoad(pathname) {
         var pathArray = decodeURI(pathname).split('/'); // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
@@ -86,10 +141,10 @@ export default function Course() {
             await fetchFirestoreById(pathArray[2]);
         }
     }
-
     useEffect(() => {
-        pageOnLoad(location.pathname);
-        router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
+        // pageOnLoad(location.pathname);
+        // router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
+
         get(ref(database, 'courseConfig/'))
             .then(snapshot => setCollapseData(snapshot.val()))
             .catch((error) => {
@@ -172,7 +227,7 @@ export default function Course() {
                 <meta property="og:description" content="文大學生必看的每日課程評價網站，探索每日文大的課程評價，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
             </Head>
             <NavComponent></NavComponent>
-            <LoadingComponent show={loading}></LoadingComponent>
+
             <ConfirmComponent title='審查' content={
                 <div className='revelation'>
                     <label><input type="radio" name="revelation" value="中傷、歧視或謾罵他人" />中傷、歧視或謾罵他人</label>
@@ -207,9 +262,9 @@ export default function Course() {
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
                                                 </div>
                                                 <div className="collapse-area">
-                                                    {collapseData.colleges.map(college => {
+                                                    {collapseData.colleges.map((college, index) => {
                                                         return (
-                                                            <Link href={`/course/${year}/college/${college}`} className='college-link'>{college}</Link>
+                                                            <Link href={`/course/${year}/college/${college}`} className='college-link' key={'college_link_' + index}>{college}</Link>
                                                         )
                                                     })}
                                                 </div>
@@ -227,15 +282,15 @@ export default function Course() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
                     </div>
                     <section id='main'>
-                        <label className="search-bar" for="search">
+                        <label className="search-bar" htmlFor="search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
                             <input type="text" id="search" onInput={search} placeholder="搜尋" />
                         </label>
                         <div id="blocks">
                             {
-                                data.map(e => {
+                                (data ? data.map(e => {
                                     return (
-                                        <div className='block'>
+                                        <div className='block' id={'course' + e.id}>
                                             <div className="title-bar">
                                                 <div className="className">{e.className}</div>
                                                 <div className='mini-btn-group'>
@@ -293,6 +348,9 @@ export default function Course() {
                                         </div>
                                     )
                                 })
+                                    :
+                                    <LoadingComponent show={true}></LoadingComponent>
+                                )
                             }
                         </div>
                     </section>

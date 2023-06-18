@@ -7,13 +7,13 @@ export default function Confirm({ title, content, btn, onClick, show }) {
                 <link rel="stylesheet" href="/css/cover.css" />
                 <link rel="stylesheet" href="/css/ConfirmComponent.css" />
             </Head>
-            <div class="confirm">
+            <div className="confirm">
                 <div className="title">{title}</div>
                 <div className="content">{content}</div>
                 <div className="btn-bar">
                     {
                         btn.map((item, index) => {
-                            return (<div className="btn" onClick={onClick[index]}>{item}</div>)
+                            return (<div className="btn" onClick={onClick[index]} key={'confirm_btn_'+index}>{item}</div>)
                         })
                     }
                 </div>

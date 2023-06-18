@@ -7,7 +7,7 @@ export default function Loading({ show }) {
                 <link rel="stylesheet" href="/css/cover.css" />
                 <link rel="stylesheet" href="/css/LoadingComponent.css" />
             </Head>
-            <div class="custom-loader"></div>
+            <div className="custom-loader"></div>
         </div>
     )
 }
