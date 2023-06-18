@@ -24,7 +24,7 @@
     display: block;
 }
 
-.confirm .content * {
+.confirm .content>* {
     inline-size: 100%;
     overflow-wrap: break-word;
 }
