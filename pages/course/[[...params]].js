@@ -100,11 +100,6 @@ export default function Course() {
         }
     }
 
-    function revelation(id) {
-        setRevelationConfirmShow(true);
-        setRevelationID(id);
-    }
-
     async function submitRevelation() {
         var checkedInput = document.querySelector('input[name="revelation"]:checked');
         if (checkedInput) {
@@ -232,7 +227,10 @@ export default function Course() {
                                                         })}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"></path></svg>
                                                         </div>
-                                                        <div title="審查" onClick={() => revelation(e.id)}>
+                                                        <div title="審查" onClick={() => {
+                                                            setRevelationConfirmShow(true);
+                                                            setRevelationID(e.id);
+                                                        }}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
                                                         </div>
                                                     </div>
