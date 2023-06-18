@@ -47,20 +47,24 @@ async function fetchFirestoreById(id) {
 
 async function fetcher(pathname) {
     pathname = decodeURI(pathname);
-    if (pathname == '/course/[[...params]]') return [];
+    if (pathname == '/course/[[...params]]') return { title: '', data: [] };
     var pathArray = decodeURI(pathname).split('/');
     if (pathArray.length == 5) { // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
-        return await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
+        return {
+            title: `${pathArray[4]}-${pathArray[2]}學年-課程評價 | 每日文大`,
+            data: await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4])
+        }
     } else if (pathArray.length == 3) { // '/course/-MTyASIvwwbHs9Vz-fu9'
-        return await fetchFirestoreById(pathArray[2]);
+        return {
+            title: '課程評價 | 每日文大',
+            data: await fetchFirestoreById(pathArray[2])
+        }
     }
-    return [];
+    return { title: '', data: [] };
 }
 
 export default function Course() {
     const [loading, setLoading] = useState(false);
-    // const [data, setData] = useState([]);
-    const [title, setTitle] = useState("課程評價 | 每日文大");
     const [collapseData, setCollapseData] = useState({ years: [], colleges: [] });
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
     const [successConfirmShow, setSuccessConfirmShow] = useState(false);
@@ -70,81 +74,9 @@ export default function Course() {
 
     const router = useRouter();
     var pathname = router.asPath.replace(/([^#]+)#[^#]+/g, "$1");
-    console.log(pathname)
     const { data, error } = useSWR(pathname, fetcher);
-    console.log(data, error)
-    // if (router.query.params) {
-    //     const pathname = '/' + router.query.params.join('/');
-    //     console.log(pathname)
-    //     
-    //     console.log(data)
-    // } else {
-    //     console.log(router)
-    // }
 
-
-    // async function fetchFirestoreWithYear(year, type, keyword) {
-    //     setLoading(true);
-    //     var q;
-    //     if (type == 'college') {
-    //         q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
-    //     }
-    //     else if (type == 'teacher') {
-    //         q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
-    //     } else {
-    //         console.log("paramaters are wrong");
-    //         setData([]);
-    //         return;
-    //     }
-    //     const querySnapshot = await getDocs(q);
-    //     if (!querySnapshot.empty) {
-    //         var d = [];
-    //         querySnapshot.forEach(doc => {
-    //             var docData = doc.data();
-    //             docData.id = doc.id;
-    //             d.push(docData);
-    //         });
-    //         setData(d);
-    //     } else {
-    //         console.log("No such document!");
-    //         setData([]);
-    //     }
-    //     setTitle(`${keyword}-${year}學年-課程評價 | 每日文大`);
-    //     setLoading(false);
-    //     return;
-    // }
-
-    // async function fetchFirestoreById(id) {
-    //     setLoading(true);
-    //     const docSnap = await getDoc(doc(firestore, "evaluations", id));
-    //     if (docSnap.exists()) {
-    //         var data = docSnap.data();
-    //         data.id = id;
-    //         setData([data]);
-    //     } else {
-    //         console.log("No such document!");
-    //         setData([]);
-    //     }
-    //     setLoading(false);
-    //     return;
-    // }
-
-    async function pageOnLoad(pathname) {
-        var pathArray = decodeURI(pathname).split('/'); // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
-        if (pathArray.length == 5) {
-            document.getElementById('search').value = '';
-            closeMenu();
-            await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4]);
-        } else if (pathArray.length == 3) { // '/course/-MTyASIvwwbHs9Vz-fu9'
-            document.getElementById('search').value = '';
-            closeMenu();
-            await fetchFirestoreById(pathArray[2]);
-        }
-    }
     useEffect(() => {
-        // pageOnLoad(location.pathname);
-        // router.events.on('routeChangeStart', (url, { }) => pageOnLoad(url));
-
         get(ref(database, 'courseConfig/'))
             .then(snapshot => setCollapseData(snapshot.val()))
             .catch((error) => {
@@ -204,14 +136,19 @@ export default function Course() {
         }
     }
 
-    function shareOnClick(data) {
+    function shareOnClick(shareData) {
         if (navigator.share) {
-            navigator.share(data).then(() => {
-                console.log('Thanks for sharing!');
-            })
-                .catch(console.error);
+            navigator.share(shareData)
+                .then(() => {
+                    console.log('Thanks for sharing!');
+                })
+                .catch(() => {
+                    setShareErrorConfirmShow(true);
+                    setShareErrorText('分享失敗，請再試一次。');
+                });
         } else {
-            alert('error share');
+            setShareErrorConfirmShow(true);
+            setShareErrorText('您的瀏覽器不支援分享功能，請使用其他瀏覽器。');
         }
     }
 
@@ -220,14 +157,15 @@ export default function Course() {
             <Head>
                 <link rel="stylesheet" href="/css/course.css" />
 
-                <title>{title}</title>
+                {(data ? <title>{data.title}</title> : <title>課程評價 | 每日文大</title>)}
                 <meta name="keywords" content="每日文大,文大bot,課程評價" />
-                <meta property="og:title" content={title} />
+                {(data ? <meta property="og:title" content={data.title} /> : <meta property="og:title" content="課程評價 | 每日文大" />)}
+
                 <meta name="description" content="文大學生必看的每日課程評價網站，探索每日文大的課程評價，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
                 <meta property="og:description" content="文大學生必看的每日課程評價網站，探索每日文大的課程評價，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
             </Head>
             <NavComponent></NavComponent>
-
+            <LoadingComponent show={loading}></LoadingComponent>
             <ConfirmComponent title='審查' content={
                 <div className='revelation'>
                     <label><input type="radio" name="revelation" value="中傷、歧視或謾罵他人" />中傷、歧視或謾罵他人</label>
@@ -257,7 +195,7 @@ export default function Course() {
                                 {
                                     collapseData.years.map(year => {
                                         return (
-                                            <div id={'y_' + year} className="collapse-one-block">
+                                            <div id={'y_' + year} className="collapse-one-block" key={'y_' + year}>
                                                 <div className="collapse-label" onClick={() => openCollapse(year)} id={'label_' + year}>{year}學年
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
                                                 </div>
@@ -288,15 +226,15 @@ export default function Course() {
                         </label>
                         <div id="blocks">
                             {
-                                (data ? data.map(e => {
+                                (data ? data.data.map(e => {
                                     return (
-                                        <div className='block' id={'course' + e.id}>
+                                        <div className='block' key={'course_' + e.id}>
                                             <div className="title-bar">
                                                 <div className="className">{e.className}</div>
                                                 <div className='mini-btn-group'>
                                                     <div title="分享" onClick={() => shareOnClick({
-                                                        title: `${e.teacher.join('和')}的${e.className}的課程評價`,
-                                                        text: '文字描述',
+                                                        title: `${e.teacher.join('和')}的${e.className} - 課程評價`,
+                                                        text: `${e.teacher.join('和')}的${e.className} - 課程評價`,
                                                         url: 'https://daily-pccu.web.app/course/' + e.id,
                                                     })}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"></path></svg>
@@ -311,7 +249,7 @@ export default function Course() {
                                                 {
                                                     e.teacher.map(teacher => {
                                                         return (
-                                                            <Link href={`/course/${e.year}/teacher/${teacher}`} className='teacher'>{teacher}</Link>
+                                                            <Link href={`/course/${e.year}/teacher/${teacher}`} className='teacher' key={`course_${e.year}_${teacher}`}>{teacher}</Link>
                                                         )
                                                     })
                                                 }
@@ -324,15 +262,7 @@ export default function Course() {
                                             </div>
                                             <div className="exam">
                                                 {
-                                                    (e.exam != '' ?
-                                                        e.exam.split(',').map(exam => {
-                                                            return (
-                                                                <div >{exam}</div>
-                                                            )
-                                                        })
-                                                        :
-                                                        ''
-                                                    )
+                                                    (e.exam != '' ? e.exam.split(',').map((exam, index) => <div key={'exam_' + index}>{exam}</div>) : '')
                                                 }
                                             </div>
                                             <div className="way">授課方式:<br />

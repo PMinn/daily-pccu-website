@@ -23,11 +23,6 @@ body {
     box-shadow: 17px 20px 40px #5f5f5f36;
 }
 
-.block:target {
-    outline: 1px solid var(--first-color);
-    outline-offset: 3px;
-}
-
 #menu {
     width: 280px;
     height: calc(100vh - 104px - 104px - 40px);
