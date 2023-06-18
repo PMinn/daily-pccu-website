@@ -1,6 +1,8 @@
 body {
     overflow: hidden;
     --shadow: 0 10px 20px #00000020;
+    --background-color: #F2F2F6;
+    --white: #fff;
 }
 
 .header,
@@ -107,7 +109,6 @@ body {
 }
 
 .location.checked {
-    background-color: rgba(var(--first-color-rgb), 0.1);
     border: 3px solid var(--first-color);
 }
 
@@ -123,6 +124,7 @@ body {
     line-height: 1rem;
     outline: 0;
     border: 0;
+    background-color: transparent;
 }
 
 /* eat */
