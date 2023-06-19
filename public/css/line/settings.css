@@ -224,3 +224,16 @@ body {
 .input-group input[type="text"]:disabled {
     background-color: transparent;
 }
+
+.error {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: 10vh;
+
+    fill: var(--red);
+    color: var(--red);
+}
