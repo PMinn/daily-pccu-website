@@ -58,7 +58,7 @@ export default function Settings({ fontClass }) {
     import("@line/liff")
       .then(liff => liff.liff)
       .then(liff => {
-        liff.init({ liffId: "1655168208-9NvVk86X" })
+        liff.init({ liffId: "1655168208-29vA01a6" })
           .then(() => {
             var context = liff.getContext();
             if (context.type == "none" || context.type == "external") {
