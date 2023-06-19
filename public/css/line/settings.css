@@ -27,7 +27,7 @@ body {
 .setting-li {
     margin: 0.3rem 1rem 0.3rem 0;
     display: inline-flex;
-    border-radius: 10px;
+    border-radius: 16px;
     line-height: calc(1rem + 10px);
     font-size: 1rem;
     text-decoration: none;
@@ -98,7 +98,7 @@ body {
 
 .location {
     padding: 7vw;
-    border-radius: 15px;
+    border-radius: 16px;
     border: 3px solid rgba(var(--first-color-rgb), 0);
 }
 
@@ -110,6 +110,7 @@ body {
 
 .location.checked {
     border: 3px solid var(--first-color);
+    background-color: rgba(var(--first-color-rgb), 10%);
 }
 
 .search-bar {
@@ -128,21 +129,21 @@ body {
 }
 
 /* eat */
-.switch-block {
-    display: inline-block;
-    padding: 10px;
+
+.switch,
+.custom-value {
     background-color: var(--white);
-    border-radius: 999px;
+    padding: 5px;
+    line-height: 1rem;
+    font-size: 1rem;
     box-shadow: var(--shadow);
-    margin: 20px auto 0 7vw;
 }
 
 .switch {
     display: inline-flex;
-    background-color: var(--white);
+    margin-left: 7vw;
+    margin-top: 20px;
     border-radius: 999px;
-    border: 2px solid var(--black);
-    padding: 5px;
 }
 
 .switch-circle {
@@ -153,5 +154,53 @@ body {
 }
 
 .switch-circle.checked {
-    background-color: var(--third-color);
+    background-color: var(--first-color);
+}
+
+.custom-value {
+    width: 72vw;
+    padding: 7vw;
+    margin: 20px auto;
+    border-radius: 16px;
+}
+
+
+.input-group {
+    position: relative;
+    padding-top: 1rem;
+    width: 100%;
+    cursor: text;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input[type="text"] {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    height: 1rem;
+    font-size: 1rem;
+    display: block;
+    align-self: flex-end;
+}
+
+.input-group input[type="text"]+.label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    font-size: 1rem;
+    color: var(--gray);
+    transition: all 0.1s linear;
+}
+
+.input-group input[type="text"]:is(:focus, :not(:placeholder-shown))+.label {
+    top: 0;
+    font-size: 0.5rem;
+}
+
+.input-group .note {
+    font-size: 0.3rem;
+    color: #00000060;
 }
