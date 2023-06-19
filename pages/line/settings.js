@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import functions from '../../data/functions.json';
 
 import { app } from '../../js/firebaseConfig.js';
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 
 import ConfirmComponent from '../../components/ConfirmComponent.js';
 import LoadingComponent from '../../components/LoadingComponent.js';
