@@ -23,6 +23,11 @@ export default function Settings({ fontClass }) {
     return weatherLocations.filter(wl => wl.checked).length;
   }
 
+  function eatOnclick(isEatChangeToCustom) {
+    setIsEatCustom(isEatChangeToCustom);
+    save();
+  }
+
   function locationOnClick(location) {
     setWeatherLocations(weatherLocations.map(wl => {
       if (wl.location == location) {
@@ -38,13 +43,30 @@ export default function Settings({ fontClass }) {
       }
       return wl;
     }));
+    save();
   }
 
+  function save() {
+
+  }
+
+  const id = '';
+
   useEffect(() => {
-    get(ref(database, 'weatherLocations/'))
-      .then(snapshot => snapshot.val())
-      .then(weatherLocations => weatherLocations.map(l => ({ ...l, checked: false })))
-      .then(wl => setWeatherLocations(wl));
+    Promise.all([
+      get(ref(database, 'weatherLocations/')).then(snapshot => snapshot.val()),
+      get(ref(database, `users/${id}`)).then(snapshot => snapshot.val())
+    ])
+      .then(([wl, user]) => {
+        setWeatherLocations(wl.map(l => {
+          return {
+            ...l,
+            checked: user.weather.includes(l.location)
+          }
+        }));
+        setIsEatCustom(user.isEatAvailable);
+        setCustomValue(user.eat);
+      })
   }, []);
 
   return (
@@ -73,7 +95,7 @@ export default function Settings({ fontClass }) {
           <div className="search-bar">
             <input type="text" name="search" id="search" placeholder="搜尋" onInput={e => setSearchValue(e.target.value)} />
           </div>
-          <div className="location checked" style={{ opacity: 0.5 }}>
+          <div className="location checked disable">
             <div className="label">
               <div>大義館7F</div>
               <div>文化大學</div>
@@ -94,12 +116,12 @@ export default function Settings({ fontClass }) {
         </div>
         <div className={"view" + (view == "eat" ? " inView" : "")} id="eat_view">
           <div className="switch">
-            <div className={"switch-circle " + (isEatCustom ? "" : "checked")} onClick={() => setIsEatCustom(false)}>預設</div>
-            <div className={"switch-circle " + (isEatCustom ? "checked" : "")} onClick={() => setIsEatCustom(true)}>自訂</div>
+            <div className={"switch-circle " + (isEatCustom ? "" : "checked")} onClick={() => eatOnclick(false)}>預設</div>
+            <div className={"switch-circle " + (isEatCustom ? "checked" : "")} onClick={() => eatOnclick(true)}>自訂</div>
           </div>
-          <div className='custom-value'>
+          <div className={'custom-value' + (!isEatCustom ? ' disable' : '')}>
             <label className="input-group" htmlFor="custom_value">
-              <input type="text" className={fontClass} placeholder=" " onInput={e => setCustomValue(e.target.value)} value={customValue} id='custom_value' />
+              <input type="text" className={fontClass} placeholder=" " onInput={e => setCustomValue(e.target.value)} value={customValue} id='custom_value' disabled={!isEatCustom} />
               <div className='label'>自訂選項</div>
               <div className="note">選項間請使用半形逗號(,)分隔</div>
             </label>

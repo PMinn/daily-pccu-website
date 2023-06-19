@@ -32,7 +32,8 @@ body {
     font-size: 1rem;
     text-decoration: none;
     color: var(--second-color);
-    opacity: 0.3;
+    opacity: 0.8;
+    transition: all 0.3s;
 }
 
 .setting-li.inView {
@@ -48,10 +49,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.3s;
 }
 
 .setting-li svg {
     fill: var(--second-color);
+    transition: all 0.3s;
+}
+
+.setting-li.inView svg {
+    fill: var(--background-color);
+}
+
+.setting-li.inView .icon {
+    background-color: var(--second-color);
 }
 
 .setting-li .title {
@@ -162,8 +173,13 @@ body {
     padding: 7vw;
     margin: 20px auto;
     border-radius: 16px;
+    transition: all 0.3s;
 }
 
+.custom-value.disable,
+.location.disable {
+    opacity: 0.3;
+}
 
 .input-group {
     position: relative;
@@ -203,4 +219,8 @@ body {
 .input-group .note {
     font-size: 0.3rem;
     color: #00000060;
+}
+
+.input-group input[type="text"]:disabled {
+    background-color: transparent;
 }
