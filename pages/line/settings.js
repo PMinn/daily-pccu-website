@@ -6,7 +6,7 @@ import functions from '../../data/functions.json';
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 
-import ConfirmComponent from '../../components/confirmComponent.js';
+import ConfirmComponent from '../../components/ConfirmComponent.js';
 
 export default function Settings({ fontClass }) {
   const functionNames = functions.filter(f => f.setting);
