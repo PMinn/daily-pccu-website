@@ -6,17 +6,28 @@ import functions from '../../data/functions.json';
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 
-
 export default function Settings() {
   const functionNames = functions.filter(f => f.setting);
   const [view, setView] = useState("weather");
   const [weatherLocations, setWeatherLocations] = useState([]);
 
+  var numberOfLocationsChecked = 0;
+
   const database = getDatabase(app);
 
   function locationOnClick(location) {
     setWeatherLocations(weatherLocations.map(wl => {
-      if (wl.location == location) wl.checked = !wl.checked;
+      if (wl.location == location) {
+        if (wl.checked) {
+          numberOfLocationsChecked--;
+        } else if (numberOfLocationsChecked >= 12) {
+          alert("最多只能選擇12個地點");
+          return wl;
+        } else {
+          numberOfLocationsChecked++;
+        }
+        wl.checked = !wl.checked;
+      }
       return wl;
     }));
   }
