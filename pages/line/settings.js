@@ -7,9 +7,11 @@ import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 
 import ConfirmComponent from '../../components/ConfirmComponent.js';
+import LoadingComponent from '../../components/LoadingComponent.js';
 
 export default function Settings({ fontClass }) {
   const functionNames = functions.filter(f => f.setting);
+  const [loading, setLoading] = useState(true);
   const [view, setView] = useState("weather");
   const [weatherLocations, setWeatherLocations] = useState([]);
   const [locationsOverflow, setLocationsOverflow] = useState(false);
@@ -27,12 +29,12 @@ export default function Settings({ fontClass }) {
     return weatherLocations.filter(wl => wl.checked).length;
   }
 
-  function eatOnclick(isEatChangeToCustom) {
+  async function eatOnclick(isEatChangeToCustom) {
     setIsEatCustom(isEatChangeToCustom);
-    save();
+    await set(ref(database, `users/${liffContext.userId}/isEatAvailable`), isEatChangeToCustom);
   }
 
-  function locationOnClick(location) {
+  async function locationOnClick(location) {
     setWeatherLocations(weatherLocations.map(wl => {
       if (wl.location == location) {
         if (!wl.checked) {
@@ -47,11 +49,12 @@ export default function Settings({ fontClass }) {
       }
       return wl;
     }));
-    save();
+    await set(ref(database, `users/${liffContext.userId}/weather`), weatherLocations.filter(wl => wl.checked).map(wl => wl.location));
   }
 
-  function save() {
-
+  async function customValueOnChange(e) {
+    setCustomValue(e.target.value);
+    await set(ref(database, `users/${liffContext.userId}/eat`), e.target.value);
   }
 
   useEffect(() => {
@@ -82,6 +85,7 @@ export default function Settings({ fontClass }) {
                   }));
                   setIsEatCustom(user.isEatAvailable);
                   setCustomValue(user.eat);
+                  setLoading(false);
                 })
             }
           })
@@ -98,7 +102,7 @@ export default function Settings({ fontClass }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/css/line/settings.css" />
       </Head>
-
+      <LoadingComponent show={loading}></LoadingComponent>
       <ConfirmComponent title={""} content={"最多只能選擇12個地點"} show={locationsOverflow} btn={["好"]} onClick={[() => setLocationsOverflow(false)]}></ConfirmComponent>
       <div style={{ display: (errorText != null ? 'none' : '') }}>
         <h4 className="header">設定</h4>
@@ -145,7 +149,7 @@ export default function Settings({ fontClass }) {
             </div>
             <div className={'custom-value' + (!isEatCustom ? ' disable' : '')}>
               <label className="input-group" htmlFor="custom_value">
-                <input type="text" className={fontClass} placeholder=" " onInput={e => setCustomValue(e.target.value)} value={customValue} id='custom_value' disabled={!isEatCustom} />
+                <input type="text" className={fontClass} placeholder=" " onInput={e => setCustomValue(e.target.value)} value={customValue} id='custom_value' disabled={!isEatCustom} onChange={customValueOnChange} />
                 <div className='label'>自訂選項</div>
                 <div className="note">選項間請使用半形逗號(,)分隔</div>
               </label>
