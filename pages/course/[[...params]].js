@@ -136,13 +136,14 @@ export default function Course() {
                 <meta name="keywords" content="每日文大,文大bot,課程評價" />
                 {(data ? <meta property="og:title" content={data.title} /> : <meta property="og:title" content="課程評價 | 每日文大" />)}
 
-                <meta name="description" content="文大學生必看的每日課程評價網站，探索每日文大的課程評價，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
-                <meta property="og:description" content="文大學生必看的每日課程評價網站，探索每日文大的課程評價，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
+                <meta name="description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
+                <meta property="og:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
             </Head>
             <NavComponent></NavComponent>
             <LoadingComponent show={loading}></LoadingComponent>
             <ConfirmComponent title='審查' content={
                 <div className='revelation'>
+                    <label><input type="radio" name="revelation" value="內容有誤" />內容有誤</label>
                     <label><input type="radio" name="revelation" value="中傷、歧視或謾罵他人" />中傷、歧視或謾罵他人</label>
                     <label><input type="radio" name="revelation" value="傳播個資(電話、電郵、任何軟體ID等)" />傳播個資(電話、電郵、任何軟體ID等)</label>
                     <label><input type="radio" name="revelation" value="重複張貼" />重複張貼</label>
