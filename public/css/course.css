@@ -1,6 +1,8 @@
 body {
     --background-color: #F2F2F6;
-    --white: #fff;
+    --block-background-color: #fff;
+    background-color: var(--white);
+    color: var(--color);
     overflow-y: scroll;
 }
 
@@ -17,7 +19,7 @@ body {
 
 .block,
 #menu {
-    background-color: var(--white);
+    background-color: var(--block-background-color);
     border-radius: 16px;
     -webkit-box-shadow: 17px 20px 40px #5f5f5f36;
     box-shadow: 17px 20px 40px #5f5f5f36;
@@ -39,7 +41,7 @@ body {
 #menu .close svg {
     width: 25px;
     height: 25px;
-    fill: var(--black);
+    fill: var(--color);
 }
 
 #menu .collapse {
@@ -76,8 +78,8 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    background: #ffffff;
-    background: linear-gradient(0deg, #ffffff 22%, #ffffff00 100%);
+    background: var(--block-background-color);
+    background: linear-gradient(0deg, var(--block-background-color) 22%, transparent 100%);
 }
 
 #menu>.btn {
@@ -133,7 +135,7 @@ body {
     line-height: 2rem;
     cursor: pointer;
     display: block;
-    color: var(--black);
+    color: var(--color);
     text-decoration: none;
     padding: 5px 20px;
     border-radius: 8px;
@@ -150,7 +152,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    background-color: var(--white);
+    background-color: var(--fourth-color);
     box-shadow: 0 5px 15px var(--black-06dp);
     position: fixed;
     bottom: 25px;
@@ -161,7 +163,7 @@ body {
 #menu_btn svg {
     width: 30px;
     height: 30px;
-    fill: var(--black);
+    fill: var(--white);
 }
 
 #main {
@@ -175,7 +177,7 @@ body {
     height: 1rem;
     margin: 0 auto;
     padding: 20px;
-    background-color: var(--black-opacity);
+    background-color: var(--block-background-color);
     border-radius: 16px;
     display: flex;
     cursor: text;
@@ -190,11 +192,13 @@ body {
     outline: 0;
     background-color: transparent;
     font-size: 1rem;
+    color: var(--color);
 }
 
 .search-bar svg {
     width: 1rem;
     height: 1rem;
+    fill: var(--color);
 }
 
 .block {
@@ -239,7 +243,7 @@ body {
 .block .title-bar svg {
     width: 1.2rem;
     height: 1.2rem;
-    fill: var(--black);
+    fill: var(--color);
     opacity: 0.5;
     cursor: pointer;
 }
@@ -256,7 +260,7 @@ body {
 }
 
 .block .teacher>* {
-    color: var(--black);
+    color: var(--color);
     margin-right: 1rem;
 }
 
@@ -428,5 +432,24 @@ body {
 
     .block:hover {
         transform: scale(1);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --block-background-color: #272727;
+        --background-color: unset;
+    }
+
+    .collapse-label,
+    .collapse-label svg {
+        color: var(--black);
+        fill: var(--black);
+    }
+
+    #menu_btn svg {
+        width: 30px;
+        height: 30px;
+        fill: var(--black);
     }
 }

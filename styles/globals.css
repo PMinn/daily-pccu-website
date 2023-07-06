@@ -12,11 +12,13 @@
   --white-24dp: rgba(255, 255, 255, 0.16);
   --black-06dp: rgba(0, 0, 0, 0.11);
   --gray: #767679;
-  --black-opacity: #E3E3E8;
+  /* --black-opacity: #E3E3E8; */
 
   --green: #65C466;
   --yellow: var(--first-color);
   --red: #EB4D3D;
+
+  --color: var(--black);
 }
 
 *:not(body)::-webkit-scrollbar {
@@ -81,7 +83,7 @@ main>* {
 
 .btn-second {
   background: var(--second-color);
-  color: #fff;
+  color: var(--color);
 }
 
 .btn-second:hover {
@@ -90,7 +92,7 @@ main>* {
 
 .btn-first {
   background: var(--first-color);
-  color: #fff;
+  color: var(--color);
 }
 
 .btn-first:hover {
@@ -101,14 +103,35 @@ main>* {
   opacity: 0.3;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
-    /* --first-color: #DD6902;
-    --first-color-rgb: 221, 105, 2;
-    --second-color: #6E4F3A;
-    --second-color-rgb: 110, 79, 58;
-    --fourth-color: #003D38; 
+    --first-color: #FFDF88;
+    --first-color-rgb: 255, 223, 136;
+    --second-color: #D7CCB1;
+    --second-color-rgb: 215, 204, 177;
+    --fourth-color: #7BFFEF;
+    --fourth-color-rgb: 123, 255, 239;
 
-    --background-color: var(--black);
+    --background-color: #121212;
+    --black: #212121;
+    --white: #f0f0f0;
+    --white-24dp: rgba(255, 255, 255, 0.16);
+    --black-06dp: rgba(0, 0, 0, 0.11);
+    --gray: #767679;
+    --black-opacity: #E3E3E8;
+
+    --green: #99DC99;
+    --yellow: var(--first-color);
+    --red: #FAAFA7;
+
+    --color: var(--white);
   }
-} */
+
+  .btn-first {
+    color: var(--black);
+  }
+
+  .btn-second {
+    color: var(--black);
+  }
+}

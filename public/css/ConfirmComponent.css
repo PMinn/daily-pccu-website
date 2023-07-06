@@ -5,9 +5,10 @@
 }
 
 .confirm {
+    --confirm-background-color: var(--white);
     width: 500px;
     border-radius: 16px;
-    background-color: var(--white);
+    background-color: var(--confirm-background-color);
 }
 
 .confirm .title {
@@ -39,5 +40,11 @@
     .confirm {
         max-width: 500px;
         width: 90%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .confirm {
+        --confirm-background-color: #272727;
     }
 }

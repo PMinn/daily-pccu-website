@@ -24,7 +24,7 @@ export default function Home() {
       <NavComponent></NavComponent>
       <section id="cover" className="section">
         <div className="left-block">
-          <h1>提供各項最新即時資訊<br />的LINE BOT機器人</h1>
+          <h2>提供各項最新即時資訊<br />的LINE BOT機器人</h2>
           <p className="top-btn"> ▼ 全功能免費，快速加入 </p>
           <a data-target="#add_friend" className="btn btn-second" id='cover_addFriend_btn'>加入好友</a>
         </div>
