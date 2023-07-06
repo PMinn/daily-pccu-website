@@ -105,12 +105,12 @@ main>* {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --first-color: #FFDF88;
-    --first-color-rgb: 255, 223, 136;
-    --second-color: #D7CCB1;
-    --second-color-rgb: 215, 204, 177;
-    --fourth-color: #7BFFEF;
-    --fourth-color-rgb: 123, 255, 239;
+    --first-color: #ffb31e;
+    --first-color-rgb: 255, 179, 30;
+    --second-color: #d1bfa8;
+    --second-color-rgb: 209, 191, 168;
+    --fourth-color: #588e87;
+    --fourth-color-rgb: 88, 142, 135;
 
     --background-color: #121212;
     --black: #212121;

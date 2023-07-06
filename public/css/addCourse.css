@@ -79,8 +79,7 @@ body {
     height: 1rem;
 }
 
-.input-group input[type="text"],
-.input-group textarea {
+.input-group input[type="text"] {
     width: 100%;
     line-height: 1rem;
     border: 0;
@@ -94,7 +93,7 @@ body {
 }
 
 .input-group input[type="text"]+.label,
-.input-group .textareaComponent+.label {
+.input-group *[class*="TextareaComponent"]+.label {
     position: absolute;
     top: 0.5rem;
     left: 0;
@@ -121,7 +120,7 @@ body {
 }
 
 .input-group input[type="text"]:is(:focus, :not(:placeholder-shown))+.label,
-.input-group .textareaComponent.focus+.label {
+.input-group *[class*="TextareaComponent"].focus+.label {
     top: 0;
     font-size: 0.5rem;
 }

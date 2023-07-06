@@ -1,7 +1,5 @@
-import { set } from 'firebase/database';
-import Head from 'next/head';
-import { type } from 'os';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import styles from '../styles/TextareaComponent.module.css';
 
 function Br({ number = 1 }) {
     const brs = [];
@@ -22,10 +20,7 @@ export default function Textarea({ placeholder = " ", rows = 1, value = useState
     }
 
     return (
-        <div className={'textareaComponent' + (focus ? ' focus' : '')}>
-            <Head>
-                <link rel="stylesheet" href="/css/TextareaComponent.css" />
-            </Head>
+        <div className={styles.textareaComponent + ' ' + (focus ? 'focus' : '')}>
             <pre>
                 <span>{textareaValue}</span>
                 <Br number={numOfBr}></Br>

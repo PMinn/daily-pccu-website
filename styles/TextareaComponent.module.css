@@ -36,3 +36,16 @@
     height: 1rem;
     width: 1rem;
 }
+
+.textareaComponent textarea {
+    width: 100%;
+    line-height: 1rem;
+    border: 0;
+    padding: 0;
+    outline: 0;
+    font-size: 1rem;
+    display: block;
+    align-self: flex-end;
+    background-color: transparent;
+    color: var(--color);
+}

@@ -1,6 +1,6 @@
-import '../styles/globals.css'
-import Head from 'next/head'
-import localFont from 'next/font/local'
+import '../styles/globals.css';
+import Head from 'next/head';
+import localFont from 'next/font/local';
 
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 

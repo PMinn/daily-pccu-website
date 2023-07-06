@@ -1,9 +1,9 @@
-.loading-outter {
+.loading-outer {
     justify-content: center;
     align-items: center;
 }
 
-.loading-outter.show {
+.loading-outer.show {
     display: flex;
 }
 
