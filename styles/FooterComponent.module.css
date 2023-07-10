@@ -3,7 +3,7 @@
     height: 80vh;
     padding: 10vh 13.2%;
     position: relative;
-    background-color: transparent;
+    background-color: var(--background-color);
 }
 
 .foot>small {

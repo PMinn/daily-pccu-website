@@ -1,3 +1,7 @@
+.main {
+  background-color: var(--background-color);
+}
+
 .section {
   width: 100%;
 }
@@ -5,6 +9,7 @@
 .section:nth-child(odd) {
   background-color: var(--first-color);
   color: var(--black);
+  font-weight: 700;
 }
 
 .section:nth-child(even) {
@@ -15,9 +20,10 @@
 .section>h2 {
   text-align: center;
   font-weight: normal;
+  margin-bottom: 5vh;
 }
 
-#cover {
+.cover {
   height: calc(100vh - 72px);
   padding-top: 72px;
   display: flex;
@@ -26,6 +32,7 @@
   position: relative;
   overflow: hidden;
 }
+
 
 .wave {
   position: absolute;
@@ -45,7 +52,7 @@
   fill: var(--first-color);
 }
 
-#cover>img {
+.cover>img {
   margin: 0;
   z-index: 0;
 }
@@ -64,9 +71,9 @@
   z-index: 9;
 }
 
-.left-block h2 {
-  font-weight: 700;
-  font-size: 56px;
+.left-block .text {
+  font-weight: bold;
+  font-size: 300%;
   letter-spacing: .03em;
   line-height: 150%;
   text-align: center;
@@ -87,7 +94,7 @@
   z-index: 8;
 }
 
-.right-block>img {
+.right-block img {
   width: auto;
   height: 80%;
   -webkit-filter: drop-shadow(0 0 10px #000000a0);
@@ -104,12 +111,12 @@
 
 .top-btn {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 100%;
   letter-spacing: .02em;
   line-height: 24px;
   padding-left: 16px;
   margin-bottom: 4vh;
-  /* opacity: 0.8; */
+  opacity: 0.8;
 }
 
 .table {
@@ -125,13 +132,14 @@
 }
 
 .table h3 {
-  font-size: 24px;
+  font-size: 180%;
+  font-weight: 900;
   font-weight: normal;
 }
 
-#functions,
-#history,
-#add_friend {
+.functions,
+.add-friend,
+.history {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -139,35 +147,35 @@
   align-items: center;
 }
 
-#functions .table {
+.functions .table {
   width: 90%;
   text-align: center;
   justify-content: center;
 }
 
-#functions .table>div {
+.functions .table>div {
   width: 16%;
 }
 
-#functions .table>div>p {
+.functions .table>div>p {
   letter-spacing: 0.1em;
   opacity: 0.8;
 }
 
-#functions .table h3 {
+.functions .table h3 {
   letter-spacing: 0.1em;
 }
 
-#add_friend h3 {
+.add-friend h3 {
   margin: 0 0 1rem 0;
 }
 
-#add_friend .table {
+.add-friend .table {
   width: 100%;
   justify-content: center;
 }
 
-#add_friend .table>div {
+.add-friend .table>div {
   padding: 24px;
   width: 240px;
   margin: 0 30px;
@@ -176,27 +184,28 @@
   box-shadow: 0 10px 30px #00000010;
 }
 
-#history table {
+.history table {
   margin: 0 auto;
+  font-size: 120%;
 }
 
-#history td {
+.history td {
   padding: 3vh 2vw;
   letter-spacing: 0.1rem;
 }
 
-#history td:first-child {
-  border-right: 1px solid var(--black);
+.history td:first-child {
+  border-right: 2px solid var(--black);
   border-top: 0;
   border-bottom: 0;
 }
 
-#line_btn {
+.line-btn {
   cursor: pointer;
   max-width: 140px;
 }
 
-#line_btn img {
+.line-btn img {
   width: 100%;
   height: auto;
 }
@@ -210,13 +219,13 @@
     padding: 5vh 0;
   }
 
-  #cover {
+  .cover {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
   }
 
-  #cover>* {
+  .cover>* {
     margin: 0;
   }
 
@@ -271,32 +280,32 @@
     height: 100%;
   }
 
-  #functions {
+  .functions {
     height: auto;
   }
 
-  #functions .table>div {
+  .functions .table>div {
     width: 80%;
     margin-bottom: 15vh;
   }
 
-  #functions .table>div>h3,
-  #functions .table>div svg {
+  .functions .table>div>h3,
+  .functions .table>div svg {
     margin: 0;
   }
 
-  #add_friend .table {
+  .add-friend .table {
     flex-direction: column;
     align-content: center;
     align-items: stretch;
   }
 
-  #add_friend .table>div {
+  .add-friend .table>div {
     width: 60vw;
     margin-bottom: 30px;
   }
 
-  #history table {
+  .history table {
     width: 80%;
   }
 }
@@ -317,6 +326,29 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  .main {
+    --first-color: #ffb31e;
+    --first-color-rgb: 255, 179, 30;
+    --second-color: #d1bfa8;
+    --second-color-rgb: 209, 191, 168;
+    --fourth-color: #588e87;
+    --fourth-color-rgb: 88, 142, 135;
+
+    --background-color: #121212;
+    --black: #212121;
+    --white: #f0f0f0;
+    --white-24dp: rgba(255, 255, 255, 0.16);
+    --black-06dp: rgba(0, 0, 0, 0.11);
+    --gray: #767679;
+    --black-opacity: #E3E3E8;
+
+    --green: #99DC99;
+    --yellow: var(--first-color);
+    --red: #FAAFA7;
+
+    --color: var(--white);
+  }
+
   .left-block h1 {
     color: var(--color);
   }
@@ -329,7 +361,7 @@
     color: var(--white);
   }
 
-  #add_friend .table>div {
+  .add-friend .table>div {
     background-color: var(--white-24dp);
   }
 }

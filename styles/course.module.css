@@ -1,18 +1,19 @@
-body {
+.main {
     --background-color: #F2F2F6;
     --block-background-color: #fff;
     background-color: var(--white);
     color: var(--color);
     overflow-y: scroll;
+    background-color: var(--background-color);
 }
 
 .page {
     width: 100%;
     min-height: 100%;
-    padding-top: 104px;
+    padding: 104px 0;
 }
 
-.panel {
+.page>div {
     display: flex;
     width: 100%;
 }
@@ -26,12 +27,13 @@ body {
 }
 
 #menu {
-    width: 280px;
+    width: 300px;
     height: calc(100vh - 104px - 104px - 40px);
     position: sticky;
     top: 104px;
     left: 10vw;
     transition: all 0.3s;
+    padding: 20px 0;
 }
 
 #menu .close {
@@ -44,55 +46,17 @@ body {
     fill: var(--color);
 }
 
-#menu .collapse {
-    height: calc(100% - 3.1rem - 40px);
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-}
-
-#menu .collapse .collapse-scroll {
+.collapse-scroll {
     height: 100%;
-    width: 100%;
-    overflow-y: auto;
-}
-
-#menu .collapse .collapse-scroll>.collapse-one-block {
-    height: calc(1rem + 55px);
     width: calc(100% - 40px);
-    margin: 0 auto;
+    padding: 0 20px;
+    overflow-y: scroll;
 }
 
-#menu .collapse .collapse-scroll>.collapse-one-block.open {
-    height: auto;
-}
-
-#menu .collapse .collapse-scroll>.collapse-one-block:last-child {
-    margin-bottom: 60px;
-}
-
-#menu .collapse .gradient {
-    pointer-events: none;
-    width: 100%;
-    height: 70px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: var(--block-background-color);
-    background: linear-gradient(0deg, var(--block-background-color) 22%, transparent 100%);
-}
-
-#menu>.btn {
-    width: calc(100% - 40px);
-    margin: 0 auto;
-    position: relative;
-}
-
-.collapse-label {
+.year-label {
     background-color: var(--second-color);
     border-radius: 10px;
     color: var(--white);
-    margin: 0 auto 15px auto;
     cursor: pointer;
     width: calc(100% - 40px);
     padding: 20px;
@@ -101,35 +65,33 @@ body {
     transform-origin: center;
 }
 
-.collapse-label:hover {
+.year-label:hover {
     transform: scale(1.02);
 }
 
-.collapse-label svg {
+.year-label svg {
     margin-left: auto;
     height: 1rem;
     width: 1rem;
     fill: var(--white);
-    transform: rotateX(180deg);
+    transform: rotateZ(180deg);
     transition: all 0.3s;
 }
 
-.collapse-label.open svg {
-    transform: rotateX(0);
+.year-label[class*="collapsed"] svg {
+    transform: rotateZ(270deg);
 }
 
-.collapse-area {
-    width: 100%;
-    transform: scaleY(0);
-    transition: all 0.3s;
-    transform-origin: top center;
+.colleges-list {
+    margin: 0 auto;
+    padding: 20px;
 }
 
-#menu .collapse-scroll>.collapse-one-block.open .collapse-area {
-    transform: scaleY(1);
+.collapse-scroll>*:last-child {
+    margin-bottom: calc(32px + 1.1rem + 10px);
 }
 
-.collapse-area .college-link {
+.college-link {
     height: 2rem;
     width: calc(100% - 40px);
     line-height: 2rem;
@@ -142,11 +104,19 @@ body {
     transition: all 0.3s;
 }
 
-.collapse-area .college-link:hover {
+.college-link:hover {
     background-color: var(--black-opacity);
+    color: var(--black);
 }
 
-#menu_btn {
+.add-btn {
+    width: calc(100% - 40px);
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.menu-mobile-btn {
     width: 50px;
     height: 50px;
     justify-content: center;
@@ -160,13 +130,13 @@ body {
     display: none;
 }
 
-#menu_btn svg {
+.menu-mobile-btn svg {
     width: 30px;
     height: 30px;
     fill: var(--white);
 }
 
-#main {
+.result {
     width: calc(75vw - 300px);
     min-height: calc(100% - 104px - 104px - 40px);
     margin: 0 auto;
@@ -199,6 +169,30 @@ body {
     width: 1rem;
     height: 1rem;
     fill: var(--color);
+}
+
+.result.no-result .search-bar {
+    opacity: 0.2;
+}
+
+.no-result-text {
+    width: 80%;
+    height: 50vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.no-result-text>div:first-child {
+    font-size: 1.2rem;
+}
+
+.no-result-text>div:last-child {
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-top: 10px;
 }
 
 .block {
@@ -372,7 +366,7 @@ body {
         transition: all 0.3s;
         padding: 20px;
         overflow-y: auto;
-        z-index: 99;
+        z-index: 101;
         display: none;
         flex-direction: column;
         justify-content: space-between;
@@ -393,31 +387,28 @@ body {
         display: block;
     }
 
-    #menu .collapse {
-        height: calc(100% - 25px - 20px - 3.1rem);
-        margin: 0;
+    .collapse-scroll {
+        width: calc(100% - 10px);
+        padding: 5px;
     }
 
-    #menu .collapse .collapse-scroll>.collapse-one-block {
-        width: 100%;
-    }
-
-    .collapse-label:hover {
+    .year-label:hover {
         transform: scale(1);
     }
 
-    #menu>.btn {
-        width: 100%;
+    .add-btn {
+        width: calc(100% - 40px);
         max-width: 100%;
-        margin: 0;
+        bottom: 20px;
+        left: 20px;
     }
 
-    #menu_btn {
+    .menu-mobile-btn {
         display: flex;
         z-index: 90;
     }
 
-    #main {
+    .result {
         width: 86vw;
         min-height: calc(100% - 104px - 104px - 40px);
     }
@@ -436,18 +427,18 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
+    .main {
         --block-background-color: #272727;
         --background-color: unset;
     }
 
-    .collapse-label,
-    .collapse-label svg {
+    .year-label,
+    .year-label svg {
         color: var(--black);
         fill: var(--black);
     }
 
-    #menu_btn svg {
+    .menu-mobile-btn svg {
         width: 30px;
         height: 30px;
         fill: var(--black);

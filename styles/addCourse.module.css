@@ -1,13 +1,14 @@
-body {
+.main {
     --background-color: #F2F2F6;
     --block-background-color: #fff;
     background-color: var(--white);
     color: var(--color);
     --white: #fff;
     overflow-y: scroll;
+    background-color: var(--background-color);
 }
 
-.outter {
+.outer {
     width: calc(80vw - 36px);
     margin: 104px auto;
     display: flex;
@@ -100,6 +101,7 @@ body {
     font-size: 1rem;
     color: var(--gray);
     transition: all 0.1s linear;
+    line-height: 1rem;
 }
 
 .input-group input[type="number"] {
@@ -144,11 +146,11 @@ body {
     flex-wrap: wrap;
 }
 
-input[type="checkbox"] {
+.checkbox-group input {
     display: none;
 }
 
-input[type="checkbox"]+label {
+.checkbox-group input+label {
     padding: 8px 16px;
     border-radius: 16px;
     background-color: var(--black-06dp);
@@ -159,12 +161,12 @@ input[type="checkbox"]+label {
     transition: all 0.3s;
 }
 
-input[type="checkbox"]:checked+label {
+.checkbox-group input:checked+label {
     border-color: var(--fourth-color);
     background-color: rgba(var(--fourth-color-rgb), 24%);
 }
 
-.container .btn {
+.submit{
     margin-top: 16px;
     max-width: unset;
 }
@@ -225,7 +227,7 @@ input[type="checkbox"]:checked+label {
 }
 
 @media screen and (max-width:850px) {
-    .outter {
+    .outer {
         width: calc(100% - 68px);
         flex-direction: column;
     }
@@ -242,12 +244,12 @@ input[type="checkbox"]:checked+label {
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
+    .main {
         --block-background-color: #272727;
         --background-color: unset;
     }
 
-    input[type="checkbox"]+label {
+    .checkbox-group input+label {
         background-color: #ffffff17;
     }
 }

@@ -1,11 +1,13 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
 import ConfirmComponent from '../components/ConfirmComponent';
 import LoadingComponent from '../components/LoadingComponent';
 import TextareaComponent from '../components/TextareaComponent';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
+
+import styles from '../styles/addCourse.module.css';
 
 import { app } from '../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
@@ -43,11 +45,7 @@ export default function Course({ fontClass }) {
     const [data, setData] = useState({});
 
 
-    function categoryOnClick(index) {
-        document.querySelectorAll('input[id^="category"]').forEach(input => input.classList.remove('checked'));
-        document.getElementById('category' + index).classList.add('checked');
-        setCategoryType(index);
-    }
+
 
     function generalTypeOnClick(index) {
         document.querySelectorAll('input[id^="generalType"]').forEach(input => input.classList.remove('checked'));
@@ -138,7 +136,7 @@ export default function Course({ fontClass }) {
     }
 
     return (
-        <div>
+        <div className={styles.main}>
             <NavComponent></NavComponent>
             <Head>
                 <title>新增課程評價 | 每日文大</title>
@@ -160,88 +158,88 @@ export default function Course({ fontClass }) {
                 })
             } btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow} ></ConfirmComponent >
             <LoadingComponent show={loading}></LoadingComponent>
-            <div className="outter">
-                <div className='intro'>
+            <div className={styles.outer}>
+                <div className={styles.intro}>
                     <h1>新增課程評價</h1>
                     <div>
                         您可以提供課程具體的資訊、分享您的觀點，以幫助所有同學未來選課有資訊可以參考。感謝您抽出寶貴的時間新增課程評價，您的參與將幫助大家獲得更多選課參考資訊。
                     </div>
                 </div>
 
-                <div className="container" id='container'>
+                <div className={styles.container} id='container'>
                     <div style={{ display: (success ? 'none' : '') }}>
-                        <div className="border radio">
-                            <input type="radio" name="category" id="category1" className='checked' onClick={() => categoryOnClick(1)} />
+                        <div className={styles.border + ' ' + styles.radio}>
+                            <input type="radio" name="category" id="category1" className={(categoryType == 1 ? styles.checked : '')} onClick={() => setCategoryType(1)} />
                             <label htmlFor="category1">一般</label>
-                            <input type="radio" name="category" id="category2" onClick={() => categoryOnClick(2)} />
+                            <input type="radio" name="category" id="category2" className={(categoryType == 2 ? styles.checked : '')} onClick={() => setCategoryType(2)} />
                             <label htmlFor="category2">通識</label>
-                            <input type="radio" name="category" id="category3" onClick={() => categoryOnClick(3)} />
+                            <input type="radio" name="category" id="category3" className={(categoryType == 3 ? styles.checked : '')} onClick={() => setCategoryType(3)} />
                             <label htmlFor="category3">跨域</label>
                         </div>
-                        <div className="border radio" style={{ display: (categoryType == 2 ? 'flex' : 'none') }}>
-                            <input type="radio" name="generalType" id="generalType1" className='checked' onClick={() => generalTypeOnClick(1)} />
+                        <div className={styles.border + ' ' + styles.radio} style={{ display: (categoryType == 2 ? 'flex' : 'none') }}>
+                            <input type="radio" name="generalType" id="generalType1" className={(generalType == 1 ? styles.checked : '')} onClick={() => setGeneralType(1)} />
                             <label htmlFor="generalType1">人文</label>
-                            <input type="radio" name="generalType" id="generalType2" onClick={() => generalTypeOnClick(2)} />
+                            <input type="radio" name="generalType" id="generalType2" className={(generalType == 2 ? styles.checked : '')} onClick={() => setGeneralType(2)} />
                             <label htmlFor="generalType2">社會</label>
-                            <input type="radio" name="generalType" id="generalType3" onClick={() => generalTypeOnClick(3)} />
+                            <input type="radio" name="generalType" id="generalType3" className={(generalType == 3 ? styles.checked : '')} onClick={() => setGeneralType(3)} />
                             <label htmlFor="generalType3">自然</label>
                         </div>
-                        <div className="border className" >
-                            <label className="input-group" htmlFor="className">
+                        <div className={styles.border + ' ' + styles.className}>
+                            <label className={styles['input-group']} htmlFor="className">
                                 <input type="text" className={fontClass} placeholder=" " id="className" onInput={e => setClassName(e.target.value)} value={className} />
-                                <div className='label'>課程名稱</div>
-                                <div className="note" style={{ display: (categoryType == 2 ? 'block' : 'none') }}>不須包含"自然通識︰"、"社會通識︰"或"人文通識︰"</div>
-                                <div className="note" style={{ display: (categoryType == 3 ? 'block' : 'none') }}>不須包含"跨域︰"</div>
+                                <div className={styles.label}>課程名稱</div>
+                                <div className={styles.note} style={{ display: (categoryType == 2 ? 'block' : 'none') }}>不須包含"自然通識︰"、"社會通識︰"或"人文通識︰"</div>
+                                <div className={styles.note} style={{ display: (categoryType == 3 ? 'block' : 'none') }}>不須包含"跨域︰"</div>
                             </label>
                         </div>
-                        <div className="border teacher" >
-                            <label className="input-group" htmlFor="teacher">
+                        <div className={styles.border + ' ' + styles.teacher}>
+                            <label className={styles['input-group']} htmlFor="teacher">
                                 <input type="text" className={fontClass} placeholder=" " id="teacher" onChange={e => setTeacher(e.target.value.replace(/ /gi, '').split(','))} value={teacher.join(',')} />
-                                <div className='label'>授課教師</div>
-                                <div className="note">多位教師請使用半形逗號(,)分隔</div>
+                                <div className={styles.label}>授課教師</div>
+                                <div className={styles.note}>多位教師請使用半形逗號(,)分隔</div>
                             </label>
                         </div>
-                        <div className="border" >
-                            <label className="input-group" htmlFor="year">
+                        <div className={styles.border}>
+                            <label className={styles['input-group']} htmlFor="year">
                                 <input type="number" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911} step={1} value={year} id="year" onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
-                                <div className='label'>開課學年</div>
+                                <div className={styles.label}>開課學年</div>
                             </label>
                         </div>
-                        <div className="border department" style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
-                            <label className="input-group" htmlFor="department">
+                        <div className={styles.border + ' ' + styles.department} style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
+                            <label className={styles['input-group']} htmlFor="department">
                                 <input type="text" className={fontClass} placeholder=" " id="department" onInput={e => setDepartment(e.target.value)} value={department} />
-                                <div className='label'>開課系別</div>
+                                <div className={styles.label}>開課系別</div>
                             </label>
                         </div>
-                        <div className="border" style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
-                            <label className="input-group">
+                        <div className={styles.border} style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
+                            <label className={styles['input-group']}>
                                 {/* <select onChange={e => setCollege(e.target.value)}> */}
                                 {
                                     (
                                         courseConfig ?
-                                            courseConfig.colleges.filter(c => !c.includes('通識')).map(c => <label className='college'><input type="radio" name="college" value={c} onClick={() => setCollege(c)} checked={college === c} />{c}<br /></label>)
+                                            courseConfig.colleges.filter(c => !c.includes('通識')).map(c => <label className={styles.college}><input type="radio" name="college" value={c} onClick={() => setCollege(c)} checked={college === c} />{c}<br /></label>)
                                             :
                                             <></>
                                     )
                                 }
-                                <div className='label'>開課系所屬之院別</div>
+                                <div className={styles.label}>開課系所屬之院別</div>
                             </label>
                         </div>
-                        <div className="border" >
-                            <label className="input-group" htmlFor="point">
+                        <div className={styles.border} >
+                            <label className={styles['input-group']} htmlFor="point">
                                 <input type="number" min={0} max={100} step={1} value={tempPoint} id="point" onChange={e => setTempPoint(e.target.value)} onBlur={pointOnBlur} />
-                                <div className='label'>課程評分</div>
+                                <div className={styles.label}>課程評分</div>
                             </label>
                         </div>
-                        <div className="border" >
-                            <label className="input-group" htmlFor="way">
+                        <div className={styles.border} >
+                            <label className={styles['input-group']} htmlFor="way">
                                 <input type="text" className={fontClass} placeholder=" " id="way" onChange={e => setWay(e.target.value)} />
-                                <div className='label'>授課方式</div>
+                                <div className={styles.label}>授課方式</div>
                             </label>
                         </div>
-                        <div className="border">
+                        <div className={styles.border}>
                             <div>考試模式(可複選)</div>
-                            <div className="checkbox-group">
+                            <div className={styles['checkbox-group']}>
                                 <input type="checkbox" name="exam" id="exam1" onClick={examOnClick} />
                                 <label htmlFor="exam1">期中報告</label>
                                 <input type="checkbox" name="exam" id="exam2" onClick={examOnClick} />
@@ -256,16 +254,16 @@ export default function Course({ fontClass }) {
                                 <label htmlFor="exam6">期末考試</label>
                             </div>
                         </div>
-                        <div className="border">
-                            <label className="input-group" htmlFor="evaluation">
+                        <div className={styles.border}>
+                            <label className={styles['input-group']} htmlFor="evaluation">
                                 <TextareaComponent rows={4} value={[evaluation, setEvaluation]}></TextareaComponent>
-                                <div className='label'>課程評語</div>
+                                <div className={styles.label}>課程評語</div>
                             </label>
                         </div>
                         <div>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
-                        <div className="btn btn-second" onClick={submit}>完成</div>
+                        <div className={"btn btn-second " + styles.submit} onClick={submit}>完成</div>
                     </div>
-                    <div className='success' style={{ display: (!success ? 'none' : '') }}>
+                    <div className={styles.success} style={{ display: (!success ? 'none' : '') }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>
                         <div>成功</div>
                     </div>

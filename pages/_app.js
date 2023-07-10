@@ -1,10 +1,17 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
 import Head from 'next/head';
 import localFont from 'next/font/local';
+import { useEffect } from "react";
 
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
+  
+  useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
+
   return (
     <main className={jf_openhuninn.className}>
       <Head>

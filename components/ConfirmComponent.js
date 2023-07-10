@@ -1,19 +1,19 @@
 import Head from 'next/head';
+import styles from '../styles/ConfirmComponent.module.css';
 
 export default function Confirm({ title, content, btn, onClick, show }) {
     return (
-        <div className={'cover confirm-outter ' + (show ? 'show' : '')}>
+        <div className={'cover ' + styles['confirm-outer'] + ' ' + (show ? styles.show : '')}>
             <Head>
                 <link rel="stylesheet" href="/css/cover.css" />
-                <link rel="stylesheet" href="/css/ConfirmComponent.css" />
             </Head>
-            <div className="confirm">
-                <div className="title">{title}</div>
-                <div className="content">{content}</div>
-                <div className="btn-bar">
+            <div className={styles.confirm}>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.content}>{content}</div>
+                <div className={styles['btn-bar']}>
                     {
                         btn.map((item, index) => {
-                            return (<div className="btn" onClick={onClick[index]} key={'confirm_btn_'+index}>{item}</div>)
+                            return (<div className={'btn ' + styles.btn} onClick={onClick[index]} key={'confirm_btn_' + index}>{item}</div>)
                         })
                     }
                 </div>
