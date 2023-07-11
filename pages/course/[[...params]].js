@@ -168,7 +168,7 @@ export default function Course() {
                                     courseConfig.years.map(year => {
                                         return (
                                             <div id={'y_' + year} key={'y_' + year}>
-                                                <button className={styles["year-label"]} type="button" id={'label_' + year} data-bs-toggle="collapse" role="button" aria-expanded="false" data-bs-target={"#collapse_" + year} aria-controls={"collapse_" + year}>
+                                                <button className={"collapsed " + styles["year-label"]} type="button" id={'label_' + year} data-bs-toggle="collapse" role="button" aria-expanded="false" data-bs-target={"#collapse_" + year} aria-controls={"collapse_" + year}>
                                                     <div>{year}學年</div>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
                                                 </button>

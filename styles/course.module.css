@@ -63,6 +63,7 @@
     display: flex;
     transition: all 0.3s;
     transform-origin: center;
+    border: none;
 }
 
 .year-label:hover {
