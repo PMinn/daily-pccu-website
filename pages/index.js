@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -58,14 +59,14 @@ export default function Home() {
           })}
         </div>
       </section>
-      <section className={styles.section + ' ' + styles['add-friend']}>
+      <section id="add_friend" className={styles.section + ' ' + styles['add-friend']}>
         <h2>如何加入</h2>
         <div className={styles.table}>
           <div>
             <h3>點擊按鈕</h3>
-            <div data-href='https://lin.ee/h0kZmTc' className={styles['line-btn']}>
+            <Link href='https://lin.ee/h0kZmTc' className={styles['line-btn']}>
               <img src='https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png' alt='加入每日文大好友' border='0' width='232' height='72'></img>
-            </div>
+            </Link>
           </div>
           <div>
             <h3>掃描QR code</h3>
@@ -77,7 +78,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={styles.section + ' ' + styles['history']}>
+      <section id='history' className={styles.section + ' ' + styles['history']}>
         <h2>重大事件</h2>
         <table cellSpacing='0' cellPadding='0'>
           <tbody>

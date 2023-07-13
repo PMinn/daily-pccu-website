@@ -64,6 +64,7 @@
     transition: all 0.3s;
     transform-origin: center;
     border: none;
+    margin: 5px auto;
 }
 
 .year-label:hover {
