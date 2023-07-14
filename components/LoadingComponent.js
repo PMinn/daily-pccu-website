@@ -1,12 +1,10 @@
 import styles from '../styles/LoadingComponent.module.css';
-import Head from 'next/head';
+
+import coverStyles from '../styles/cover.module.css';
 
 export default function Loading({ show }) {
     return (
-        <div className={'cover ' + styles['loading-outer'] + ' ' + (show ? styles.show : '')}>
-            <Head>
-                <link rel="stylesheet" href="/css/cover.css" />
-            </Head>
+        <div className={coverStyles.cover + ' ' + styles['loading-outer'] + ' ' + (show ? styles.show : '')}>
             <div className={styles["custom-loader"]}></div>
         </div>
     )

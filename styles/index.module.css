@@ -195,9 +195,10 @@
 }
 
 .history td:first-child {
-  border-right: 2px solid var(--black);
+  border-right: 1px solid var(--black);
   border-top: 0;
   border-bottom: 0;
+  position: relative;
 }
 
 .line-btn {
@@ -326,29 +327,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .main {
-    --first-color: #ffb31e;
-    --first-color-rgb: 255, 179, 30;
-    --second-color: #d1bfa8;
-    --second-color-rgb: 209, 191, 168;
-    --fourth-color: #588e87;
-    --fourth-color-rgb: 88, 142, 135;
-
-    --background-color: #121212;
-    --black: #212121;
-    --white: #f0f0f0;
-    --white-24dp: rgba(255, 255, 255, 0.16);
-    --black-06dp: rgba(0, 0, 0, 0.11);
-    --gray: #767679;
-    --black-opacity: #E3E3E8;
-
-    --green: #99DC99;
-    --yellow: var(--first-color);
-    --red: #FAAFA7;
-
-    --color: var(--white);
-  }
-
   .left-block h1 {
     color: var(--color);
   }

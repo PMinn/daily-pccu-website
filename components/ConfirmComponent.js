@@ -1,12 +1,10 @@
-import Head from 'next/head';
 import styles from '../styles/ConfirmComponent.module.css';
+
+import coverStyles from '../styles/cover.module.css';
 
 export default function Confirm({ title, content, btn, onClick, show }) {
     return (
-        <div className={'cover ' + styles['confirm-outer'] + ' ' + (show ? styles.show : '')}>
-            <Head>
-                <link rel="stylesheet" href="/css/cover.css" />
-            </Head>
+        <div className={coverStyles.cover + ' ' + styles['confirm-outer'] + ' ' + (show ? styles.show : '')}>
             <div className={styles.confirm}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.content}>{content}</div>
@@ -18,6 +16,6 @@ export default function Confirm({ title, content, btn, onClick, show }) {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

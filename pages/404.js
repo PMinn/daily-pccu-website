@@ -4,6 +4,8 @@ import Link from 'next/link';
 import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
 
+import styles from '../styles/404.module.css';
+
 export default function Custom404() {
     return (
         <div>
@@ -13,10 +15,9 @@ export default function Custom404() {
                 <meta property='og:title' content='每日文大' />
                 <meta name='description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
                 <meta property='og:description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
-                <link rel='stylesheet' href='/css/404.css' />
             </Head>
             <NavComponent></NavComponent>
-            <section>
+            <section className={styles.panel}>
                 <h1>404</h1>
                 <h2>糟糕！找不到頁面</h2>
                 <Link href='/' className='btn btn-first'>回首頁</Link>

@@ -12,7 +12,7 @@ import portrait from '../public/images/portrait.webp';
 
 import styles from '../styles/index.module.css';
 
-export default function Home() {
+export default function Index() {
   return (
     <div className={styles.main}>
       <Head>
@@ -31,15 +31,15 @@ export default function Home() {
         </div>
         <div className={styles['right-block']}>
           <Image src={portrait} alt='每日文大 實際使用 範例圖' loading='eager' priority='true' as={'image'}></Image>
-          <svg className={styles['blob']} viewBox='0 0 900 900' width='900' height='900' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' xmlnsSvgjs='http://svgjs.dev/svgjs' xmlnsData='ApexChartsNS'>
+          <svg className={styles['blob']} viewBox='0 0 900 900' width='900' height='900' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' >
             <g transform='translate(464.5299756263622 420.5024700757476)'>
               <path d='M221.4 -207.5C289.5 -153.2 349.3 -76.6 347.5 -1.8C345.7 73.1 282.5 146.1 214.3 211C146.1 275.8 73.1 332.4 -9.7 342.1C-92.4 351.7 -184.8 314.5 -259.8 249.6C-334.8 184.8 -392.4 92.4 -372.7 19.7C-353 -53 -256.1 -106.1 -181.1 -160.4C-106.1 -214.7 -53 -270.4 11.8 -282.2C76.6 -293.9 153.2 -261.9 221.4 -207.5'></path>
             </g>
           </svg>
         </div>
         <div className={styles.wave}>
-          <svg viewBox='0 0 960 540' width='960' height='540' mlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' xmlnsSvgjs='http://svgjs.dev/svgjs' xmlnsData='ApexChartsNS'>
-            <path d='M0 390L53.3 409C106.7 428 213.3 466 320 460.3C426.7 454.7 533.3 405.3 640 375.3C746.7 345.3 853.3 334.7 906.7 329.3L960 324L960 541L906.7 541C853.3 541 746.7 541 640 541C533.3 541 426.7 541 320 541C213.3 541 106.7 541 53.3 541L0 541Z' stroke-linecap='round' stroke-linejoin='miter'></path>
+          <svg viewBox='0 0 960 540' width='960' height='540' mlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' >
+            <path d='M0 390L53.3 409C106.7 428 213.3 466 320 460.3C426.7 454.7 533.3 405.3 640 375.3C746.7 345.3 853.3 334.7 906.7 329.3L960 324L960 541L906.7 541C853.3 541 746.7 541 640 541C533.3 541 426.7 541 320 541C213.3 541 106.7 541 53.3 541L0 541Z' strokeLinecap='round' strokeLinejoin='miter'></path>
           </svg>
         </div>
       </section>

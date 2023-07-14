@@ -86,11 +86,10 @@
 
 .colleges-list {
     margin: 0 auto;
-    padding: 20px;
 }
 
 .collapse-scroll>*:last-child {
-    margin-bottom: calc(32px + 1.1rem + 10px);
+    margin-bottom: calc(32px + 1.1rem + 2rem);
 }
 
 .college-link {
@@ -445,5 +444,9 @@
         width: 30px;
         height: 30px;
         fill: var(--black);
+    }
+
+    .block .point-progress .point-progress-bar {
+        background-color: #ffffff30;
     }
 }

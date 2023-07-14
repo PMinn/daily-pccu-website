@@ -213,7 +213,6 @@ export default function Course({ fontClass }) {
                         </div>
                         <div className={styles.border} style={{ display: ((categoryType == 1 || categoryType == 3) ? 'block' : 'none') }}>
                             <label className={styles['input-group']}>
-                                {/* <select onChange={e => setCollege(e.target.value)}> */}
                                 {
                                     (
                                         courseConfig ?
