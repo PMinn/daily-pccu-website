@@ -139,10 +139,31 @@ export default function Course({ fontClass }) {
         <div className={styles.main}>
             <NavComponent></NavComponent>
             <Head>
+                {/* HTML Meta Tags  */}
                 <title>新增課程評價 | 每日文大</title>
-                <meta property="og:title" content="新增課程評價 | 每日文大" />
-                <link rel="stylesheet" href="/css/addCourse.css" />
-                <link rel="stylesheet" href="/css/confirm.css" />
+                <meta name='keywords' content='每日文大,文大bot,課程評價' />
+                <meta name='description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
+
+                {/* Facebook Meta Tags */}
+                {/* <meta property="og:url" content="https://daily-pccu.web.app/" /> */}
+                <meta property="og:type" content="website" /> {/* article */}
+                <meta property='og:title' content='新增課程評價 | 每日文大' />
+                <meta property='og:description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
+                <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                {/*
+                    檔案大小：< 8MB
+                    檔案尺寸：建議尺寸 1200x630
+                    對於圖片的內容 FB 有提供 圖像文字檢查工具 的網站，協助檢測。
+                    網址的 url 一定要使用絕對路徑
+                */}
+
+                {/* Twitter Meta Tags */}
+                <meta name="twitter:card" content="app" /> {/* summary, summary_large_image, app, player */}
+                <meta property="twitter:domain" content="daily-pccu.web.app" />
+                {/* <meta property="twitter:url" content="https://daily-pccu.web.app/" /> */}
+                <meta name="twitter:title" content="新增課程評價 | 每日文大" />
+                <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
+                <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
             </Head>
             <ConfirmComponent title='確認新增' content={
                 confirmContent.split('\n').map(line => {

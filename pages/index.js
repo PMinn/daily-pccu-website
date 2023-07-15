@@ -26,7 +26,7 @@ export default function Index() {
         <meta property="og:type" content="website" /> {/* article */}
         <meta property='og:title' content='每日文大' />
         <meta property='og:description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
-        <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/android-chrome-384x384.png" />
+        <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
         {/*
           檔案大小：< 8MB
           檔案尺寸：建議尺寸 1200x630
@@ -40,7 +40,7 @@ export default function Index() {
         <meta property="twitter:url" content="https://daily-pccu.web.app/" />
         <meta name="twitter:title" content="每日文大" />
         <meta name="twitter:description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
-        <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/android-chrome-384x384.png" />
+        <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
       </Head>
       <NavComponent></NavComponent>
       <section className={styles.section + ' ' + styles.cover}>
