@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
@@ -11,9 +11,11 @@ import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import ConfirmComponent from '../../components/ConfirmComponent';
-import TextareaComponent from '../../components/TextareaComponent';
-import LoadingComponent from '../../components/LoadingComponent';
+import ConfirmComponent from '../../components/ConfirmComponent.js';
+import TextareaComponent from '../../components/TextareaComponent.js';
+import LoadingComponent from '../../components/LoadingComponent.js';
+
+import styles from '../../styles/line/form.module.css';
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
@@ -21,11 +23,10 @@ export default function Form() {
   const database = getDatabase(app);
   const storage = getStorage(app);
 
-  const [liffObject, setLiffObject] = useState(null);
   const [liffContext, setLiffContext] = useState(null);
   const [errorText, setErrorText] = useState(null);
 
-  const [formId, setFormId] = useState(new Date().getTime());
+  const formId = new Date().getTime();
   const [files, setFiles] = useState([]);
   const [confirmShow, setConfirmShow] = useState(false);
   const [textareaValue, setTextareaValue] = useState("");
@@ -34,7 +35,7 @@ export default function Form() {
   const [loading, setLoading] = useState(false);
 
   async function submit() {
-    if (liffObject != null) {
+    if (liffContext != null) {
       var content = textareaValue;
       if (content.replace(/[ \n\t\r]/gi, '') == '') {
         setConfirmShow(true);
@@ -99,7 +100,6 @@ export default function Form() {
                 message: "請使用正常路徑開啟"
               });
             } else {
-              setLiffObject(liff);
               setLiffContext(context);
             }
           })
@@ -110,7 +110,7 @@ export default function Form() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.main}>
       <Head>
         <title>回饋 | 每日文大</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -118,33 +118,33 @@ export default function Form() {
       </Head>
       <LoadingComponent show={loading}></LoadingComponent>
       <ConfirmComponent title="請輸入內容" content={"內容不可為空"} show={confirmShow} btn={["確認"]} onClick={[() => setConfirmShow(false)]}></ConfirmComponent>
-      <div class="container" style={{ display: (errorText == null && success != true ? '' : 'none') }} >
+      <div className={styles.container} style={{ display: (errorText == null && success != true ? '' : 'none') }} >
         <input type="text" id="uuid" hidden />
         <h3>我要回饋的是...</h3>
-        <div class="block">
-          <div class="radio-group">
+        <div className={styles.block}>
+          <div className={styles['radio-group']}>
             <input type="radio" id="error" name="radio_group" value="error" defaultChecked={true} onClick={() => setRadioGroup("error")} />
-            <label for="error" class="radio">錯誤回報</label>
+            <label for="error" >錯誤回報</label>
           </div>
-          <div class="radio-group">
+          <div className={styles['radio-group']}>
             <input type="radio" id="suggestion" name="radio_group" value="suggestion" onClick={() => setRadioGroup("suggestion")} />
-            <label for="suggestion" class="radio">建議</label>
+            <label for="suggestion" >建議</label>
           </div>
-          <div class="radio-group">
+          <div className={styles['radio-group']}>
             <input type="radio" id="cooperation" name="radio_group" value="cooperation" onClick={() => setRadioGroup("cooperation")} />
-            <label for="cooperation" class="radio">合作</label>
+            <label for="cooperation" >合作</label>
           </div>
-          <div class="radio-group">
+          <div className={styles['radio-group']}>
             <input type="radio" id="else" name="radio_group" value="else" onClick={() => setRadioGroup("else")} />
-            <label for="else" class="radio">其他</label>
+            <label for="else" >其他</label>
           </div>
         </div>
         <h3>內容是...</h3>
-        <div class="block textarea-outter">
+        <div className={styles.block + ' ' + styles['textarea-outer']}>
           <TextareaComponent rows={5} value={[textareaValue, setTextareaValue]}></TextareaComponent>
         </div>
         <h3>有沒有相關圖片...</h3>
-        <div class="block">
+        <div className={styles.block}>
           {/* https://pqina.nl/filepond/docs/api/instance/properties/ */}
           <FilePond files={files}
             onupdatefiles={fileItems => setFiles(fileItems)}
@@ -177,13 +177,13 @@ export default function Form() {
             labelButtonProcessItem='上傳'
           />
         </div>
-        <button id="submit" class="btn btn-second" onClick={submit}>送出</button>
+        <button id="submit" className="btn btn-second" onClick={submit}>送出</button>
       </div>
-      <div className='error' style={{ display: (errorText == null ? 'none' : '') }}>
+      <div className={styles.error} style={{ display: (errorText == null ? 'none' : '') }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
         <pre><span>{errorText}</span></pre>
       </div>
-      <div className='success' style={{ display: (success ? '' : 'none') }}>
+      <div className={styles.success} style={{ display: (success ? '' : 'none') }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>
         <div>成功</div>
       </div>

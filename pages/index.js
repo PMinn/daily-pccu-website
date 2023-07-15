@@ -16,11 +16,31 @@ export default function Index() {
   return (
     <div className={styles.main}>
       <Head>
+        {/* HTML Meta Tags  */}
         <title>每日文大</title>
         <meta name='keywords' content='每日文大,文大天氣,天氣預報,即時天氣,文大bot' />
-        <meta property='og:title' content='每日文大' />
         <meta name='description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
+
+        {/* Facebook Meta Tags */}
+        <meta property="og:url" content="https://daily-pccu.web.app/" />
+        <meta property="og:type" content="website" /> {/* article */}
+        <meta property='og:title' content='每日文大' />
         <meta property='og:description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
+        <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/android-chrome-384x384.png" />
+        {/*
+          檔案大小：< 8MB
+          檔案尺寸：建議尺寸 1200x630
+          對於圖片的內容 FB 有提供 圖像文字檢查工具 的網站，協助檢測。
+          網址的 url 一定要使用絕對路徑
+        */}
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="app" /> {/* summary, summary_large_image, app, player */}
+        <meta property="twitter:domain" content="daily-pccu.web.app" />
+        <meta property="twitter:url" content="https://daily-pccu.web.app/" />
+        <meta name="twitter:title" content="每日文大" />
+        <meta name="twitter:description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
+        <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/android-chrome-384x384.png" />
       </Head>
       <NavComponent></NavComponent>
       <section className={styles.section + ' ' + styles.cover}>

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
-  
+
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
@@ -26,10 +26,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/favicon_package/mstile-144x144.png?v=4.0" />
         <meta name="msapplication-config" content="/favicon_package/browserconfig.xml?v=4.0" />
-        <meta name="theme-color" content="#ffffff" />
-
-        <meta property="og:image" content="/favicon_package/android-chrome-384x384.png" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="theme-color" content="#FFB11B" />
       </Head>
       <Component {...pageProps} fontClass={jf_openhuninn.className} />
     </main>

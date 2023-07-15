@@ -1,4 +1,4 @@
-body {
+.main {
     overflow: hidden;
     --shadow: 0 10px 20px #00000020;
     --background-color: #F2F2F6;
@@ -21,7 +21,6 @@ body {
     display: flex;
     width: 93vw;
     margin-left: 7vw;
-    overflow-x: scroll;
 }
 
 .setting-li {
