@@ -5,7 +5,7 @@ import LoadingComponent from '../../components/LoadingComponent';
 import ConfirmComponent from '../../components/ConfirmComponent';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
 
 import styles from '../../styles/course.module.css';
@@ -69,7 +69,7 @@ function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
-export default function Course() {
+export default function Course({ theme, setTheme }) {
     const [loading, setLoading] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
@@ -125,7 +125,7 @@ export default function Course() {
     }
 
     return (
-        <div className={styles.main}>
+        <div className={styles.main + ' ' + (theme ? styles[theme] : '')}>
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>{data ? data.tile : "課程評價 | 每日文大"}</title>
@@ -153,9 +153,9 @@ export default function Course() {
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
                 <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
             </Head>
-            <NavComponent></NavComponent>
+            <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
             <LoadingComponent show={loading}></LoadingComponent>
-            <ConfirmComponent title='審查' content={
+            <ConfirmComponent theme={theme} title='審查' content={
                 <div className={styles.revelation}>
                     <label><input type="radio" name="revelation" value="內容有誤" />內容有誤</label>
                     <label><input type="radio" name="revelation" value="中傷、歧視或謾罵他人" />中傷、歧視或謾罵他人</label>

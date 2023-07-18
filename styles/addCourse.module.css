@@ -1,11 +1,25 @@
 .main {
-    --background-color: #F2F2F6;
     --block-background-color: #fff;
-    background-color: var(--white);
-    color: var(--color);
-    --white: #fff;
-    overflow-y: scroll;
     background-color: var(--background-color);
+    height: 100%;
+    overflow: auto;
+    color: var(--color);
+}
+
+.main.dark {
+    --block-background-color: #272727;
+
+    --background-color: var(--dark-background-color);
+    --color: var(--dark-color);
+
+    --first-color: var(--dark-first-color);
+    --first-color-rgb: var(--dark-first-color-rgb);
+
+    --second-color: var(--dark-second-color);
+    --second-color-rgb: var(--dark-second-color-rgb);
+
+    --fourth-color: var(--dark-fourth-color);
+    --fourth-color-rgb: var(--dark-fourth-color-rgb);
 }
 
 .outer {
@@ -166,7 +180,7 @@
     background-color: rgba(var(--fourth-color-rgb), 24%);
 }
 
-.submit{
+.submit {
     margin-top: 16px;
     max-width: unset;
 }
@@ -244,12 +258,12 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .main {
+    /* .main {
         --block-background-color: #272727;
         --background-color: unset;
     }
 
     .checkbox-group input+label {
         background-color: #ffffff17;
-    }
+    } */
 }

@@ -1,5 +1,21 @@
 .main {
   background-color: var(--background-color);
+  height: 100%;
+  overflow: auto;
+}
+
+.main.dark {
+  --background-color: var(--dark-background-color);
+  --color: var(--dark-color);
+
+  --first-color: var(--dark-first-color);
+  --first-color-rgb: var(--dark-first-color-rgb);
+
+  --second-color: var(--dark-second-color);
+  --second-color-rgb: var(--dark-second-color-rgb);
+
+  --fourth-color: var(--dark-fourth-color);
+  --fourth-color-rgb: var(--dark-fourth-color-rgb);
 }
 
 .section {
@@ -77,7 +93,6 @@
   letter-spacing: .03em;
   line-height: 150%;
   text-align: center;
-  color: var(--color);
 }
 
 .left-block a {
@@ -244,7 +259,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 50vh;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -313,7 +328,7 @@
 
 @media screen and (max-width:1200px) and (min-width:850px) {
   .left-block {
-    padding: 0;
+    height: 100%;
     left: calc(10vw + 18px);
   }
 
@@ -327,7 +342,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .left-block h1 {
+  /* .left-block h1 {
     color: var(--color);
   }
 
@@ -341,5 +356,5 @@
 
   .add-friend .table>div {
     background-color: var(--white-24dp);
-  }
+  } */
 }

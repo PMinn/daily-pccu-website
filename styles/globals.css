@@ -1,32 +1,43 @@
 :root {
-  --first-color: #FFB11B;
-  --first-color-rgb: 255, 177, 27;
-  --second-color: #A78558;
-  --second-color-rgb: 167, 133, 88;
-  --fourth-color: #005248;
-  --fourth-color-rgb: 0, 82, 72;
-
-  --background-color: #fff;
   --black: #212121;
   --white: #f0f0f0;
-  --white-24dp: rgba(255, 255, 255, 0.16);
-  --black-06dp: rgba(0, 0, 0, 0.11);
-  --gray: #767679;
-  /* --black-opacity: #E3E3E8; */
+
+  --first-color: #FFB11B;
+  --first-color-rgb: 255, 177, 27;
+  --dark-first-color: #FFB11B;
+  --dark-first-color-rgb: 255, 177, 27;
+
+  --second-color: #A78558;
+  --second-color-rgb: 167, 133, 88;
+  --dark-second-color: #c0ac84;
+  --dark-second-color-rgb: 209, 191, 168;
+
+  --fourth-color: #005248;
+  --fourth-color-rgb: 0, 82, 72;
+  --dark-fourth-color: #00BFA2;
+  --dark-fourth-color-rgb: 0, 191, 162;
 
   --green: #65c466;
+  --dark-green: #53D254;
+
   --yellow: var(--first-color);
+  --dark-yellow: var(--first-color);
+
   --red: #eb4d3d;
+  --dark-red: #EA4939;
 
   --color: var(--black);
-  --footer-background-color: var(--background-color);
-  /* color-scheme: light dark; */
+  --dark-color: var(--white);
+
+  --background-color: #fff;
+  --dark-background-color: #121212;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: content-box;
+  transition: all 0.3s;
 }
 
 /* *:not(body)::-webkit-scrollbar {
@@ -106,34 +117,8 @@ body>*>* {
   opacity: 0.3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --first-color: #ffdf88; */
-    /* --first-color-rgb: 255, 179, 30; */
-    --second-color: #c0ac84;
-    --second-color-rgb: 209, 191, 168;
-    --fourth-color: #00BFA2;
-    --fourth-color-rgb: 0, 191, 162;
-
-    --background-color: #121212;
-    --black: #212121;
-    --white: #f0f0f0;
-    --white-24dp: rgba(255, 255, 255, 0.16);
-    --black-06dp: rgba(0, 0, 0, 0.11);
-    --gray: #767679;
-    --black-opacity: #E3E3E8;
-
-    --green: #53D254;
-    --red: #EA4939;
-
-    --color: var(--white);
-  }
-
-  .btn-first {
-    color: var(--black);
-  }
-
-  .btn-second {
-    color: var(--black);
-  }
+.btn:focus-visible {
+  color: inherit;
+  background-color: inherit;
+  outline: 0;
 }

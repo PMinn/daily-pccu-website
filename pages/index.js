@@ -12,9 +12,9 @@ import portrait from '../public/images/portrait.webp';
 
 import styles from '../styles/index.module.css';
 
-export default function Index() {
+export default function Index({ theme, setTheme }) {
   return (
-    <div className={styles.main}>
+    <div className={styles.main + ' ' + (theme ? styles[theme] : '')}>
       <Head>
         {/* HTML Meta Tags  */}
         <title>每日文大</title>
@@ -42,7 +42,7 @@ export default function Index() {
         <meta name="twitter:description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
         <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
       </Head>
-      <NavComponent></NavComponent>
+      <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
       <main>
         <section className={styles.section + ' ' + styles.cover}>
           <div className={styles['left-block']}>

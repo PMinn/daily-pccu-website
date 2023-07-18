@@ -20,7 +20,7 @@ function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
-export default function Course({ fontClass }) {
+export default function Course({ fontClass, theme, setTheme }) {
     const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
     const [className, setClassName] = useState("");
     const [categoryType, setCategoryType] = useState(1);
@@ -44,14 +44,6 @@ export default function Course({ fontClass }) {
 
     const [data, setData] = useState({});
 
-
-
-
-    function generalTypeOnClick(index) {
-        document.querySelectorAll('input[id^="generalType"]').forEach(input => input.classList.remove('checked'));
-        document.getElementById('generalType' + index).classList.add('checked');
-        setGeneralType(index);
-    }
 
     function yearOnBlur(e) {
         try {
@@ -136,8 +128,7 @@ export default function Course({ fontClass }) {
     }
 
     return (
-        <div className={styles.main}>
-            <NavComponent></NavComponent>
+        <div className={styles.main + ' ' + (theme ? styles[theme] : '')}>
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>新增課程評價 | 每日文大</title>
@@ -165,6 +156,7 @@ export default function Course({ fontClass }) {
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
                 <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
             </Head>
+            <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
             <ConfirmComponent title='確認新增' content={
                 confirmContent.split('\n').map(line => {
                     return (

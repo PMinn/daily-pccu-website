@@ -1,3 +1,11 @@
+.confirm-outer {
+    --confirm-background-color: var(--white);
+}
+
+.confirm-outer.dark {
+    --confirm-background-color: var(--background-color);
+}
+
 .confirm-outer.show {
     display: flex;
     justify-content: center;
@@ -5,7 +13,6 @@
 }
 
 .confirm {
-    --confirm-background-color: var(--white);
     width: 500px;
     border-radius: 16px;
     background-color: var(--confirm-background-color);
@@ -44,11 +51,5 @@
     .confirm {
         max-width: 500px;
         width: 90%;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .confirm {
-        --confirm-background-color: #272727;
     }
 }

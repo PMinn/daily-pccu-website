@@ -2,14 +2,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
 import Head from 'next/head';
 import localFont from 'next/font/local';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { detectingDarkMode } from '../js/detectingDarkMode.js';
 
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    detectingDarkMode(isDarkMode => {
+      if (isDarkMode) setTheme('dark');
+    })
   }, []);
 
   return (
@@ -28,7 +34,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="msapplication-config" content="/favicon_package/browserconfig.xml?v=4.0" />
         <meta name="theme-color" content="#FFB11B" />
       </Head>
-      <Component {...pageProps} fontClass={jf_openhuninn.className} />
+      <Component {...pageProps} fontClass={jf_openhuninn.className} theme={theme} setTheme={setTheme} />
     </div>
   )
 }

@@ -1,20 +1,57 @@
-.header {
+.nav {
     position: fixed;
     top: 32px;
     left: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     z-index: 99;
+    height: 72px;
+    width: 80vw;
 }
 
 .logo {
-    height: 72px;
-    line-height: 72px;
     text-decoration: none;
 }
 
 .logo h1 {
-    margin: 0 18px;
     color: var(--color);
     font-size: 20px;
+}
+
+.theme-btn {
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.theme-btn>svg {
+    height: 30px;
+    width: 30px;
+    fill: var(--color);
+    transition: all 0.3s;
+    transform-origin: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.light-theme-btn .light-btn {
+    transform: scale(1);
+}
+
+.light-theme-btn .dark-btn {
+    transform: scale(0);
+}
+
+.dark-theme-btn .dark-btn {
+    transform: scale(1);
+}
+
+.dark-theme-btn .light-btn {
+    transform: scale(0);
 }
 
 @media screen and (max-width:600px) {
