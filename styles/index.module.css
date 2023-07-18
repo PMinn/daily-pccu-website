@@ -6,15 +6,15 @@
   width: 100%;
 }
 
-.section:nth-child(odd) {
+.section:nth-child(even) {
   background-color: var(--first-color);
   color: var(--black);
   font-weight: 700;
 }
 
-.section:nth-child(even) {
+.section:nth-child(odd) {
   background-color: var(--background-color);
-  color: var(--black);
+  color: var(--color);
 }
 
 .section>h2 {
@@ -331,11 +331,11 @@
     color: var(--color);
   }
 
-  .section:nth-child(odd) {
+  .section:nth-child(even) {
     color: var(--black);
   }
 
-  .section:nth-child(even) {
+  .section:nth-child(odd) {
     color: var(--white);
   }
 

@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <main className={jf_openhuninn.className}>
+    <div className={jf_openhuninn.className}>
       <Head>
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png?v=4.0" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png?v=4.0" />
@@ -29,6 +29,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="theme-color" content="#FFB11B" />
       </Head>
       <Component {...pageProps} fontClass={jf_openhuninn.className} />
-    </main>
+    </div>
   )
 }
