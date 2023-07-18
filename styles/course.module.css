@@ -31,7 +31,7 @@
     position: sticky;
     top: 104px;
     left: 10vw;
-    z-index: 1;
+    z-index: 91;
 }
 
 #menu {
@@ -39,6 +39,7 @@
     width: 100%;
     transition: all 0.3s;
     position: relative;
+    z-index: 101;
 }
 
 #menu .close {
@@ -138,6 +139,7 @@
     bottom: 25px;
     right: 25px;
     display: none;
+    z-index: 99;
 }
 
 .menu-mobile-btn svg {
