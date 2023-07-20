@@ -1,10 +1,16 @@
 import styles from '../styles/NavComponent.module.css';
+import { setStoredTheme } from '../js/theme.js';
 
 export default function Nav({ theme, setTheme }) {
 
     function changeTheme() {
-        if (theme == 'light') setTheme('dark');
-        else setTheme('light');
+        if (theme == 'light') {
+            setTheme('dark');
+            setStoredTheme('dark');
+        } else {
+            setTheme('light');
+            setStoredTheme('light');
+        }
     }
 
     return (

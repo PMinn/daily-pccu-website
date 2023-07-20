@@ -9,7 +9,7 @@ function Br({ number = 1 }) {
     return <>{brs}</>;
 }
 
-export default function Textarea({ placeholder = " ", rows = 1, value = useState("") }) {
+export default function Textarea({ theme, placeholder = " ", rows = 1, value = useState("") }) {
     const [textareaValue, setTextareaValue] = value;
     const [focus, setFocus] = useState(false);
     const [numOfBr, setNumOfBr] = useState(rows);
@@ -20,13 +20,13 @@ export default function Textarea({ placeholder = " ", rows = 1, value = useState
     }
 
     return (
-        <div className={styles.textareaComponent + ' ' + (focus ? 'focus' : '')}>
-            <pre>
+        <div className={" " + styles.textareaComponent + ' ' + (focus ? 'focus' : '')}>
+            <pre className='form-control'>
                 <span>{textareaValue}</span>
                 <Br number={numOfBr}></Br>
                 <br />
             </pre>
-            <textarea placeholder={placeholder} rows={rows} onInput={textareaOnInput} onFocus={() => setFocus(true)} onBlur={() => { if (textareaValue == '') setFocus(false) }} />
+            <textarea className='form-control my-form-control' placeholder={placeholder} rows={rows} onInput={textareaOnInput} onFocus={() => setFocus(true)} onBlur={() => { if (textareaValue == '') setFocus(false) }} />
         </div>
     )
 }

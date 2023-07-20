@@ -4,18 +4,25 @@ import Head from 'next/head';
 import localFont from 'next/font/local';
 import { useEffect, useState } from "react";
 
-import { detectingDarkMode } from '../js/detectingDarkMode.js';
+import { detectingDarkMode, getStoredTheme, setStoredTheme } from '../js/theme.js';
 
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
 export default function MyApp({ Component, pageProps }) {
   const [theme, setTheme] = useState("light");
 
+  function theme_init() {
+    const storedTheme = getStoredTheme();
+    if (storedTheme) return storedTheme;
+    const theme = detectingDarkMode();
+    setStoredTheme(theme);
+    return theme;
+  }
+
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
-    detectingDarkMode(isDarkMode => {
-      if (isDarkMode) setTheme('dark');
-    })
+    const theme = theme_init();
+    setTheme(theme);
   }, []);
 
   return (

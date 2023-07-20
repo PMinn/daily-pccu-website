@@ -75,6 +75,7 @@
     height: 100%;
     width: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .year-label {
@@ -130,7 +131,7 @@
 }
 
 .college-link:hover {
-    background-color: var(--black-opacity);
+    background-color: var(--white);
     color: var(--black);
 }
 

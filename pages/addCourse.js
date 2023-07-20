@@ -180,8 +180,8 @@ export default function Course({ fontClass, theme, setTheme }) {
                 </div>
 
                 <div className={styles.container} id='container'>
-                    <div style={{ display: (success ? 'none' : '') }}>
-                        <div className={styles.border + ' ' + styles.radio}>
+                    <div hidden={success} className={styles.form}>
+                        {/* <div className={styles.border + ' ' + styles.radio}>
                             <input type="radio" name="category" id="category1" className={(categoryType == 1 ? styles.checked : '')} onClick={() => setCategoryType(1)} />
                             <label htmlFor="category1">一般</label>
                             <input type="radio" name="category" id="category2" className={(categoryType == 2 ? styles.checked : '')} onClick={() => setCategoryType(2)} />
@@ -269,11 +269,97 @@ export default function Course({ fontClass, theme, setTheme }) {
                         <div className={styles.border}>
                             <label className={styles['input-group']} htmlFor="evaluation">
                                 <TextareaComponent rows={4} value={[evaluation, setEvaluation]}></TextareaComponent>
-                                <div className={styles.label}>課程評語</div>
+                                <div className={styles.label}>課程評語</div> 
                             </label>
                         </div>
                         <div>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
-                        <div className={"btn btn-second " + styles.submit} onClick={submit}>完成</div>
+                        <div className={"btn btn-second " + styles.submit} onClick={submit}>完成</div> */}
+                        <div className={"mb-3 " + styles.col}>
+                            <div className={"btn-group"} role="group">
+                                <input type="radio" className="btn-check" name="category" id="category1" autocomplete="off" onClick={() => setCategoryType(1)} checked={categoryType == 1} />
+                                <label className="btn my-btn-outline" for="category1">一般</label>
+                                <input type="radio" className="btn-check" name="category" id="category2" autocomplete="off" onClick={() => setCategoryType(2)} checked={categoryType == 2} />
+                                <label className="btn my-btn-outline" for="category2">通識</label>
+                                <input type="radio" className="btn-check" name="category" id="category3" autocomplete="off" onClick={() => setCategoryType(3)} checked={categoryType == 3} />
+                                <label className="btn my-btn-outline" for="category3">跨域</label>
+                            </div>
+                        </div>
+                        <div className={"mb-3 " + styles.col}>
+                            <div className={"btn-group"} role="group" hidden={categoryType != 2}>
+                                <input type="radio" className="btn-check" name="generalType" id="generalType1" autocomplete="off" onClick={() => setGeneralType(1)} checked={generalType == 1} />
+                                <label className="btn my-btn-outline" for="generalType1">人文</label>
+                                <input type="radio" className="btn-check" name="generalType" id="generalType2" autocomplete="off" onClick={() => setGeneralType(2)} checked={generalType == 2} />
+                                <label className="btn my-btn-outline" for="generalType2">社會</label>
+                                <input type="radio" className="btn-check" name="generalType" id="generalType3" autocomplete="off" onClick={() => setGeneralType(3)} checked={generalType == 3} />
+                                <label className="btn my-btn-outline" for="generalType3">自然</label>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <label for="className" className="form-label">課程名稱</label>
+                            <input type="text" className={'form-control my-form-control'} id="className" placeholder={categoryType == 1 ? '' : (categoryType == 2 ? '不須包含 "自然通識︰"、"社會通識︰" 或 "人文通識︰"' : '不須包含 "跨域︰"')} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="teacher" className="form-label">授課教師</label>
+                            <input type="text" className={'form-control my-form-control'} id="teacher" placeholder={"多位教師請使用半形逗號(,)分隔"} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="year" className="form-label">開課學年</label>
+                            <input type="number" className={'form-control my-form-control'} id="year" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911} step={1} value={year} onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
+                        </div>
+                        <div className="mb-3" hidden={categoryType == 2}>
+                            <label for="department" className="form-label">開課系別</label>
+                            <input type="text" className={'form-control my-form-control'} id="department" placeholder={"可使用簡稱"} />
+                        </div>
+                        <div className="mb-3" hidden={categoryType == 2}>
+                            <label className="form-label">開課系所屬之院別</label>
+                            {
+                                (
+                                    courseConfig ?
+                                        courseConfig.colleges.filter(c => !c.includes('通識')).map((c, i) => {
+                                            return (
+                                                <div className='form-check'>
+                                                    <input className={"form-check-input my-form-check-input"} type="radio" name="college" id={'college_' + i} />
+                                                    <label className="form-check-label" for={'college_' + i}>{c}</label>
+                                                </div>
+                                            )
+                                        })
+                                        :
+                                        <></>
+                                )
+                            }
+                        </div>
+                        <div className="mb-3">
+                            <label for="point" className="form-label">課程評分</label>
+                            <input type="number" className={'form-control my-form-control'} id="point" min={0} max={100} step={1} value={tempPoint} onChange={e => setTempPoint(e.target.value)} onBlur={pointOnBlur} />
+                        </div>
+                        <div className="mb-3" >
+                            <label for="way" className="form-label">授課方式</label>
+                            <input type="text" className={'form-control my-form-control'} id="way" onChange={e => setWay(e.target.value)} />
+                        </div>
+                        <div className="mb-3" >
+                            <label className="form-label">考試模式(可複選)</label>
+                            <div className={styles['checkbox-group']}>
+                                <input type="checkbox" name="exam" id="exam1" onClick={examOnClick} />
+                                <label htmlFor="exam1">期中報告</label>
+                                <input type="checkbox" name="exam" id="exam2" onClick={examOnClick} />
+                                <label htmlFor="exam2">期中作業</label>
+                                <input type="checkbox" name="exam" id="exam3" onClick={examOnClick} />
+                                <label htmlFor="exam3">期中考試</label>
+                                <input type="checkbox" name="exam" id="exam4" onClick={examOnClick} />
+                                <label htmlFor="exam4">期末報告</label>
+                                <input type="checkbox" name="exam" id="exam5" onClick={examOnClick} />
+                                <label htmlFor="exam5">期末作業</label>
+                                <input type="checkbox" name="exam" id="exam6" onClick={examOnClick} />
+                                <label htmlFor="exam6">期末考試</label>
+                            </div>
+                        </div>
+                        <div className={"mb-3 " + styles['textarea-block']}>
+                            <label for="evaluation" className="form-label">課程評語</label>
+                            <TextareaComponent rows={4} value={[evaluation, setEvaluation]} theme={theme}></TextareaComponent>
+                        </div>
+                        <div className="mb-3">
+                            <div className={"my-btn my-btn-second " + styles.submit} onClick={submit}>完成</div>
+                        </div>
                     </div>
                     <div className={styles.success} style={{ display: (!success ? 'none' : '') }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>

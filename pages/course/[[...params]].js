@@ -205,7 +205,7 @@ export default function Course({ theme, setTheme }) {
                                 )
                             }
                         </div>
-                        <Link href="/addCourse" className={'btn btn-first ' + styles['add-btn']} target='_blank'>新增評價</Link>
+                        <Link href="/addCourse" className={'my-btn my-btn-first ' + styles['add-btn']} target='_blank'>新增評價</Link>
                     </div>
                     <div className={coverStyles.cover + ' ' + styles.cover}></div>
 
