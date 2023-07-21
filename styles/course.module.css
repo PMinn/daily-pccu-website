@@ -35,7 +35,8 @@
 }
 
 .block,
-#menu {
+#menu,
+.search-bar {
     background-color: var(--block-background-color);
     border-radius: 16px;
     -webkit-box-shadow: 17px 20px 40px #5f5f5f36;
@@ -49,16 +50,15 @@
     position: sticky;
     top: 104px;
     left: 10vw;
-    z-index: 91;
+    z-index: 101;
 }
 
 #menu {
-    height: calc(100% - 40px);
-    width: calc(100% - 40px);
+    height: 100%;
+    width: 100%;
     transition: all 0.3s;
     position: relative;
-    z-index: 101;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 #menu .close {
@@ -78,6 +78,10 @@
     overflow-x: hidden;
 }
 
+.collapse-scroll::-webkit-scrollbar {
+    background-color: var(--block-background-color);
+}
+
 .year-label {
     background-color: var(--second-color);
     border-radius: 10px;
@@ -89,7 +93,9 @@
     transition: all 0.3s;
     transform-origin: center;
     border: none;
-    margin: 5px auto;
+
+    width: calc(100% - 40px - 40px);
+    margin: 5px 15px 5px auto;
 }
 
 .year-label:hover {
@@ -110,7 +116,8 @@
 }
 
 .colleges-list {
-    margin: 0 auto;
+    margin: 0 calc(20px - 8px) 0 auto;
+    width: calc(100% - 40px);
 }
 
 .collapse-scroll>*:last-child {
@@ -160,7 +167,7 @@
 .menu-mobile-btn svg {
     width: 30px;
     height: 30px;
-    fill: var(--white);
+    fill: var(--color);
 }
 
 .result {
@@ -224,7 +231,7 @@
 }
 
 .block {
-    width: 80%;
+    width: calc(80% - 40px);
     padding: 20px;
     margin: 40px auto 0 auto;
     transition: all 0.5s;
@@ -298,6 +305,10 @@
     border-radius: 99px;
     background-color: var(--black-06dp);
     overflow: hidden;
+}
+
+.dark .block .point-progress .point-progress-bar {
+    background-color: #ffffff30;
 }
 
 .block .point-progress .point-progress-bar-value {
@@ -458,27 +469,4 @@
     .block:hover {
         transform: scale(1);
     }
-}
-
-@media (prefers-color-scheme: dark) {
-    /* .main {
-        --block-background-color: #272727;
-        --background-color: unset;
-    }
-
-    .year-label,
-    .year-label svg {
-        color: var(--black);
-        fill: var(--black);
-    }
-
-    .menu-mobile-btn svg {
-        width: 30px;
-        height: 30px;
-        fill: var(--black);
-    }
-
-    .block .point-progress .point-progress-bar {
-        background-color: #ffffff30;
-    } */
 }

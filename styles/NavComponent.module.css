@@ -1,7 +1,7 @@
 .nav {
     position: fixed;
     top: 32px;
-    left: 10vw;
+    left: calc(10vw - 16px);
     display: flex;
     align-items: center;
     justify-content: space-between;

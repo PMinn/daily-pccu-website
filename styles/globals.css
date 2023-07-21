@@ -31,6 +31,11 @@
 
   --background-color: #fff;
   --dark-background-color: #121212;
+
+  --black-opacity: #E3E3E8;
+  --white-24dp: #ffffff29;
+  --black-06dp: #0000001c;
+  /*  --gray: #767679; */
 }
 
 *,
@@ -170,7 +175,9 @@ body>*>* {
   color: var(--color);
   opacity: 0.3;
 }
-
+.my-form-control.is-invalid{
+  width: calc(100% - 1.5rem - 1.5rem);
+}
 .my-form-check-input {
   --bs-form-check-bg: var(--block-background-color);
 }

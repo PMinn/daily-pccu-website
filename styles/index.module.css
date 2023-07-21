@@ -199,6 +199,10 @@
   box-shadow: 0 10px 30px #00000010;
 }
 
+.dark .add-friend .table>div {
+  background-color: var(--white-24dp);
+}
+
 .history table {
   margin: 0 auto;
   font-size: 100%;
@@ -339,22 +343,4 @@
   .right-block {
     margin-right: 10vw;
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  /* .left-block h1 {
-    color: var(--color);
-  }
-
-  .section:nth-child(even) {
-    color: var(--black);
-  }
-
-  .section:nth-child(odd) {
-    color: var(--white);
-  }
-
-  .add-friend .table>div {
-    background-color: var(--white-24dp);
-  } */
 }

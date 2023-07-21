@@ -4,6 +4,7 @@ import FooterComponent from '../components/FooterComponent';
 import ConfirmComponent from '../components/ConfirmComponent';
 import LoadingComponent from '../components/LoadingComponent';
 import TextareaComponent from '../components/TextareaComponent';
+import CourseCard from '../components/CourseCard';
 import { useState } from 'react';
 import useSWR from 'swr';
 
@@ -20,7 +21,7 @@ function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
-export default function Course({ fontClass, theme, setTheme }) {
+export default function Course({ theme, setTheme }) {
     const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
     const [className, setClassName] = useState("");
     const [categoryType, setCategoryType] = useState(1);
@@ -42,8 +43,35 @@ export default function Course({ fontClass, theme, setTheme }) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        className: '',
+        teacher: [],
+        year: 0,
+        department: '',
+        college: '',
+        point: 0,
+        way: '',
+        evaluation: '',
+        date: '',
+        category: '',
+        exam: ''
+    });
 
+
+    function classNameOnInput(e) {
+        setClassName(e.target.value);
+        document.getElementById('className').classList.remove('is-invalid');
+    }
+
+    function teacherOnChange(e) {
+        setTeacher(e.target.value.replace(/ /gi, '').split(','));
+        document.getElementById('teacher').classList.remove('is-invalid');
+    }
+
+    function departmentOnInput(e) {
+        setDepartment(e.target.value);
+        document.getElementById('department').classList.remove('is-invalid');
+    }
 
     function yearOnBlur(e) {
         try {
@@ -83,21 +111,23 @@ export default function Course({ fontClass, theme, setTheme }) {
     function submit() {
         var check = true;
         if (className == '') {
-            document.getElementById('container').classList.add('noClassName');
+            document.getElementById('className').classList.add('is-invalid');
             check = false;
-        } else document.getElementById('container').classList.remove('noClassName');
+        }
 
         var tTeacher = teacher.filter(value => value != '');
         if (tTeacher.length == 0) {
-            document.getElementById('container').classList.add('noTeacher');
+            document.getElementById('teacher').classList.add('is-invalid');
             check = false;
-        } else document.getElementById('container').classList.remove('noTeacher');
-        if (categoryType == 1 || categoryType == 3) {
-            if (department == '') {
-                document.getElementById('container').classList.add('noDepartment');
+        }
+
+        if (department == '') {
+            if (categoryType == 1 || categoryType == 3) {
+                document.getElementById('department').classList.add('is-invalid');
                 check = false;
-            } else document.getElementById('container').classList.remove('noDepartment');
-        } else document.getElementById('container').classList.remove('noDepartment');
+            }
+        }
+
         if (check) {
             var data = { className, teacher: tTeacher, year: parseInt(year), department, college, point: parseInt(point), way, evaluation, date: new Date().toISOString(), category: college };
             if (categoryType == 2) {
@@ -115,7 +145,9 @@ export default function Course({ fontClass, theme, setTheme }) {
             setConfirmShow(true);
             setConfirmContent(`名稱: "${data.className}"\n教師: ${data.teacher.length}位("${data.teacher.join('","')}")\n學年: "${data.year}"\n系所: "${data.department}"\n學院: "${data.college}"\n評分: "${data.point}"\n上課方式: "${data.way}"\n考試方式: "${data.exam}"\n評價: "${data.evaluation}"`);
             setData(data);
-        } else window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     async function upload() {
@@ -158,18 +190,19 @@ export default function Course({ fontClass, theme, setTheme }) {
             </Head>
             <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
             <ConfirmComponent title='確認新增' content={
-                confirmContent.split('\n').map(line => {
-                    return (
-                        <div>
-                            {
-                                line.split('\\n').map(word => {
-                                    return (<>{word}<br /></>)
-                                })
-                            }
-                        </div>
-                    )
-                })
-            } btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow} ></ConfirmComponent >
+                // confirmContent.split('\n').map(line => {
+                //     return (
+                //         <div>
+                //             {
+                //                 line.split('\\n').map(word => {
+                //                     return (<>{word}<br /></>)
+                //                 })
+                //             }
+                //         </div>
+                //     )
+                // })
+                <CourseCard e={data} size={"max"}></CourseCard>
+            } btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow} theme={theme}></ConfirmComponent>
             <LoadingComponent show={loading}></LoadingComponent>
             <div className={styles.outer}>
                 <div className={styles.intro}>
@@ -277,38 +310,42 @@ export default function Course({ fontClass, theme, setTheme }) {
                         <div className={"mb-3 " + styles.col}>
                             <div className={"btn-group"} role="group">
                                 <input type="radio" className="btn-check" name="category" id="category1" autocomplete="off" onClick={() => setCategoryType(1)} checked={categoryType == 1} />
-                                <label className="btn my-btn-outline" for="category1">一般</label>
+                                <label className="btn my-btn-outline" htmlFor="category1">一般</label>
                                 <input type="radio" className="btn-check" name="category" id="category2" autocomplete="off" onClick={() => setCategoryType(2)} checked={categoryType == 2} />
-                                <label className="btn my-btn-outline" for="category2">通識</label>
+                                <label className="btn my-btn-outline" htmlFor="category2">通識</label>
                                 <input type="radio" className="btn-check" name="category" id="category3" autocomplete="off" onClick={() => setCategoryType(3)} checked={categoryType == 3} />
-                                <label className="btn my-btn-outline" for="category3">跨域</label>
+                                <label className="btn my-btn-outline" htmlFor="category3">跨域</label>
                             </div>
                         </div>
-                        <div className={"mb-3 " + styles.col}>
-                            <div className={"btn-group"} role="group" hidden={categoryType != 2}>
+                        <div className={"mb-3 " + styles.col} hidden={categoryType != 2}>
+                            <div className={"btn-group"} role="group">
                                 <input type="radio" className="btn-check" name="generalType" id="generalType1" autocomplete="off" onClick={() => setGeneralType(1)} checked={generalType == 1} />
-                                <label className="btn my-btn-outline" for="generalType1">人文</label>
+                                <label className="btn my-btn-outline" htmlFor="generalType1">人文</label>
                                 <input type="radio" className="btn-check" name="generalType" id="generalType2" autocomplete="off" onClick={() => setGeneralType(2)} checked={generalType == 2} />
-                                <label className="btn my-btn-outline" for="generalType2">社會</label>
+                                <label className="btn my-btn-outline" htmlFor="generalType2">社會</label>
                                 <input type="radio" className="btn-check" name="generalType" id="generalType3" autocomplete="off" onClick={() => setGeneralType(3)} checked={generalType == 3} />
-                                <label className="btn my-btn-outline" for="generalType3">自然</label>
+                                <label className="btn my-btn-outline" htmlFor="generalType3">自然</label>
                             </div>
                         </div>
                         <div className="mb-3">
-                            <label for="className" className="form-label">課程名稱</label>
-                            <input type="text" className={'form-control my-form-control'} id="className" placeholder={categoryType == 1 ? '' : (categoryType == 2 ? '不須包含 "自然通識︰"、"社會通識︰" 或 "人文通識︰"' : '不須包含 "跨域︰"')} />
+                            <label htmlFor="className" className="form-label">課程名稱</label>
+                            <input type="text" className={'form-control my-form-control'} id="className" onInput={classNameOnInput} value={className} />
+                            <div class="invalid-feedback">課程名稱為必填</div>
+                            <div class="form-text" data-bs-theme={theme}>{(categoryType == 1 ? '' : (categoryType == 2 ? '不須包含 "自然通識︰"、"社會通識︰" 或 "人文通識︰"' : '不須包含 "跨域︰"'))}</div>
                         </div>
                         <div className="mb-3">
-                            <label for="teacher" className="form-label">授課教師</label>
-                            <input type="text" className={'form-control my-form-control'} id="teacher" placeholder={"多位教師請使用半形逗號(,)分隔"} />
+                            <label htmlFor="teacher" className="form-label">授課教師</label>
+                            <input type="text" className={'form-control my-form-control'} id="teacher" onChange={teacherOnChange} value={teacher.join(',')} />
+                            <div class="invalid-feedback">授課教師為必填</div>
+                            <div class="form-text" data-bs-theme={theme}>多位教師請使用半形逗號(,)分隔</div>
                         </div>
                         <div className="mb-3">
-                            <label for="year" className="form-label">開課學年</label>
+                            <label htmlFor="year" className="form-label">開課學年</label>
                             <input type="number" className={'form-control my-form-control'} id="year" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911} step={1} value={year} onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
                         </div>
                         <div className="mb-3" hidden={categoryType == 2}>
-                            <label for="department" className="form-label">開課系別</label>
-                            <input type="text" className={'form-control my-form-control'} id="department" placeholder={"可使用簡稱"} />
+                            <label htmlFor="department" className="form-label">開課系別</label>
+                            <input type="text" className={'form-control my-form-control'} id="department" placeholder={"可使用簡稱"} onInput={departmentOnInput} value={department} />
                         </div>
                         <div className="mb-3" hidden={categoryType == 2}>
                             <label className="form-label">開課系所屬之院別</label>
@@ -318,8 +355,8 @@ export default function Course({ fontClass, theme, setTheme }) {
                                         courseConfig.colleges.filter(c => !c.includes('通識')).map((c, i) => {
                                             return (
                                                 <div className='form-check'>
-                                                    <input className={"form-check-input my-form-check-input"} type="radio" name="college" id={'college_' + i} />
-                                                    <label className="form-check-label" for={'college_' + i}>{c}</label>
+                                                    <input className={"form-check-input my-form-check-input"} type="radio" name="college" id={'college_' + i} onClick={() => setCollege(c)} checked={college == c} />
+                                                    <label className="form-check-label" htmlFor={'college_' + i}>{c}</label>
                                                 </div>
                                             )
                                         })
@@ -329,11 +366,11 @@ export default function Course({ fontClass, theme, setTheme }) {
                             }
                         </div>
                         <div className="mb-3">
-                            <label for="point" className="form-label">課程評分</label>
+                            <label htmlFor="point" className="form-label">課程評分</label>
                             <input type="number" className={'form-control my-form-control'} id="point" min={0} max={100} step={1} value={tempPoint} onChange={e => setTempPoint(e.target.value)} onBlur={pointOnBlur} />
                         </div>
                         <div className="mb-3" >
-                            <label for="way" className="form-label">授課方式</label>
+                            <label htmlFor="way" className="form-label">授課方式</label>
                             <input type="text" className={'form-control my-form-control'} id="way" onChange={e => setWay(e.target.value)} />
                         </div>
                         <div className="mb-3" >
@@ -354,8 +391,11 @@ export default function Course({ fontClass, theme, setTheme }) {
                             </div>
                         </div>
                         <div className={"mb-3 " + styles['textarea-block']}>
-                            <label for="evaluation" className="form-label">課程評語</label>
+                            <label htmlFor="evaluation" className="form-label">課程評語</label>
                             <TextareaComponent rows={4} value={[evaluation, setEvaluation]} theme={theme}></TextareaComponent>
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <div class="form-text" data-bs-theme={theme}>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
                         </div>
                         <div className="mb-3">
                             <div className={"my-btn my-btn-second " + styles.submit} onClick={submit}>完成</div>
