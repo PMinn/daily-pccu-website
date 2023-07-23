@@ -14,7 +14,7 @@ import styles from '../styles/index.module.css';
 
 export default function Index({ theme, setTheme }) {
   return (
-    <div className={styles.main + ' ' + (theme ? styles[theme] : '')}>
+    <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
       <Head>
         {/* HTML Meta Tags  */}
         <title>每日文大</title>

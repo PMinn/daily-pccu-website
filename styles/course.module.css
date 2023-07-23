@@ -34,8 +34,8 @@
     width: 100%;
 }
 
-.block,
-#menu {
+#menu,
+.search-bar {
     background-color: var(--block-background-color);
     border-radius: 16px;
     -webkit-box-shadow: 17px 20px 40px #5f5f5f36;
@@ -49,16 +49,14 @@
     position: sticky;
     top: 104px;
     left: 10vw;
-    z-index: 91;
 }
 
 #menu {
-    height: calc(100% - 40px);
-    width: calc(100% - 40px);
+    height: 100%;
+    width: 100%;
     transition: all 0.3s;
     position: relative;
-    z-index: 101;
-    padding: 20px;
+    padding-top: 20px;
 }
 
 #menu .close {
@@ -72,10 +70,14 @@
 }
 
 .collapse-scroll {
-    height: 100%;
+    height: calc(100% - 20px);
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.collapse-scroll::-webkit-scrollbar {
+    background-color: var(--block-background-color);
 }
 
 .year-label {
@@ -89,7 +91,9 @@
     transition: all 0.3s;
     transform-origin: center;
     border: none;
-    margin: 5px auto;
+
+    width: calc(100% - 40px - 40px);
+    margin: 5px 15px 5px auto;
 }
 
 .year-label:hover {
@@ -110,7 +114,8 @@
 }
 
 .colleges-list {
-    margin: 0 auto;
+    margin: 0 calc(20px - 8px) 0 auto;
+    width: calc(100% - 40px);
 }
 
 .collapse-scroll>*:last-child {
@@ -160,7 +165,7 @@
 .menu-mobile-btn svg {
     width: 30px;
     height: 30px;
-    fill: var(--white);
+    fill: var(--color);
 }
 
 .result {
@@ -170,7 +175,7 @@
 }
 
 .search-bar {
-    width: 80%;
+    width: calc(80% - 40px);
     height: 1rem;
     margin: 0 auto;
     padding: 20px;
@@ -223,112 +228,6 @@
     margin-top: 10px;
 }
 
-.block {
-    width: 80%;
-    padding: 20px;
-    margin: 40px auto 0 auto;
-    transition: all 0.5s;
-    transform-origin: center;
-}
-
-.block:hover {
-    transform: scale(1.01);
-}
-
-.block.hidden {
-    display: none;
-}
-
-.block>* {
-    margin-top: 10px;
-    display: block;
-}
-
-.block .title-bar {
-    display: flex;
-    justify-content: space-between;
-}
-
-.block .className {
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.block .mini-btn-group {
-    display: flex;
-}
-
-.block .mini-btn-group>* {
-    margin-left: 10px;
-}
-
-.block .title-bar svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    fill: var(--color);
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.block .evaluation {
-    white-space: pre-line;
-    width: 100%;
-}
-
-.block .date {
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.block .teacher>* {
-    color: var(--color);
-    margin-right: 1rem;
-}
-
-.block .point-progress {
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.block .point-progress .point-progress-bar {
-    width: calc(100% - 5rem);
-    height: 4px;
-    border-radius: 99px;
-    background-color: var(--black-06dp);
-    overflow: hidden;
-}
-
-.block .point-progress .point-progress-bar-value {
-    height: 100%;
-    width: 100%;
-    transform-origin: left;
-    transition: all 0.3s;
-    border-radius: 99px;
-}
-
-.block .point-progress .point-progress-text {
-    margin-left: 1rem;
-    font-weight: 800;
-}
-
-.block .exam {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.block .exam>* {
-    padding: 5px 12px;
-    border: 1px solid var(--fourth-color);
-    border-radius: 99px;
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    color: var(--fourth-color);
-    background-color: rgba(var(--fourth-color-rgb), 15%);
-}
-
 .revelation {
     display: flex;
     flex-direction: column;
@@ -364,6 +263,10 @@
 
 .revelation input[type="radio"]:checked::before {
     background-color: var(--fourth-color);
+}
+
+.blocks>* {
+    width: calc(80% - 40px);
 }
 
 .success {
@@ -458,27 +361,4 @@
     .block:hover {
         transform: scale(1);
     }
-}
-
-@media (prefers-color-scheme: dark) {
-    /* .main {
-        --block-background-color: #272727;
-        --background-color: unset;
-    }
-
-    .year-label,
-    .year-label svg {
-        color: var(--black);
-        fill: var(--black);
-    }
-
-    .menu-mobile-btn svg {
-        width: 30px;
-        height: 30px;
-        fill: var(--black);
-    }
-
-    .block .point-progress .point-progress-bar {
-        background-color: #ffffff30;
-    } */
 }
