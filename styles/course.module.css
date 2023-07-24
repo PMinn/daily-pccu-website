@@ -140,6 +140,11 @@
     color: var(--black);
 }
 
+.dark .college-link:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
 .add-btn {
     width: calc(100% - 40px);
     position: absolute;
@@ -265,8 +270,9 @@
     background-color: var(--fourth-color);
 }
 
-.blocks>* {
-    width: calc(80% - 40px);
+.courseCard {
+    width: 80%;
+    margin: 0 auto;
 }
 
 .success {

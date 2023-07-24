@@ -117,7 +117,7 @@ export default function Course({ theme, setTheme }) {
     }
 
     return (
-        <div className={styles.main + ' ' + (theme ? styles[theme] : '')}>
+        <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>{data ? data.tile : "課程評價 | 每日文大"}</title>
@@ -205,17 +205,21 @@ export default function Course({ theme, setTheme }) {
                 <div className={styles['menu-mobile-btn']} onClick={() => setOpenMenu(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
                 </div>
-                <main className={styles.result + ' ' + ((!data || data.data.length == 0) ? styles['no-result'] : '')}>
+                <main className={styles.result + ' ' + (!data || data.data.length == 0 ? styles['no-result'] : '')}>
                     <label className={styles['search-bar']} htmlFor="search">
                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
                         <input type="text" id="search" onInput={search} placeholder="搜尋" />
                     </label>
-                    <div id="blocks" className={styles.blocks}>
+                    <div id="blocks">
                         {
                             (data ?
                                 (data.data.length != 0 ?
                                     data.data.map(e => {
-                                        return (<CourseCardComponent e={e} theme={theme} setRevelationConfirmShow={setRevelationConfirmShow} setRevelationID={setRevelationID}></CourseCardComponent>);
+                                        return (
+                                            <div className={styles.courseCard}>
+                                                <CourseCardComponent e={e} theme={theme} setRevelationConfirmShow={setRevelationConfirmShow} setRevelationID={setRevelationID}></CourseCardComponent>
+                                            </div>
+                                        )
                                     })
                                     :
                                     <div className={styles['no-result-text']}>
