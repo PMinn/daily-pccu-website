@@ -102,7 +102,7 @@ body>*>* {
 
 .my-btn-second {
   background: var(--second-color);
-  color: var(--background-color);
+  color: var(--black);
 }
 
 .my-btn-second:hover {
@@ -175,9 +175,11 @@ body>*>* {
   color: var(--color);
   opacity: 0.3;
 }
-.my-form-control.is-invalid{
+
+.my-form-control.is-invalid {
   width: calc(100% - 1.5rem - 1.5rem);
 }
+
 .my-form-check-input {
   --bs-form-check-bg: var(--block-background-color);
 }

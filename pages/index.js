@@ -48,7 +48,7 @@ export default function Index({ theme, setTheme }) {
           <div className={styles['left-block']}>
             <div className={styles.text}>提供各項最新即時資訊<br />的LINE BOT機器人</div>
             <p className={styles['top-btn']}> ▼ 全功能免費，快速加入 </p>
-            <Link href='#add_friend' className='my-btn my-btn-second'>加入好友</Link>
+            <Link href='#add_friend' className={'my-btn my-btn-second ' + styles['add-friend-btn']}>加入好友</Link>
           </div>
           <div className={styles['right-block']}>
             <Image src={portrait} alt='每日文大 實際使用 範例圖' loading='eager' priority='true' as={'image'}></Image>
