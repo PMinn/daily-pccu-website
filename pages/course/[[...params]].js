@@ -6,7 +6,7 @@ import ConfirmComponent from '../../components/ConfirmComponent';
 import CourseCardComponent from '../../components/CourseCardComponent';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import styles from '../../styles/course.module.css';
