@@ -15,6 +15,7 @@ import coverStyles from '../../styles/cover.module.css';
 import { app } from '../../js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 const database = getDatabase(app);
 const firestore = getFirestore(app);
@@ -115,6 +116,10 @@ export default function Course({ theme, setTheme }) {
             setSuccessConfirmShow(true);
         }
     }
+
+    useEffect(() => {
+        if (location.host == 'daily-pccu.web.app') getAnalytics(app);
+    }, [])
 
     return (
         <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>

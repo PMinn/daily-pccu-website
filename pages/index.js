@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 
 import NavComponent from '../components/NavComponent';
 import FooterComponent from '../components/FooterComponent';
@@ -10,7 +9,16 @@ import FunctionsData from '../data/functions.json';
 
 import styles from '../styles/index.module.css';
 
+import { useEffect } from "react";
+import { app } from '../js/firebaseConfig.js';
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+
 export default function Index({ theme, setTheme }) {
+  useEffect(() => {
+    if (location.host == 'daily-pccu.web.app') getAnalytics(app);
+  }, [])
+
   return (
     <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
       <Head>
@@ -49,7 +57,7 @@ export default function Index({ theme, setTheme }) {
             <Link href='#add_friend' className={'my-btn my-btn-second ' + styles['add-friend-btn']}>加入好友</Link>
           </div>
           <div className={styles['right-block']}>
-            <img src="/images/portrait_w480.webp" alt="每日文大 實際使用 範例圖" loading='eager' priority='true' width="783" height="1626"/>
+            <img src="/images/portrait_w480.webp" alt="每日文大 實際使用 範例圖" loading='eager' priority='true' width="783" height="1626" />
             <svg className={styles['blob']} viewBox='0 0 900 900' width='900' height='900' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' >
               <g transform='translate(464.5299756263622 420.5024700757476)'>
                 <path d='M221.4 -207.5C289.5 -153.2 349.3 -76.6 347.5 -1.8C345.7 73.1 282.5 146.1 214.3 211C146.1 275.8 73.1 332.4 -9.7 342.1C-92.4 351.7 -184.8 314.5 -259.8 249.6C-334.8 184.8 -392.4 92.4 -372.7 19.7C-353 -53 -256.1 -106.1 -181.1 -160.4C-106.1 -214.7 -53 -270.4 11.8 -282.2C76.6 -293.9 153.2 -261.9 221.4 -207.5'></path>
