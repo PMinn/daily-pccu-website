@@ -1,0 +1,1 @@
+ffmpeg -i logo-bg.webp -vf scale=350:-1 -c:v libwebp logo-bg_w350.webp

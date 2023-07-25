@@ -14,8 +14,8 @@ module.exports = (phase, { defaultConfig }) => {
             domains: ['scdn.line-apps.com', 'qr-official.line.me'],
             unoptimized: true,
             formats: ['image/webp'],
-            deviceSizes: [600, 1080, 1200, 1920, 2048, 3840],
-            imageSizes: [366, 480],
+            deviceSizes: [400, 500, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+            imageSizes: [400, 500, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
         }
     };
     // if (phase === PHASE_PRODUCTION_BUILD) { // run build

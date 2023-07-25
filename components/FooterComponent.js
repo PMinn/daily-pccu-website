@@ -8,7 +8,8 @@ export default function Footer() {
         <footer className={styles.foot}>
             <div>
                 <div className={styles['team-info']}>
-                    <Image src={logo} alt="每日文大 logo" width="202" height="202"></Image>
+                    <img src="/images/logo/logo-bg.webp" alt="每日文大 logo" srcSet="/images/logo/logo-bg_w350.webp 350w"/>
+                    {/* <Image src={logo} alt="每日文大 logo"></Image> */}
                     <p>每日文大創立於2020年，致力於設計和開發更方便及人性化的移動應用程式，提供更便捷的服務給文大學生，讓每日文大成為文大學生的日常。</p>
                 </div>
                 <div className={styles['page-info']}>
