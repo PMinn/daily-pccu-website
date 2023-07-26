@@ -10,6 +10,20 @@
     width: 80vw;
 }
 
+/* .nav::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: saturate(180%) blur(5px);
+    backdrop-filter: saturate(180%) blur(5px);
+    backface-visibility: hidden;
+    perspective: 1000;
+    z-index: -1;
+    top: -1px;
+    transform: translateZ(0);
+} */
+
 .logo {
     text-decoration: none;
 }

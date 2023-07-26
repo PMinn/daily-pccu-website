@@ -51,7 +51,7 @@ async function fetchFirestoreById(id) {
 
 async function fetchDatabase(pathname) {
     pathname = decodeURI(pathname);
-    if (pathname == '/course/[[...params]]') return { title: '', data: [] };
+    // if (pathname == '/course/[[...params]]') return { title: '', data: [] };
     var pathArray = decodeURI(pathname).split('/');
     if (pathArray.length == 5) { // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
         return {
@@ -125,7 +125,7 @@ export default function Course({ theme, setTheme }) {
         <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
             <Head>
                 {/* HTML Meta Tags  */}
-                <title>{data ? data.tile : "課程評價 | 每日文大"}</title>
+                <title>{data ? data.title : "課程評價 | 每日文大"}</title>
                 <meta name='keywords' content='每日文大,文大bot,課程評價' />
                 <meta name='description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
 

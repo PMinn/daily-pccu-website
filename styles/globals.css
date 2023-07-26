@@ -23,8 +23,8 @@
   --yellow: var(--first-color);
   --dark-yellow: var(--first-color);
 
-  --red: #eb4d3d;
-  --dark-red: #EA4939;
+  --red: #EB4D3D;
+  --dark-red: #D53334;
 
   --color: var(--black);
   --dark-color: var(--white);
@@ -42,7 +42,7 @@
 *::before,
 *::after {
   box-sizing: content-box;
-  transition: all 0.3s;
+  transition: background-color 0.3s;
 }
 
 /* *:not(body)::-webkit-scrollbar {
@@ -93,11 +93,10 @@ body>*>* {
   padding: 1rem 2rem;
   border-radius: 999px;
   box-sizing: border-box;
-  transition: all .2s cubic-bezier(.48, 0, .75, .72) 0s;
+  transition: background .2s cubic-bezier(.48, 0, .75, .72) 0s;
   outline: 0;
   border: 0;
   font-size: 1.1rem;
-  transition: all 0.3s;
 }
 
 .my-btn-second {

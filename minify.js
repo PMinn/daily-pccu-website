@@ -22,7 +22,16 @@ function readFiles(dirname, onFileContent, onError) {
     });
 }
 
-readFiles('./out/_next/static/chunks/pages/', (path, content) => {
+readFiles('./out/_next/static/chunks/', (path, content) => {
+    console.log(path)
+    content = content.replace(/\/\*([\s\S]*?)\*\//gi, '');
+    fs.writeFileSync(path, content);
+},
+    function (err) {
+        throw err;
+    });
+
+readFiles('./out/_next/static/css/', (path, content) => {
     console.log(path)
     content = content.replace(/\/\*([\s\S]*?)\*\//gi, '');
     fs.writeFileSync(path, content);

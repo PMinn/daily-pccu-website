@@ -73,6 +73,10 @@
     box-shadow: 0 10px 20px #c2c2c230;
 }
 
+.parent-anchor {
+    font-size: 1.75rem;
+}
+
 @media screen and (max-width:600px) {
     .foot {
         height: auto;
