@@ -11,6 +11,7 @@
 
     --background-color: var(--dark-background-color);
     --color: var(--dark-color);
+    --color-rgb: var(--dark-color-rgb);
 
     --first-color: var(--dark-first-color);
     --first-color-rgb: var(--dark-first-color-rgb);
@@ -44,15 +45,15 @@
 }
 
 .aside {
-    width: 300px;
+    width: 16vw;
     height: calc(100vh - 104px - 104px);
     position: sticky;
-    top: 104px;
+    top: 136px;
     left: 10vw;
 }
 
 #menu {
-    height: 100%;
+    height: calc(100% - 20px);
     width: 100%;
     position: relative;
     padding-top: 20px;
@@ -174,13 +175,13 @@
 }
 
 .result {
-    width: calc(75vw - 300px);
+    width: 56vw;
     min-height: calc(100% - 104px - 104px - 40px);
-    margin: 0 auto;
+    margin: 32px 10vw 0 auto;
 }
 
 .search-bar {
-    width: calc(80% - 40px);
+    width: calc(100% - 40px);
     height: 1rem;
     margin: 0 auto;
     padding: 20px;
@@ -271,7 +272,7 @@
 }
 
 .courseCard {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 }
 

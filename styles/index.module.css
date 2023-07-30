@@ -7,6 +7,7 @@
 .main.dark {
   --background-color: var(--dark-background-color);
   --color: var(--dark-color);
+  --color-rgb: var(--dark-color-rgb);
 
   --first-color: var(--dark-first-color);
   --first-color-rgb: var(--dark-first-color-rgb);

@@ -1,6 +1,8 @@
 :root {
   --black: #212121;
+  --black-rgb: 33, 33, 33;
   --white: #f0f0f0;
+  --white-rgb: 240, 240, 240;
 
   --first-color: #FFB11B;
   --first-color-rgb: 255, 177, 27;
@@ -27,7 +29,9 @@
   --dark-red: #D53334;
 
   --color: var(--black);
+  --color-rgb: var(--black-rgb);
   --dark-color: var(--white);
+  --dark-color-rgb: var(--white-rgb);
 
   --background-color: #fff;
   --dark-background-color: #121212;
