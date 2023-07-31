@@ -171,7 +171,7 @@
 .menu-mobile-btn svg {
     width: 30px;
     height: 30px;
-    fill: var(--color);
+    fill: var(--white);
 }
 
 .result {
@@ -298,10 +298,11 @@
     .aside {
         position: fixed;
         top: 7vh;
-        left: 7vw;
-        width: 86vw;
+        left: 10vw;
+        width: 80vw;
         height: calc(86% - 40px);
         display: none;
+        z-index: 100;
     }
 
     .aside.open {
@@ -318,10 +319,10 @@
         transition: all 0.3s;
         padding: 20px;
         overflow-y: auto;
-        z-index: 101;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        z-index: 101;
     }
 
     #menu .close {
@@ -336,8 +337,16 @@
         padding: 5px;
     }
 
+    .year-label {
+        width: calc(100% - 40px);
+    }
+
     .year-label:hover {
         transform: scale(1);
+    }
+
+    .colleges-list {
+        width: 100%;
     }
 
     .add-btn {
@@ -353,8 +362,9 @@
     }
 
     .result {
-        width: 86vw;
+        width: 80vw;
         min-height: calc(100% - 104px - 104px - 40px);
+        margin: 32px auto;
     }
 
     .search-bar {
