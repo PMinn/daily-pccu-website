@@ -30,14 +30,6 @@
       {
         "source": "/course{,/**}",
         "destination": "/course/[[...params]].html"
-      },
-      {
-        "source": "/sitemap.xml",
-        "destination": "/sitemap.xml"
-      },
-      {
-        "source": "/**",
-        "destination": "/index.html"
       }
     ],
     "redirects": [],

@@ -59,21 +59,18 @@ readFiles('./out/_next/static/chunks/', (path, content) => {
         .then(minified => {
             console.log(path)
             fs.writeFileSync(path, minified);
-            // console.log(minified)
         })
         .catch(err => {
             console.error(err);
         })
-},
-    function (err) {
-        console.error(err);
-    });
+}, function (err) {
+    console.error(err);
+});
 
 readFiles('./out/_next/static/css/', (path, content) => {
     console.log(path)
     content = content.replace(/\/\*([\s\S]*?)\*\//gi, '');
     fs.writeFileSync(path, content);
-},
-    function (err) {
-        console.error(err);
-    });
+}, function (err) {
+    console.error(err);
+});
