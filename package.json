@@ -9,7 +9,6 @@
     "@line/liff": "^2.22.1",
     "@node-minify/core": "^8.0.6",
     "@node-minify/google-closure-compiler": "^8.0.6",
-    "@node-minify/uglify-js": "^8.0.6",
     "bootstrap": "^5.3.0",
     "eslint-config-next": "^13.2.4",
     "filepond": "^4.30.4",

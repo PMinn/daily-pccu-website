@@ -118,8 +118,17 @@ export default function Course({ theme, setTheme }) {
     }
 
     useEffect(() => {
-        if (location.host == 'daily-pccu.web.app') getAnalytics(app);
-    }, [])
+        if (location.host == 'daily-pccu.web.app') {
+            const analytics = getAnalytics(app);
+            function handleRouteChange(url) {
+                logEvent(analytics, 'page_view', {
+                    page_location: url
+                });
+                console.log('page change to ' + url + ' and title is ' + document.title + (data && data.title ? '(' + data.title + ')' : ''));
+            }
+            router.events.on('routeChangeStart', handleRouteChange);
+        }
+    }, []);
 
     return (
         <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
@@ -190,7 +199,7 @@ export default function Course({ theme, setTheme }) {
                                                 <div className={"collapse " + styles['colleges-list']} id={"collapse_" + year}>
                                                     {courseConfig.colleges.map((college, index) => {
                                                         return (
-                                                            <Link href={`/course/${year}/college/${college}`} className={styles['college-link']} key={'college_link_' + index} onClick={() => setOpenMenu(false)}>{college}</Link>
+                                                            <Link href={`/course/${year}/college/${college}`} className={styles['college-link'] + ' college-link'} key={'college_link_' + index} data-href={`https://daily-pccu.web.app/course/${year}/college/${college}`} onClick={() => { setOpenMenu(false); window.scrollTo(0, 0); }}>{college}</Link>
                                                         )
                                                     })}
                                                 </div>

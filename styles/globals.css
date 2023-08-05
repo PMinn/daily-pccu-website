@@ -4,20 +4,20 @@
   --white: #f0f0f0;
   --white-rgb: 240, 240, 240;
 
-  --first-color: #FFB11B;
-  --first-color-rgb: 255, 177, 27;
-  --dark-first-color: #FFB11B;
-  --dark-first-color-rgb: 255, 177, 27;
+  --first-color: #F9B810;
+  --first-color-rgb: 249, 184, 16;
+  --dark-first-color: #F9B810;
+  --dark-first-color-rgb: 249, 184, 16;
 
-  --second-color: #A78558;
-  --second-color-rgb: 167, 133, 88;
-  --dark-second-color: #c0ac84;
-  --dark-second-color-rgb: 209, 191, 168;
+  --second-color: #8E7568;
+  --second-color-rgb: 142, 117, 104;
+  --dark-second-color: #b1a093;
+  --dark-second-color-rgb: 177, 160, 147;
 
-  --fourth-color: #005248;
-  --fourth-color-rgb: 0, 82, 72;
-  --dark-fourth-color: #00BFA2;
-  --dark-fourth-color-rgb: 0, 191, 162;
+  --fourth-color: #808134;
+  --fourth-color-rgb: 128, 129, 52;
+  --dark-fourth-color: #bab861;
+  --dark-fourth-color-rgb: 186, 184, 97;
 
   --green: #65c466;
   --dark-green: #53D254;
@@ -61,6 +61,11 @@ html,
 body {
   padding: 0;
   margin: 0;
+}
+
+* {
+  scrollbar-color: var(--first-color) var(--background-color);
+  scrollbar-width: 8px;
 }
 
 *::-webkit-scrollbar {

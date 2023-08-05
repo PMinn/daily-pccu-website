@@ -1,8 +1,5 @@
 const fs = require('fs');
 
-const querystring = require('querystring');
-const https = require('https');
-
 const minify = require('@node-minify/core');
 const gcc = require('@node-minify/google-closure-compiler');
 

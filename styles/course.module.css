@@ -83,7 +83,7 @@
 .year-label {
     background-color: var(--second-color);
     border-radius: 10px;
-    color: var(--black);
+    color: var(--background-color);
     font-size: 1.1rem;
     letter-spacing: 0.2rem;
     cursor: pointer;
@@ -105,7 +105,7 @@
     margin-left: auto;
     height: 1rem;
     width: 1rem;
-    fill: var(--black);
+    fill: var(--background-color);
     transform: rotateZ(180deg);
     transition: all 0.3s;
 }
