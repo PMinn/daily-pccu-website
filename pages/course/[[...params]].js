@@ -120,11 +120,14 @@ export default function Course({ theme, setTheme }) {
     useEffect(() => {
         if (location.host == 'daily-pccu.web.app') {
             const analytics = getAnalytics(app);
-            function handleRouteChange(url) {
+            function handleRouteChange(pathname) {
+                var title = "課程評價 | 每日文大";
+                var pathArray = decodeURI(pathname).split('/');
+                if (pathArray.length == 5) title = `${pathArray[4]}-${pathArray[2]}學年-課程評價 | 每日文大`;
                 logEvent(analytics, 'page_view', {
-                    page_location: url
+                    page_location: `https://daily-pccu.web.app/${pathname}`,
+                    page_title: title
                 });
-                console.log('page change to ' + url + ' and title is ' + document.title + (data && data.title ? '(' + data.title + ')' : ''));
             }
             router.events.on('routeChangeStart', handleRouteChange);
         }
