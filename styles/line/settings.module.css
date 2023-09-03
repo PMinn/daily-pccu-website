@@ -3,6 +3,7 @@
     --shadow: 0 10px 20px #00000020;
     --background-color: #F2F2F6;
     --white: #fff;
+    height: 100%;
 }
 
 .header,
@@ -70,9 +71,13 @@
 
 .views-out {
     position: relative;
+    height: 100%;
 }
 
 .view {
+    position: absolute;
+    top: 0;
+    left: 0;
     transition: opacity 0.3s;
     opacity: 0;
     width: 100%;
