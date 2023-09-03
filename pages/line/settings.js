@@ -100,7 +100,6 @@ export default function Settings({ fontClass }) {
       <Head>
         <title>設定 | 每日文大</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <link rel="stylesheet" href="/css/line/settings.css" />
       </Head>
       <LoadingComponent show={loading}></LoadingComponent>
       <ConfirmComponent title={""} content={"最多只能選擇12個地點"} show={locationsOverflow} btn={["好"]} onClick={[() => setLocationsOverflow(false)]}></ConfirmComponent>

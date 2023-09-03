@@ -73,9 +73,6 @@
 }
 
 .view {
-    position: absolute;
-    top: 0;
-    left: 0;
     transition: opacity 0.3s;
     opacity: 0;
     width: 100%;
