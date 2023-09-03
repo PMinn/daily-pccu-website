@@ -80,7 +80,7 @@ export default function Settings({ fontClass }) {
                   setWeatherLocations(wl.map(l => {
                     return {
                       ...l,
-                      checked: user.weather.includes(l.location)
+                      checked: user.weather ? user.weather.includes(l.location) : false
                     }
                   }));
                   setIsEatCustom(user.isEatAvailable);
