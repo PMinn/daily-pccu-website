@@ -88,25 +88,25 @@ export default function Form() {
   }
 
   useEffect(() => {
-    import("@line/liff")
-      .then(liff => liff.liff)
-      .then(liff => {
-        liff.init({ liffId: "1655168208-9NvVk86X" })
-          .then(() => {
-            var context = liff.getContext();
-            if (context.type == "none" || context.type == "external") {
-              return Promise.reject({
-                code: "PROGRAM_FORBIDDEN",
-                message: "請使用正常路徑開啟"
-              });
-            } else {
-              setLiffContext(context);
-            }
-          })
-          .catch(err => {
-            setErrorText(`錯誤代碼:\n${err.code}\n\n錯誤訊息:\n${err.message}\n請重新開啟頁面`);
-          });
-      });
+    // import("@line/liff")
+    //   .then(liff => liff.liff)
+    //   .then(liff => {
+    //     liff.init({ liffId: "1655168208-9NvVk86X" })
+    //       .then(() => {
+    //         var context = liff.getContext();
+    //         if (context.type == "none" || context.type == "external") {
+    //           return Promise.reject({
+    //             code: "PROGRAM_FORBIDDEN",
+    //             message: "請使用正常路徑開啟"
+    //           });
+    //         } else {
+    //           setLiffContext(context);
+    //         }
+    //       })
+    //       .catch(err => {
+    //         setErrorText(`錯誤代碼:\n${err.code}\n\n錯誤訊息:\n${err.message}\n請重新開啟頁面`);
+    //       });
+    //   });
   }, []);
 
   return (
@@ -140,7 +140,7 @@ export default function Form() {
           </div>
         </div>
         <h3>內容是...</h3>
-        <div className={styles.block + ' ' + styles['textarea-outer']}>
+        <div className={styles.block}>
           <TextareaComponent rows={5} value={[textareaValue, setTextareaValue]}></TextareaComponent>
         </div>
         <h3>有沒有相關圖片...</h3>
@@ -177,7 +177,7 @@ export default function Form() {
             labelButtonProcessItem='上傳'
           />
         </div>
-        <button id="submit" className="btn btn-second" onClick={submit}>送出</button>
+        <button id="submit" className="my-btn my-btn-first" onClick={submit}>送出</button>
       </div>
       <div className={styles.error} style={{ display: (errorText == null ? 'none' : '') }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>

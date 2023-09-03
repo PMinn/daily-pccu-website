@@ -40,13 +40,6 @@
     color: var(--black);
 }
 
-.textarea-outer {
-    padding: 10px;
-    border-radius: 16px;
-    border: 2px solid #00000010;
-    color: #000;
-}
-
 #submit {
     margin-top: 20vw;
     max-width: 100%;

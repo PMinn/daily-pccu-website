@@ -9,7 +9,7 @@ function Br({ number = 1 }) {
     return <>{brs}</>;
 }
 
-export default function Textarea({ theme, placeholder = " ", rows = 1, value = useState("") }) {
+export default function Textarea({ placeholder = " ", rows = 1, value = useState("") }) {
     const [textareaValue, setTextareaValue] = value;
     const [focus, setFocus] = useState(false);
     const [numOfBr, setNumOfBr] = useState(rows);

@@ -287,7 +287,7 @@ export default function Course({ theme, setTheme }) {
                         </div>
                         <div className={"mb-3 " + styles['textarea-block']}>
                             <label htmlFor="evaluation" className="form-label">課程評語</label>
-                            <TextareaComponent rows={4} value={[evaluation, setEvaluation]} theme={theme}></TextareaComponent>
+                            <TextareaComponent rows={4} value={[evaluation, setEvaluation]}></TextareaComponent>
                         </div>
                         <div className="mb-3 mt-3">
                             <div class="form-text" data-bs-theme={theme}>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
