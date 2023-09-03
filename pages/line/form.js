@@ -88,25 +88,25 @@ export default function Form() {
   }
 
   useEffect(() => {
-    // import("@line/liff")
-    //   .then(liff => liff.liff)
-    //   .then(liff => {
-    //     liff.init({ liffId: "1655168208-9NvVk86X" })
-    //       .then(() => {
-    //         var context = liff.getContext();
-    //         if (context.type == "none" || context.type == "external") {
-    //           return Promise.reject({
-    //             code: "PROGRAM_FORBIDDEN",
-    //             message: "請使用正常路徑開啟"
-    //           });
-    //         } else {
-    //           setLiffContext(context);
-    //         }
-    //       })
-    //       .catch(err => {
-    //         setErrorText(`錯誤代碼:\n${err.code}\n\n錯誤訊息:\n${err.message}\n請重新開啟頁面`);
-    //       });
-    //   });
+    import("@line/liff")
+      .then(liff => liff.liff)
+      .then(liff => {
+        liff.init({ liffId: "1655168208-9NvVk86X" })
+          .then(() => {
+            var context = liff.getContext();
+            if (context.type == "none" || context.type == "external") {
+              return Promise.reject({
+                code: "PROGRAM_FORBIDDEN",
+                message: "請使用正常路徑開啟"
+              });
+            } else {
+              setLiffContext(context);
+            }
+          })
+          .catch(err => {
+            setErrorText(`錯誤代碼:\n${err.code}\n\n錯誤訊息:\n${err.message}\n請重新開啟頁面`);
+          });
+      });
   }, []);
 
   return (
