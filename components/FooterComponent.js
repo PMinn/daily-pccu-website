@@ -6,7 +6,11 @@ export default function Footer() {
         <footer className={styles.foot}>
             <div>
                 <div className={styles['team-info']}>
-                    <img src="/images/logo/logo-bg.webp" alt="每日文大 logo" srcSet="/images/logo/logo-bg_w350.webp 350w" />
+                    <img
+                        src='https://firebasestorage.googleapis.com/v0/b/daily-pccu.appspot.com/o/web%2Flogo-bg_w350.webp?alt=media&token=dd0eae47-4373-42d7-8602-afbffd1cfd3a'
+                        alt="每日文大 logo"
+                        srcSet='https://firebasestorage.googleapis.com/v0/b/daily-pccu.appspot.com/o/web%2Flogo-bg.webp?alt=media&token=80013b5d-0cb7-4a2d-9619-67fede77edb7 350w'
+                    />
                     <p>每日文大創立於2020年，致力於設計和開發更方便及人性化的移動應用程式，提供更便捷的服務給文大學生，讓每日文大成為文大學生的日常。</p>
                 </div>
                 <div className={styles['page-info']}>
