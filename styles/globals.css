@@ -1,11 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --black: #212121;
   --black-rgb: 33, 33, 33;
   --white: #f0f0f0;
   --white-rgb: 240, 240, 240;
 
-  --first-color: #F9B810;
-  --first-color-rgb: 249, 184, 16;
+  --daily-primary-color: 249, 184, 16;
   --dark-first-color: #F9B810;
   --dark-first-color-rgb: 249, 184, 16;
 
@@ -22,8 +25,8 @@
   --green: #65c466;
   --dark-green: #53D254;
 
-  --yellow: var(--first-color);
-  --dark-yellow: var(--first-color);
+  --yellow: var(--daily-primary-color);
+  --dark-yellow: var(--daily-primary-color);
 
   --red: #EB4D3D;
   --dark-red: #D53334;
@@ -45,48 +48,41 @@
 *,
 *::before,
 *::after {
-  box-sizing: content-box;
   transition: background-color 0.3s;
-}
-
-/* *:not(body)::-webkit-scrollbar {
-  display: none;
-} */
-
-html {
-  scroll-behavior: smooth;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
+  width: 100%;
+  min-height: 100%;
 }
 
+/* For Firefox */
 * {
-  scrollbar-color: var(--first-color) var(--background-color);
+  scrollbar-color: hsl(var(--nextui-primary) / 1) hsl(var(--nextui-background) / 1);
   scrollbar-width: 8px;
 }
 
+/* For Chrome */
 *::-webkit-scrollbar {
   width: 8px;
-  background-color: var(--background-color);
+  background-color: hsl(var(--nextui-background) / 1);
+}
+
+*::-webkit-scrollbar-track {
+  width: 8px;
+  background-color: hsl(var(--nextui-background) / 1);
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--first-color);
+  background-color: hsl(var(--nextui-primary) / 1);
   border-radius: 10px;
+  width: 8px;
 }
 
-html,
-body,
-body>*,
-body>*>* {
-  height: 100%;
-  width: 100%;
-}
-
-.my-btn {
+/* .my-btn {
   cursor: pointer;
   outline: 0;
   -webkit-appearance: none;
@@ -118,12 +114,12 @@ body>*>* {
 }
 
 .my-btn-first {
-  background: var(--first-color);
+  background: rgb(var(--daily-primary-color));
   color: var(--color);
 }
 
 .my-btn-first:hover {
-  background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), var(--first-color);
+  background: linear-gradient(0deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .04)), rgb(var(--daily-primary-color));
 }
 
 .my-btn:disabled {
@@ -137,19 +133,19 @@ body>*>* {
 }
 
 .my-btn-outline {
-  --bs-btn-color: var(--first-color);
-  --bs-btn-border-color: var(--first-color);
+  --bs-btn-color: var(--daily-primary-color);
+  --bs-btn-border-color: var(--daily-primary-color);
   --bs-btn-hover-color: var(--white);
-  --bs-btn-hover-bg: var(--first-color);
-  --bs-btn-hover-border-color: var(--first-color);
+  --bs-btn-hover-bg: var(--daily-primary-color);
+  --bs-btn-hover-border-color: var(--daily-primary-color);
   --bs-btn-focus-shadow-rgb: 13, 110, 253;
   --bs-btn-active-color: var(--black);
-  --bs-btn-active-bg: var(--first-color);
-  --bs-btn-active-border-color: var(--first-color);
+  --bs-btn-active-bg: var(--daily-primary-color);
+  --bs-btn-active-border-color: var(--daily-primary-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: var(--first-color);
+  --bs-btn-disabled-color: var(--daily-primary-color);
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: var(--first-color);
+  --bs-btn-disabled-border-color: var(--daily-primary-color);
   --bs-gradient: none;
 }
 
@@ -161,25 +157,25 @@ body>*>* {
 }
 
 .my-form-control:focus {
-  border-color: var(--first-color);
-  box-shadow: 0 0 0 0.25rem rgba(var(--first-color-rgb), 0.25);
+  border-color: rgb(var(--daily-primary-color));
+  box-shadow: 0 0 0 0.25rem rgba(var(--daily-primary-color), 0.25);
 }
 
 .my-form-control::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  /* Chrome, Firefox, Opera, Safari 10.1+ 
   color: var(--color);
   opacity: 0.3;
-  /* Firefox */
+  /* Firefox 
 }
 
 .my-form-control:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
+  /* Internet Explorer 10-11 
   color: var(--color);
   opacity: 0.3;
 }
 
 .my-form-control::-ms-input-placeholder {
-  /* Microsoft Edge */
+  /* Microsoft Edge 
   color: var(--color);
   opacity: 0.3;
 }
@@ -209,4 +205,4 @@ body>*>* {
 
 .my-form-control:focus~label::after {
   --bs-body-bg: var(--block-background-color);
-}
+} */

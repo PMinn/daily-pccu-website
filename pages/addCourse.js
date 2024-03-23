@@ -1,16 +1,16 @@
 import Head from 'next/head';
-import NavComponent from '../components/NavComponent';
-import FooterComponent from '../components/FooterComponent';
-import ConfirmComponent from '../components/ConfirmComponent';
-import LoadingComponent from '../components/LoadingComponent';
-import TextareaComponent from '../components/TextareaComponent';
-import CourseCardComponent from '../components/CourseCardComponent';
+import Confirm from '@/components/Confirm';
+import CourseCardComponent from '@/components/CourseCardComponent';
+import Layout from '@/components/Layout';
+import category from '@/data/category.json';
+import examString from '@/data/exam.json';
+import generalTypeString from '@/data/generalType.json';
 import { useState } from 'react';
 import useSWR from 'swr';
+import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Slider, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio, Tabs, Tab, Select, SelectItem, Tooltip, CheckboxGroup, Textarea } from "@nextui-org/react";
+import { WayCheckbox } from '@/components/WayCheckbox';
 
-import styles from '../styles/addCourse.module.css';
-
-import { app } from '../js/firebaseConfig.js';
+import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
@@ -21,144 +21,331 @@ function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
-export default function Course({ theme, setTheme }) {
+export default function Course() {
     const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
-    const [className, setClassName] = useState("");
-    const [categoryType, setCategoryType] = useState(1);
-    const [generalType, setGeneralType] = useState(1);
-    const [teacher, setTeacher] = useState([]);
-    const [year, setYear] = useState(new Date().getFullYear() - 1911);
-    const [department, setDepartment] = useState("");
-    const [college, setCollege] = useState("商學院");
-    const [point, setPoint] = useState(60);
-    const [tempPoint, setTempPoint] = useState(60);
-    const [way, setWay] = useState("");
-    const [exam, setExam] = useState({ exam1: false, exam2: false, exam3: false, exam4: false, exam5: false, exam6: false });
-    const [evaluation, setEvaluation] = useState("");
-    const generalTypeString = ['人文', '社會', '自然'];
-    const examString = ['期中報告', '期中作業', '期中考試', '期末報告', '期末作業', '期末考試'];
 
-    const [confirmShow, setConfirmShow] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
+    // 欄位
+    const [className, setClassName] = useState(""); // 課程名稱
+    const [categoryType, setCategoryType] = useState("一般"); // [一般, 通識, 跨域]
+    const [generalType, setGeneralType] = useState(generalTypeString[0]); // 1: 人文, 2: 社會, 3: 自然
+    const [teacher, setTeacher] = useState([]); // 授課教師
+    const [year, setYear] = useState(new Date().getFullYear() - 1911); // 開課學年
+    const [department, setDepartment] = useState(""); // 開課系別
+    const [college, setCollege] = useState(new Set(["商學院"])); // 開課系所屬之院別
+    const [point, setPoint] = useState(60); // 課程評分
+    const [tempPoint, setTempPoint] = useState(60); // 課程評分(暫存)
+    const [way, setWay] = useState(""); // 授課方式
+    const [exam, setExam] = useState([]); // 考試模式
+    const [evaluation, setEvaluation] = useState(""); // 課程評語
 
-    const [data, setData] = useState({
-        className: '',
-        teacher: [],
-        year: 0,
-        department: '',
-        college: '',
-        point: 0,
-        way: '',
-        evaluation: '',
-        date: '',
-        category: '',
-        exam: ''
-    });
+    const [isInvalid, setIsInvalid] = useState({}); // 顯示驗證
+    const disclosure = useDisclosure();
+    const [loading, setLoading] = useState(false); // 表單送出中
+    const [success, setSuccess] = useState(null); // 送出成功
+    const [data, setData] = useState(null); // 要上傳的資料
 
-
-    function classNameOnInput(e) {
-        setClassName(e.target.value);
-        document.getElementById('className').classList.remove('is-invalid');
-    }
-
-    function teacherOnChange(e) {
-        setTeacher(e.target.value.replace(/ /gi, '').split(','));
-        document.getElementById('teacher').classList.remove('is-invalid');
-    }
-
-    function departmentOnInput(e) {
-        setDepartment(e.target.value);
-        document.getElementById('department').classList.remove('is-invalid');
-    }
-
-    function yearOnBlur(e) {
-        try {
-            var tYear = parseInt(e.target.value);
-            if (tYear < new Date().getFullYear() - 1911 - 5 || tYear > new Date().getFullYear() - 1911) {
-                setYear(new Date().getFullYear() - 1911);
+    const formClassNames = { label: "text-md text-default-900 opacity-100", inputWrapper: "border-medium border-transparent hover:border-primary focus:border-primary transition-colors" };
+    const formFields = [
+        {
+            '通識': (
+                <RadioGroup
+                    label="選擇分類"
+                    orientation="horizontal"
+                    value={generalType}
+                    onValueChange={setGeneralType}
+                    classNames={formClassNames}
+                >
+                    {
+                        generalTypeString.map((generalType, index) => (
+                            <Radio value={generalType} key={'generalType_' + index}>{generalType}</Radio>
+                        ))
+                    }
+                </RadioGroup>
+            )
+        },
+        {
+            'all': (
+                <Input
+                    type="text"
+                    label="課程名稱"
+                    value={className}
+                    isRequired
+                    isInvalid={isInvalid.className}
+                    color={isInvalid.className ? "danger" : ""}
+                    errorMessage={isInvalid.className && "請輸入課程名稱"}
+                    onChange={e => setClassName(e.target.value.trim())}
+                    labelPlacement="outside"
+                    placeholder=" "
+                    classNames={formClassNames}
+                />
+            ),
+            verification: tempIsInvalid => {
+                if (className.length == 0) tempIsInvalid.className = true;
+                else tempIsInvalid.className = false;
+                return tempIsInvalid;
             }
-        } catch {
-            setYear(new Date().getFullYear() - 1911);
-        }
-    }
+        },
+        {
+            'all': (
+                <div className='w-full flex gap-4'>
+                    <Input
+                        type="text"
+                        label="授課教師"
+                        value={teacher.join(',')}
+                        isRequired
+                        isInvalid={isInvalid.teacher}
+                        color={isInvalid.teacher ? "danger" : ""}
+                        errorMessage={isInvalid.teacher && "請輸入授課教師"}
+                        onChange={e => setTeacher(e.target.value.split(','))}
+                        labelPlacement="outside"
+                        placeholder=" "
+                        description='多位教師請使用半形逗號(,)分隔'
+                        classNames={formClassNames}
+                    />
+                    <Input
+                        type="number"
+                        label="開課學年"
+                        className="w-[10rem]"
+                        value={year}
+                        isRequired
+                        pattern="\d*"
+                        required="required"
+                        color={isInvalid.year ? "danger" : ""}
+                        errorMessage={isInvalid.year && "開課學年無效"}
+                        onChange={e => setYear(e.target.value)}
+                        labelPlacement="outside"
+                        placeholder=" "
+                        min={new Date().getFullYear() - 1911 - 5}
+                        max={new Date().getFullYear() - 1911}
+                        step={1}
+                        classNames={formClassNames}
+                    />
+                </div>
+            ),
+            verification: tempIsInvalid => {
+                if (teacher.length == 0) tempIsInvalid.teacher = true;
+                else tempIsInvalid.teacher = false;
 
-    function pointOnBlur(e) {
-        try {
-            var tPoint = parseInt(e.target.value);
-            if (tPoint <= 100 && tPoint >= 0) {
-                setPoint(tPoint);
-                setTempPoint(tPoint);
-            } else {
-                setTempPoint(point);
+                if (!year || year.length == 0 || year > new Date().getFullYear() - 1911 || year < new Date().getFullYear() - 1911 - 5) tempIsInvalid.year = true;
+                else tempIsInvalid.year = false;
+
+                return tempIsInvalid;
             }
-        } catch {
-            setTempPoint(point);
+        },
+        {
+            '一般': (
+                <div className='w-full flex flex-col md:flex-row gap-4'>
+                    {
+                        courseConfig?.colleges &&
+                        <Select
+                            label="開課系所屬之院別"
+                            isRequired
+                            selectedKeys={college}
+                            onSelectionChange={setCollege}
+                            classNames={formClassNames}
+                        >
+                            {
+                                courseConfig.colleges.filter(c => !c.includes('通識')).map((college, index) => (
+                                    <SelectItem key={college} value={college}>{college}</SelectItem>
+                                ))
+                            }
+                        </Select>
+                    }
+                    <Input
+                        type="text"
+                        label="開課系別"
+                        value={department}
+                        isRequired
+                        isInvalid={isInvalid.department}
+                        color={isInvalid.department ? "danger" : ""}
+                        errorMessage={isInvalid.department && "請輸入開課系別"}
+                        onChange={e => setDepartment(e.target.value)}
+                        placeholder=" "
+                        description='可使用簡稱'
+                        classNames={formClassNames}
+                    />
+                </div>
+            ),
+            '跨域': (
+                <div className='w-full flex flex-col md:flex-row gap-4'>
+                    {
+                        courseConfig?.colleges &&
+                        <Select
+                            label="開課系所屬之院別"
+                            isRequired
+                            selectedKeys={college}
+                            onSelectionChange={setCollege}
+                            classNames={formClassNames}
+                        >
+                            {
+                                courseConfig.colleges.filter(c => !c.includes('通識')).map((college, index) => (
+                                    <SelectItem key={college} value={college}>{college}</SelectItem>
+                                ))
+                            }
+                        </Select>
+                    }
+                    <Input
+                        type="text"
+                        label="開課系別"
+                        value={department}
+                        isRequired
+                        isInvalid={isInvalid.department}
+                        color={isInvalid.department ? "danger" : ""}
+                        errorMessage={isInvalid.department && "請輸入開課系別"}
+                        onChange={e => setDepartment(e.target.value)}
+                        placeholder=" "
+                        description='可使用簡稱'
+                        classNames={formClassNames}
+                    />
+                </div>
+            ),
+            verification: tempIsInvalid => {
+                if (department.length == 0) tempIsInvalid.department = true;
+                else tempIsInvalid.department = false;
+                return tempIsInvalid;
+            }
+        },
+        {
+            'all': (
+                <Slider
+                    label="評分"
+                    size="sm"
+                    step={1}
+                    maxValue={100}
+                    minValue={0}
+                    color="primary"
+                    value={point}
+                    onChange={value => {
+                        if (isNaN(Number(value))) return;
+                        setPoint(value);
+                        setTempPoint(value);
+                    }}
+                    renderValue={({ children, ...props }) => (
+                        <output {...props}>
+                            <Tooltip
+                                className="text-tiny text-default-500 rounded-md"
+                                content="按下 Enter 確認"
+                                placement="left"
+                            >
+                                <Input
+                                    className="w-14 text-right"
+                                    classNames={formClassNames}
+                                    type="text"
+                                    id='pointTextInput'
+                                    value={tempPoint}
+                                    onChange={e => setTempPoint(e.target.value)}
+                                    labelPlacement="outside"
+                                    onKeyDown={e => {
+                                        if (e.key === "Enter" && !isNaN(Number(e.target.value))) {
+                                            let point = Number(e.target.value);
+                                            if (point > 100) point = 100;
+                                            else if (point < 0) point = 0;
+                                            setPoint(point);
+                                            setTempPoint(point);
+                                        }
+                                    }}
+                                />
+                            </Tooltip>
+                        </output>
+                    )}
+                    classNames={formClassNames}
+                />
+            )
+        },
+        {
+            'all': (
+                <Input type="text" label="授課方式" value={way} onChange={e => setWay(e.target.value)} labelPlacement="outside" placeholder=" " classNames={formClassNames} />
+            )
+        },
+        {
+            'all': (
+                <CheckboxGroup
+                    className="gap-1"
+                    label="考試模式(可複選)"
+                    orientation="horizontal"
+                    classNames={formClassNames}
+                    value={exam}
+                    onChange={setExam}
+                >
+                    {
+                        examString.map((e, index) => <WayCheckbox key={"way_" + index} value={e}>{e}</WayCheckbox>)
+                    }
+                </CheckboxGroup>
+            )
+        },
+        {
+            'all': (
+                <Textarea
+                    label="課程評語"
+                    value={evaluation}
+                    onChange={e => setEvaluation(e.target.value)}
+                    labelPlacement="outside"
+                    description="請以客觀且不具辱罵及攻擊性的字眼填寫"
+                    classNames={formClassNames}
+                />
+            )
         }
-    }
-
-    function examOnClick(e) {
-        var tExam = exam;
-        tExam[e.target.id] = !tExam[e.target.id];
-        setExam(tExam);
-        document.querySelectorAll('input[id^="exam"]').forEach(input => {
-            if (tExam[input.id]) input.setAttribute('checked', 'true');
-            else input.removeAttribute('checked');
-        });
-    }
+    ];
 
     function submit() {
-        var check = true;
-        if (className == '') {
-            document.getElementById('className').classList.add('is-invalid');
-            check = false;
-        }
-
-        var tTeacher = teacher.filter(value => value != '');
-        if (tTeacher.length == 0) {
-            document.getElementById('teacher').classList.add('is-invalid');
-            check = false;
-        }
-
-        if (department == '') {
-            if (categoryType == 1 || categoryType == 3) {
-                document.getElementById('department').classList.add('is-invalid');
-                check = false;
+        let tempIsInvalid = { ...isInvalid };
+        for (let i = 0; i < formFields.length; i++) {
+            const field = formFields[i];
+            if (field.verification) {
+                if (field.all || field[categoryType]) {
+                    tempIsInvalid = field.verification(tempIsInvalid);
+                }
             }
         }
+        setIsInvalid(tempIsInvalid);
+        const isValid = !Object.keys(tempIsInvalid).map(key => tempIsInvalid[key]).reduce((count, value) => count || value, false);
+        if (!isValid) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+        var collegeValue = college.values().next().value;
+        var result = {
+            className,
+            teacher: teacher.map(value => value.trim()).filter(value => value != ''),
+            year: parseInt(year),
+            department,
+            college: collegeValue,
+            point: parseInt(point),
+            way,
+            evaluation: evaluation.replace(/\n/gi, '\\n'),
+            date: new Date().toISOString(),
+            category: collegeValue,
+            exam: exam.join(',')
+        };
+        if (categoryType == '通識') {
+            result.className = `${generalType}通識︰${result.className}`;
+            result.category = `${generalType}通識`;
+            result.department = '';
+            result.college = '';
+        } else if (categoryType == '跨域') {
+            result.className = `跨域︰${result.className}`;
+        }
+        setData(result);
+        disclosure.onOpen();
+    }
 
-        if (check) {
-            var data = { className, teacher: tTeacher, year: parseInt(year), department, college, point: parseInt(point), way, evaluation, date: new Date().toISOString(), category: college };
-            if (categoryType == 2) {
-                data.className = `${generalTypeString[generalType - 1]}通識︰${data.className}`;
-                data.category = `${generalTypeString[generalType - 1]}通識`;
-                data.department = '';
-                data.college = '';
-            } else if (categoryType == 3) {
-                data.className = `跨域︰${data.className}`;
-            }
-            var examArray = ['exam1', 'exam2', 'exam3', 'exam4', 'exam5', 'exam6'];
-            examArray = examArray.map((id, index) => ({ v: exam[id], i: index })).filter(value => value.v).map(value => examString[value.i]);
-            data.exam = examArray.join(',');
-            data.evaluation = data.evaluation.replace(/\n/gi, '\\n');
-            setConfirmShow(true);
-            setData(data);
-        } else {
+    async function upload() {
+        setLoading(true);
+        try {
+            const docRef = await addDoc(collection(firestore, "evaluations"), data);
+            console.log("Document written with ID: ", docRef.id);
+            setSuccess(true);
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            setSuccess(false);
+        } finally {
+            setLoading(false);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
-    async function upload() {
-        setConfirmShow(false);
-        setLoading(true);
-        const docRef = await addDoc(collection(firestore, "evaluations"), data);
-        console.log(docRef.id);
-        setLoading(false);
-        setSuccess(true);
-    }
-
     return (
-        <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
+        <Layout>
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>新增課程評價 | 每日文大</title>
@@ -186,123 +373,86 @@ export default function Course({ theme, setTheme }) {
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
                 <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
             </Head>
-            <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
-            <ConfirmComponent title='確認新增' content={
-                <CourseCardComponent e={data} isDemo={true}></CourseCardComponent>
-            } size={"max"} btn={['取消', '確認']} onClick={[() => setConfirmShow(false), upload]} show={confirmShow} theme={theme}></ConfirmComponent>
-            <LoadingComponent show={loading}></LoadingComponent>
-            <div className={styles.outer}>
-                <div className={styles.intro}>
-                    <h1>新增課程評價</h1>
-                    <div>
+            <Confirm
+                title='確認新增'
+                content={<CourseCardComponent e={data} isDemo={true} />}
+                disclosure={disclosure}
+                size='5xl'
+                confirm={upload}
+                placement='center'
+            />
+            <div className='container mx-auto pt-[8.5rem] flex flex-col md:flex-row justify-between item-start mb-[5rem]'>
+                <div className='px-4'>
+                    <h1 className='text-3xl'>新增課程評價</h1>
+                    <div className='opacity-70 leading-7 mt-4'>
                         您可以提供課程具體的資訊、分享您的觀點，以幫助所有同學未來選課有資訊可以參考。感謝您抽出寶貴的時間新增課程評價，您的參與將幫助大家獲得更多選課參考資訊。
                     </div>
                 </div>
-
-                <div className={styles.container} id='container'>
-                    <div hidden={success}>
-                        <div className={"mb-3 " + styles.col}>
-                            <div className={"btn-group"} role="group">
-                                <input type="radio" className="btn-check" name="category" id="category1" autocomplete="off" onClick={() => setCategoryType(1)} checked={categoryType == 1} />
-                                <label className="btn my-btn-outline" htmlFor="category1">一般</label>
-                                <input type="radio" className="btn-check" name="category" id="category2" autocomplete="off" onClick={() => setCategoryType(2)} checked={categoryType == 2} />
-                                <label className="btn my-btn-outline" htmlFor="category2">通識</label>
-                                <input type="radio" className="btn-check" name="category" id="category3" autocomplete="off" onClick={() => setCategoryType(3)} checked={categoryType == 3} />
-                                <label className="btn my-btn-outline" htmlFor="category3">跨域</label>
-                            </div>
-                        </div>
-                        <div className={"mb-3 " + styles.col} hidden={categoryType != 2}>
-                            <div className={"btn-group"} role="group">
-                                <input type="radio" className="btn-check" name="generalType" id="generalType1" autocomplete="off" onClick={() => setGeneralType(1)} checked={generalType == 1} />
-                                <label className="btn my-btn-outline" htmlFor="generalType1">人文</label>
-                                <input type="radio" className="btn-check" name="generalType" id="generalType2" autocomplete="off" onClick={() => setGeneralType(2)} checked={generalType == 2} />
-                                <label className="btn my-btn-outline" htmlFor="generalType2">社會</label>
-                                <input type="radio" className="btn-check" name="generalType" id="generalType3" autocomplete="off" onClick={() => setGeneralType(3)} checked={generalType == 3} />
-                                <label className="btn my-btn-outline" htmlFor="generalType3">自然</label>
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="className" className="form-label">課程名稱</label>
-                            <input type="text" className={'form-control my-form-control'} id="className" onInput={classNameOnInput} value={className} />
-                            <div class="invalid-feedback">課程名稱為必填</div>
-                            <div class="form-text" data-bs-theme={theme}>{(categoryType == 1 ? '' : (categoryType == 2 ? '不須包含 "自然通識︰"、"社會通識︰" 或 "人文通識︰"' : '不須包含 "跨域︰"'))}</div>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="teacher" className="form-label">授課教師</label>
-                            <input type="text" className={'form-control my-form-control'} id="teacher" onChange={teacherOnChange} value={teacher.join(',')} />
-                            <div class="invalid-feedback">授課教師為必填</div>
-                            <div class="form-text" data-bs-theme={theme}>多位教師請使用半形逗號(,)分隔</div>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="year" className="form-label">開課學年</label>
-                            <input type="number" className={'form-control my-form-control'} id="year" min={new Date().getFullYear() - 1911 - 5} max={new Date().getFullYear() - 1911} step={1} value={year} onChange={e => setYear(e.target.value)} onBlur={yearOnBlur} />
-                        </div>
-                        <div className="mb-3" hidden={categoryType == 2}>
-                            <label htmlFor="department" className="form-label">開課系別</label>
-                            <input type="text" className={'form-control my-form-control'} id="department" placeholder={"可使用簡稱"} onInput={departmentOnInput} value={department} />
-                            <div class="invalid-feedback">開課系別為必填</div>
-                        </div>
-                        <div className="mb-3" hidden={categoryType == 2}>
-                            <label className="form-label">開課系所屬之院別</label>
+                <div className="w-full px-4 flex flex-col">
+                    <Card>
+                        <CardBody className='gap-4'>
                             {
-                                (
-                                    courseConfig ?
-                                        courseConfig.colleges.filter(c => !c.includes('通識')).map((c, i) => {
-                                            return (
-                                                <div className={'form-check ' + styles['college-check']}>
-                                                    <input className={"form-check-input my-form-check-input"} type="radio" name="college" id={'college_' + i} onClick={() => setCollege(c)} checked={college == c} />
-                                                    <label className="form-check-label" htmlFor={'college_' + i}>{c}</label>
-                                                </div>
-                                            )
-                                        })
+                                success == null ?
+                                    <>
+                                        <Tabs
+                                            fullWidth
+                                            size="md"
+                                            selectedKey={categoryType}
+                                            onSelectionChange={setCategoryType}
+                                        >
+                                            {
+                                                category.map(c => {
+                                                    return (
+                                                        <Tab key={c} title={c}>
+                                                            <div className='flex flex-col gap-4'>
+                                                                {
+                                                                    formFields
+                                                                        .map((field, index) => {
+                                                                            if (field.all) {
+                                                                                return (
+                                                                                    <div key={'field_' + index}>{field.all}</div>
+                                                                                );
+                                                                            }
+                                                                            if (field[c]) {
+                                                                                return (
+                                                                                    <div key={'field_' + index}>{field[c]}</div>
+                                                                                );
+                                                                            }
+                                                                            return (
+                                                                                <div key={'field_' + index}></div>
+                                                                            );
+                                                                        })
+                                                                }
+                                                            </div>
+                                                        </Tab>
+                                                    )
+                                                })
+                                            }
+                                        </Tabs>
+                                        {
+                                            loading ?
+                                                <Button color='primary' isLoading>送出</Button>
+                                                :
+                                                <Button color='primary' onClick={submit}>送出</Button>
+                                        }
+                                    </>
+                                    :
+                                    success ?
+                                        <div className='w-full h-[50vh] flex flex-col justify-center items-center gap-2 text-success'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path></svg>
+                                            <div>成功</div>
+                                        </div>
                                         :
-                                        <></>
-                                )
+                                        <div className='w-full h-[50vh] flex flex-col justify-center items-center gap-2 text-danger'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" viewBox="0 0 256 256"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path></svg>
+                                            <div>失敗</div>
+                                        </div>
                             }
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="point" className="form-label">課程評分</label>
-                            <input type="number" className={'form-control my-form-control'} id="point" min={0} max={100} step={1} value={tempPoint} onChange={e => setTempPoint(e.target.value)} onBlur={pointOnBlur} />
-                        </div>
-                        <div className="mb-3" >
-                            <label htmlFor="way" className="form-label">授課方式</label>
-                            <input type="text" className={'form-control my-form-control'} id="way" onChange={e => setWay(e.target.value)} />
-                        </div>
-                        <div className="mb-3" >
-                            <label className="form-label">考試模式(可複選)</label>
-                            <div className={styles['checkbox-group']}>
-                                <input type="checkbox" name="exam" id="exam1" onClick={examOnClick} />
-                                <label htmlFor="exam1">期中報告</label>
-                                <input type="checkbox" name="exam" id="exam2" onClick={examOnClick} />
-                                <label htmlFor="exam2">期中作業</label>
-                                <input type="checkbox" name="exam" id="exam3" onClick={examOnClick} />
-                                <label htmlFor="exam3">期中考試</label>
-                                <input type="checkbox" name="exam" id="exam4" onClick={examOnClick} />
-                                <label htmlFor="exam4">期末報告</label>
-                                <input type="checkbox" name="exam" id="exam5" onClick={examOnClick} />
-                                <label htmlFor="exam5">期末作業</label>
-                                <input type="checkbox" name="exam" id="exam6" onClick={examOnClick} />
-                                <label htmlFor="exam6">期末考試</label>
-                            </div>
-                        </div>
-                        <div className={"mb-3 " + styles['textarea-block']}>
-                            <label htmlFor="evaluation" className="form-label">課程評語</label>
-                            <TextareaComponent rows={4} value={[evaluation, setEvaluation]}></TextareaComponent>
-                        </div>
-                        <div className="mb-3 mt-3">
-                            <div class="form-text" data-bs-theme={theme}>請以客觀且不具辱罵及攻擊性的字眼填寫</div>
-                        </div>
-                        <div className="mb-3">
-                            <div className={"my-btn my-btn-second " + styles.submit} onClick={submit}>完成</div>
-                        </div>
-                    </div>
-                    <div className={styles.success} style={{ display: (!success ? 'none' : '') }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>
-                        <div>成功</div>
-                    </div>
+                        </CardBody>
+                    </Card>
                 </div>
+
             </div>
-            <FooterComponent></FooterComponent>
-        </div >
+        </Layout>
     )
 }

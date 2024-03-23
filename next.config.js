@@ -1,27 +1,24 @@
-/*
-export const PHASE_EXPORT = 'phase-export'
-export const PHASE_PRODUCTION_BUILD = 'phase-production-build'
-export const PHASE_PRODUCTION_SERVER = 'phase-production-server'
-export const PHASE_DEVELOPMENT_SERVER = 'phase-development-server'
-export const PHASE_TEST = 'phase-test'
-*/
-
-// const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 
 module.exports = (phase, { defaultConfig }) => {
-    const nextConfig = {
-        images: {
-            domains: ['scdn.line-apps.com', 'qr-official.line.me'],
-            unoptimized: true,
-            formats: ['image/webp'],
-            deviceSizes: [400, 500, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-            imageSizes: [400, 500, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-        }
+    var nextConfig = {
+        output: 'export',
+
+        // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+        // trailingSlash: true,
+
+        // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+        // skipTrailingSlashRedirect: true,
+
+        // Optional: Change the output directory `out` -> `dist`
+        // distDir: 'dist',
+
+        env: {},
     };
-    // if (phase === PHASE_PRODUCTION_BUILD) { // run build
-    //     nextConfig.images.loader = 'imgix';
-    //     nextConfig.images.path = '/';
-    //     nextConfig.images.unoptimized = true;
-    // }
+    if (phase === PHASE_DEVELOPMENT_SERVER) {
+        nextConfig.env.UUID = process.env.UUID;
+        nextConfig.env.SETTINGS_LIFF_ID = process.env.SETTINGS_LIFF_ID;
+        nextConfig.env.FORM_LIFF_ID = process.env.FORM_LIFF_ID;
+    }
     return nextConfig;
 }

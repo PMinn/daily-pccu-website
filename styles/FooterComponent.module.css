@@ -1,102 +1,10 @@
-.foot {
-    width: 73.6%;
-    height: 80vh;
-    padding: 10vh 13.2%;
-    position: relative;
-    background-color: var(--background-color);
-}
-
-.foot>small {
-    position: absolute;
-    bottom: 5vh;
-    left: 5vw;
-}
-
-.foot>small,
-.foot>small * {
-    color: var(--color);
-    opacity: 0.6;
-}
-
-.foot>div {
-    display: flex;
-}
-
-.foot .team-info {
-    width: 20vw;
-}
-
-.foot .page-info {
-    width: 50%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.foot .page-info a {
-    color: var(--color);
-    text-decoration: none;
-    position: relative;
-    padding-top: calc(48px - 1rem);
-}
-
-.foot .page-info a::after {
+.links a::after {
     content: '';
     width: 2em;
     height: 1px;
-    background-color: var(--color);
+    background-color: hsl(var(--nextui-foreground));
     opacity: 0.5;
     position: absolute;
     bottom: -2px;
     left: 0;
-}
-
-.foot .page-info>div {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 300px;
-}
-
-.foot p {
-    line-height: 200%;
-    margin-top: 5vh;
-    color: var(--color);
-}
-
-.foot img {
-    width: 200px;
-    height: 200px;
-    border-radius: 200px;
-    border: 1px solid #00000020;
-    box-shadow: 0 10px 20px #c2c2c230;
-}
-
-.parent-anchor {
-    font-size: 1.75rem;
-}
-
-@media screen and (max-width:600px) {
-    .foot {
-        height: auto;
-    }
-
-    .foot>div {
-        width: 60vw;
-        flex-direction: column;
-    }
-
-    .foot .team-info {
-        width: 100%;
-    }
-
-    .foot .page-info {
-        margin: 8vh 0;
-        width: 100%;
-    }
-
-    .foot .page-info>div {
-        margin: 5vh 0;
-    }
 }

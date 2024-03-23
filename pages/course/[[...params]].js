@@ -1,21 +1,18 @@
 import Head from 'next/head'
-import NavComponent from '../../components/NavComponent';
-import FooterComponent from '../../components/FooterComponent';
-import LoadingComponent from '../../components/LoadingComponent';
-import ConfirmComponent from '../../components/ConfirmComponent';
-import CourseCardComponent from '../../components/CourseCardComponent';
-import Link from 'next/link';
+import Confirm from '@/components/Confirm';
+import Alert from '@/components/Alert';
+import CourseCardComponent from '@/components/CourseCardComponent';
+import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import styles from '@/styles/course.module.css';
 
-import styles from '../../styles/course.module.css';
-import coverStyles from '../../styles/cover.module.css';
-
-import { app } from '../../js/firebaseConfig.js';
+import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Accordion, AccordionItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio } from "@nextui-org/react";
 
 const database = getDatabase(app);
 const firestore = getFirestore(app);
@@ -71,16 +68,40 @@ function fetchConfig() {
     return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
 }
 
-export default function Course({ theme, setTheme }) {
-    const [loading, setLoading] = useState(false);
-    const [openMenu, setOpenMenu] = useState(false);
-    const [revelationConfirmShow, setRevelationConfirmShow] = useState(false);
-    const [successConfirmShow, setSuccessConfirmShow] = useState(false);
-    const [revelationID, setRevelationID] = useState("");
-    const [shareErrorConfirmShow, setShareErrorConfirmShow] = useState(false);
-    const [shareErrorText, setShareErrorText] = useState("");
+function Menu({ courseConfig }) {
+    return (courseConfig ?
+        <Accordion variant="splitted" selectionMode="multiple">
+            {
+                courseConfig.years.map(year => {
+                    return (
+                        <AccordionItem key={'y_' + year} aria-label={year + '學年'} title={year + '學年'}>
+                            {
+                                courseConfig.colleges.map((college, index) => {
+                                    return (
+                                        <Button color="default" variant="light" href={`/course/${year}/college/${college}`} className='w-full text-left mb-1' as={Link} key={'college_link_' + index}>{college}</Button>
+                                    )
+                                })
+                            }
+                        </AccordionItem>
+                    )
+                })
+            }
+        </Accordion>
+        :
+        <></>
+    )
 
+}
+
+export default function Course() {
+    const [loading, setLoading] = useState(false);
+    const [revelationID, setRevelationID] = useState("");
     const router = useRouter();
+    const { isOpen: isRevelationOpen, onOpen: onRevelationOpen, onOpenChange: onRevelationOpenChange } = useDisclosure();
+    const { isOpen: isSuccessOpen, onOpen: onSuccessOpen, onOpenChange: onSuccessOpenChange } = useDisclosure();
+    const { isOpen: isShareErrorOpen, onOpen: onShareErrorOpen, onOpenChange: onShareErrorOpenChange } = useDisclosure();
+    const { isOpen: isMobileMenuOpen, onOpen: onMobileMenuOpen, onOpenChange: onMobileMenuOpenChange } = useDisclosure();
+
     var pathname = router.asPath.replace(/([^#]+)#[^#]+/g, "$1");
     const { data, error: dataError } = useSWR(pathname, fetchDatabase);
     const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
@@ -98,10 +119,8 @@ export default function Course({ theme, setTheme }) {
     }
 
     async function submitRevelation() {
-        var checkedInput = document.querySelector('input[name="revelation"]:checked');
+        var checkedInput = document.getElementById('revelation').querySelector('*:checked');
         if (checkedInput) {
-            setRevelationConfirmShow(false);
-            setLoading(true);
             await fetch('https://script.google.com/macros/s/AKfycbwuhzDzw6RN6-pMb11lomwj0QEKwLYXIZaCfDiKO_QvI_FyIss6ogJ6CKoDnF2Mr_Q/exec', {
                 method: "POST",
                 headers: {
@@ -112,8 +131,7 @@ export default function Course({ theme, setTheme }) {
                     reason: checkedInput.value
                 })
             })
-            setLoading(false);
-            setSuccessConfirmShow(true);
+            onSuccessOpen();
         }
     }
 
@@ -134,7 +152,7 @@ export default function Course({ theme, setTheme }) {
     }, []);
 
     return (
-        <div className={styles.main + ' ' + (theme == 'dark' ? styles[theme] : '')}>
+        <Layout>
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>{data ? data.title : "課程評價 | 每日文大"}</title>
@@ -162,96 +180,112 @@ export default function Course({ theme, setTheme }) {
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
                 <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
             </Head>
-            <NavComponent theme={theme} setTheme={setTheme}></NavComponent>
-            <LoadingComponent show={loading}></LoadingComponent>
-            <ConfirmComponent theme={theme} title='審查' content={
-                <div className={styles.revelation}>
-                    <label><input type="radio" name="revelation" value="內容有誤" />內容有誤</label>
-                    <label><input type="radio" name="revelation" value="中傷、歧視或謾罵他人" />中傷、歧視或謾罵他人</label>
-                    <label><input type="radio" name="revelation" value="傳播個資(電話、電郵、任何軟體ID等)" />傳播個資(電話、電郵、任何軟體ID等)</label>
-                    <label><input type="radio" name="revelation" value="重複張貼" />重複張貼</label>
-                    <label><input type="radio" name="revelation" value="包含色情、血腥、騷擾等令人不適之內容" />包含色情、血腥、騷擾等令人不適之內容</label>
-                    <label><input type="radio" name="revelation" value="包含廣告、商業宣傳之內容" />包含廣告、商業宣傳之內容</label>
-                    <label><input type="radio" name="revelation" value="內容明顯無意義" />內容明顯無意義</label>
-                    <label><input type="radio" name="revelation" value="其他原因" />其他原因</label>
-                </div>
-            } btn={['取消', '確認']} onClick={[() => setRevelationConfirmShow(false), submitRevelation]} show={revelationConfirmShow}></ConfirmComponent>
-            <ConfirmComponent title='' content={
-                <div className={styles.success}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M243.33,90.91,114.92,219.31a16,16,0,0,1-22.63,0l-71.62-72a16,16,0,0,1,0-22.61l24-24a16,16,0,0,1,22.57-.06l36.64,35.27.11.11h0l92.73-91.37a16,16,0,0,1,22.58,0l24,23.56A16,16,0,0,1,243.33,90.91Z"></path></svg>
-                    <div>成功</div>
-                </div>
-            } btn={['確認']} onClick={[() => setSuccessConfirmShow(false)]} show={successConfirmShow}></ConfirmComponent>
-            <ConfirmComponent title='分享錯誤' content={<div>{shareErrorText}</div>} btn={['確認']} onClick={[() => setShareErrorConfirmShow(false)]} show={shareErrorConfirmShow}></ConfirmComponent>
-            <div className={styles.page}>
-                <aside className={styles.aside + ' ' + (openMenu ? styles.open : '')} >
-                    <div id={styles.menu}>
-                        <div className={styles.close} onClick={() => setOpenMenu(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
-                        </div>
-                        <div className={styles['collapse-scroll']}>
-                            {
-                                (courseConfig ?
-                                    courseConfig.years.map(year => {
-                                        return (
-                                            <div id={'y_' + year} key={'y_' + year}>
-                                                <button className={"collapsed " + styles["year-label"]} type="button" id={'label_' + year} data-bs-toggle="collapse" role="button" aria-expanded="false" data-bs-target={"#collapse_" + year} aria-controls={"collapse_" + year}>
-                                                    <div>{year}學年</div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M236.78,211.81A24.34,24.34,0,0,1,215.45,224H40.55a24.34,24.34,0,0,1-21.33-12.19,23.51,23.51,0,0,1,0-23.72L106.65,36.22a24.76,24.76,0,0,1,42.7,0L236.8,188.09A23.51,23.51,0,0,1,236.78,211.81Z"></path></svg>
-                                                </button>
-                                                <div className={"collapse " + styles['colleges-list']} id={"collapse_" + year}>
-                                                    {courseConfig.colleges.map((college, index) => {
-                                                        return (
-                                                            <Link href={`/course/${year}/college/${college}`} className={styles['college-link'] + ' college-link'} key={'college_link_' + index} data-href={`https://daily-pccu.web.app/course/${year}/college/${college}`} onClick={() => { setOpenMenu(false); window.scrollTo(0, 0); }}>{college}</Link>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                    :
-                                    <></>
-                                )
-                            }
-                        </div>
-                        <Link href="/addCourse" className={'my-btn my-btn-first ' + styles['add-btn']} target='_blank'>新增評價</Link>
+            <Confirm
+                title='審查'
+                content={
+                    <RadioGroup defaultValue="內容有誤" id='revelation'>
+                        <Radio value="內容有誤">內容有誤</Radio>
+                        <Radio value="中傷、歧視或謾罵他人">中傷、歧視或謾罵他人</Radio>
+                        <Radio value="傳播個資(電話、電郵、任何軟體ID等)">傳播個資(電話、電郵、任何軟體ID等)</Radio>
+                        <Radio value="重複張貼">重複張貼</Radio>
+                        <Radio value="含色情、血腥、騷擾等令人不適之內容">含色情、血腥、騷擾等令人不適之內容</Radio>
+                        <Radio value="包含廣告、商業宣傳之內容">包含廣告、商業宣傳之內容</Radio>
+                        <Radio value="內容明顯無意義">內容明顯無意義</Radio>
+                        <Radio value="其他原因">其他原因</Radio>
+                    </RadioGroup>
+                }
+                confirm={submitRevelation}
+                disclosure={{ isOpen: isRevelationOpen, onOpen: onRevelationOpen, onOpenChange: onRevelationOpenChange }}
+            />
+            <Alert
+                title=''
+                content={
+                    <div className='w-full h-[50vh] flex flex-col justify-center items-center gap-2 text-success'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path></svg>
+                        <div>成功</div>
                     </div>
-                    <div className={coverStyles.cover + ' ' + styles.cover}></div>
+                }
+                disclosure={{ isOpen: isSuccessOpen, onOpen: onSuccessOpen, onOpenChange: onSuccessOpenChange }}
+            />
+            <Alert
+                title='分享錯誤'
+                content='您的瀏覽器不支援分享功能，請使用其他瀏覽器。'
+                disclosure={{ isOpen: isShareErrorOpen, onOpen: onShareErrorOpen, onOpenChange: onShareErrorOpenChange }}
+            />
+            <div className='container mx-auto flex mx-auto pt-[7.5rem] min-h-full mb-[5rem]'>
+                <Card className='mx-4 hidden md:flex w-[400px] min-w-[400px] max-w-[400px] sticky top-[7.5rem] h-[80vh]'>
+                    <CardBody className='overflow-y-scroll grow'>
+                        <Menu courseConfig={courseConfig} />
+                    </CardBody>
+                    <CardFooter>
+                        <Button as={Link} color='primary' href="/addCourse" className='w-full' target='_blank'>新增評價</Button>
+                    </CardFooter>
+                </Card>
 
-                </aside>
-                <div className={styles['menu-mobile-btn']} onClick={() => setOpenMenu(true)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
-                </div>
-                <main className={styles.result + ' ' + (!data || data.data.length == 0 ? styles['no-result'] : '')}>
-                    <label className={styles['search-bar']} htmlFor="search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-                        <input type="text" id="search" onInput={search} placeholder="搜尋" />
-                    </label>
-                    <div id="blocks">
+                <Modal
+                    isOpen={isMobileMenuOpen}
+                    onOpenChange={onMobileMenuOpenChange}
+                    placement="top-center"
+                    scrollBehavior="inside"
+                    className='h-full'
+                >
+                    <ModalContent>
+                        <ModalBody className='pb-5'>
+                            <Menu courseConfig={courseConfig} />
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button as={Link} color='primary' href="/addCourse" className='w-full' target='_blank'>新增評價</Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+                <Button onClick={onMobileMenuOpen} color="primary" className='p-0 md:hidden w-[50px] min-w-[50px] h-[50px] justify-center items-center rounded-full shadow-2xl fixed bottom-[25px] right-[25px] z-40'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 256 256" fill='currentColor'><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
+                </Button>
+                <div className={'px-4 ' + styles.result}>
+                    {
+                        (data &&
+                            (data.data.length != 0 ?
+                                <Input
+                                    type="search"
+                                    placeholder="搜尋"
+                                    startContent={<svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill='currentColor' viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>}
+                                    onInput={search}
+                                />
+                                :
+                                <Input
+                                    type="search"
+                                    placeholder="搜尋"
+                                    startContent={<svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill='currentColor' viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>}
+                                    isDisabled
+                                />
+                            )
+                        )
+                    }
+                    <div id="blocks" className='flex flex-col gap-5 mt-5'>
                         {
-                            (data ?
+                            (data &&
                                 (data.data.length != 0 ?
                                     data.data.map(e => {
                                         return (
-                                            <div className={styles.courseCard}>
-                                                <CourseCardComponent e={e} theme={theme} setRevelationConfirmShow={setRevelationConfirmShow} setRevelationID={setRevelationID}></CourseCardComponent>
-                                            </div>
+                                            <CourseCardComponent
+                                                e={e}
+                                                setRevelationConfirmShow={onRevelationOpen}
+                                                setRevelationID={setRevelationID}
+                                                setShareErrorConfirmShow={onShareErrorOpen}
+                                            />
                                         )
                                     })
                                     :
-                                    <div className={styles['no-result-text']}>
-                                        <div>沒有結果</div>
-                                        <div>在選單中，依照年份及院別可查詢其他評價。</div>
+                                    <div className='w-full h-[50svh] text-center flex flex-col justify-center items-center'>
+                                        <div className='text-xl'>沒有結果</div>
+                                        <div className='text-sm opacity-50 mt-2'>在選單中，依照年份及院別可查詢其他評價。</div>
                                     </div>
                                 )
-                                :
-                                <LoadingComponent show={true}></LoadingComponent>
                             )
                         }
                     </div>
-                </main>
+                </div>
             </div>
-            <FooterComponent></FooterComponent>
-        </div >
+        </Layout>
     )
 }

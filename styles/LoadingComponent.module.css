@@ -11,10 +11,10 @@
     width: 90px;
     height: 14px;
     background:
-        linear-gradient(90deg, #0000 16px, var(--first-color) 0 30px, #0000 0),
-        radial-gradient(circle closest-side at 68% 50%, var(--first-color) 92%, #0000),
-        conic-gradient(from 45deg at calc(100% - 7px) 50%, var(--first-color) 90deg, #0000 0),
-        conic-gradient(from -135deg at 7px 50%, var(--first-color) 90deg, #0000 0);
+        linear-gradient(90deg, #0000 16px, var(--daily-primary-color) 0 30px, #0000 0),
+        radial-gradient(circle closest-side at 68% 50%, var(--daily-primary-color) 92%, #0000),
+        conic-gradient(from 45deg at calc(100% - 7px) 50%, var(--daily-primary-color) 90deg, #0000 0),
+        conic-gradient(from -135deg at 7px 50%, var(--daily-primary-color) 90deg, #0000 0);
     background-position: 0 0;
     background-size: calc(3*100%/4) 100%;
     background-repeat: repeat-x;

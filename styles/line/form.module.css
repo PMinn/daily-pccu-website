@@ -30,13 +30,13 @@
     font-size: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 999px;
-    border: 2px solid rgba(var(--first-color-rgb), 0.3);
+    border: 2px solid rgba(var(--daily-primary-color), 0.3);
     transition: all 0.5s;
 }
 
 .radio-group input:checked+label {
-    background-color: var(--first-color);
-    border-color: var(--first-color);
+    background-color: rgb(var(--daily-primary-color));
+    border-color: rgb(var(--daily-primary-color));
     color: var(--black);
 }
 

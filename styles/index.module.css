@@ -1,5 +1,5 @@
 .main {
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
   height: 100%;
   overflow: auto;
 }
@@ -9,8 +9,7 @@
   --color: var(--dark-color);
   --color-rgb: var(--dark-color-rgb);
 
-  --first-color: var(--dark-first-color);
-  --first-color-rgb: var(--dark-first-color-rgb);
+  --daily-primary-color: var(--dark-first-color);
 
   --second-color: var(--dark-second-color);
   --second-color-rgb: var(--dark-second-color-rgb);
@@ -19,25 +18,10 @@
   --fourth-color-rgb: var(--dark-fourth-color-rgb);
 }
 
-.section {
-  width: 100%;
-}
-
 .section:nth-child(even) {
-  background-color: var(--first-color);
+  background-color: rgb(var(--daily-primary-color));
   color: var(--black);
   font-weight: 700;
-}
-
-.section:nth-child(odd) {
-  background-color: var(--background-color);
-  color: var(--color);
-}
-
-.section>h2 {
-  text-align: center;
-  font-weight: normal;
-  margin-bottom: 5vh;
 }
 
 .cover {
@@ -49,7 +33,6 @@
   position: relative;
   overflow: hidden;
 }
-
 
 .wave {
   position: absolute;
@@ -64,9 +47,8 @@
   height: auto;
 }
 
-
 .wave svg path {
-  fill: var(--first-color);
+  fill: rgb(var(--daily-primary-color));
 }
 
 .cover>img {
@@ -95,13 +77,6 @@
   line-height: 150%;
   text-align: center;
   margin-bottom: 0.03em;
-}
-
-.left-block .add-friend-btn {
-  box-shadow: 0 10px 20px rgba(var(--second-color-rgb), 0.5);
-  letter-spacing: 0.2rem;
-  font-size: 1.4rem;
-  color: var(--background-color);
 }
 
 .right-block {
@@ -186,28 +161,6 @@
   letter-spacing: 0.1em;
 }
 
-.add-friend h3 {
-  margin: 0 0 1rem 0;
-}
-
-.add-friend .table {
-  width: 100%;
-  justify-content: center;
-}
-
-.add-friend .table>div {
-  padding: 24px;
-  width: 240px;
-  margin: 0 30px;
-  border-radius: 16px;
-  background-color: var(--black-opacity);
-  box-shadow: 0 10px 30px #00000010;
-}
-
-.dark .add-friend .table>div {
-  background-color: var(--white-24dp);
-}
-
 .history table {
   margin: 0 auto;
   font-size: 100%;
@@ -240,10 +193,6 @@
 }
 
 @media screen and (max-width:600px) {
-  .section {
-    padding: 5vh 0;
-  }
-
   .cover {
     flex-direction: column;
     height: auto;
@@ -284,10 +233,6 @@
     margin-top: 64px;
   }
 
-  .left-block .add-friend-btn {
-    margin: 20px 0 40px 0;
-  }
-
   .right-block {
     height: calc(80vw * (2661 / 1314) + 40px);
     width: 100%;
@@ -317,17 +262,6 @@
   .functions .table>div>h3,
   .functions .table>div svg {
     margin: 0;
-  }
-
-  .add-friend .table {
-    flex-direction: column;
-    align-content: center;
-    align-items: stretch;
-  }
-
-  .add-friend .table>div {
-    width: 60vw;
-    margin-bottom: 30px;
   }
 
   .history table {
