@@ -152,7 +152,7 @@ export default function Form() {
 
     useEffect(() => {
         (async () => {
-            var liffId = "1655168208-29vA01a6";
+            var liffId = "1655168208-9NvVk86X";
             try {
                 if (process?.env?.SETTINGS_LIFF_ID) liffId = process.env.SETTINGS_LIFF_ID;
             } catch { }
