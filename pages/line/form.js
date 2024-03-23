@@ -155,13 +155,14 @@ export default function Form() {
             var liffId = "1655168208-29vA01a6";
             try {
                 if (process?.env?.SETTINGS_LIFF_ID) liffId = process.env.SETTINGS_LIFF_ID;
-                else if (context.type == "none" || context.type == "external") {
+            } catch { }
+            const context = await liff_init(liffId);
+            try {
+                if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
                     alert("請使用正常路徑開啟");
                     return;
                 }
             } catch { }
-            const context = await liff_init(liffId);
-
             var isDev = false;
             var userId = "";
             try {
