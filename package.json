@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 9999",
-    "build": "next build && node minify.js",
+    "build": "next build",
+    "bm": "next build && node minify.js",
     "start": "next start"
   },
   "dependencies": {
