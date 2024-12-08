@@ -139,7 +139,7 @@ export default function Form() {
         };
         await set(databaseRef(database, 'form/' + formId), data);
         data.id = formId;
-        await fetch('https://script.google.com/macros/s/AKfycbxc63j004-VBZ6PpN4mbjtaMCmUcBsnQ8Vdz3R_wXEZQTS7k2MZWok-IkKYmL5_x_3AKQ/exec', {
+        await fetch('https://script.google.com/macros/s/AKfycbwkM-jXJRugWp0IjCiUAeo2QfOHvFQy793jTojc76XweR54Gg9DiE1bu5a8X7CGj3D8qQ/exec', {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain; charset=utf-8"

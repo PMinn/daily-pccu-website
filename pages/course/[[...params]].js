@@ -121,7 +121,7 @@ export default function Course() {
     async function submitRevelation() {
         var checkedInput = document.getElementById('revelation').querySelector('*:checked');
         if (checkedInput) {
-            await fetch('https://script.google.com/macros/s/AKfycbwuhzDzw6RN6-pMb11lomwj0QEKwLYXIZaCfDiKO_QvI_FyIss6ogJ6CKoDnF2Mr_Q/exec', {
+            await fetch('https://script.google.com/macros/s/AKfycbz5-jKCREsM5trGoPGoZojMQiHPr_EMEw2fUmhiOGf0RTr_pfTvXcCzPc_Irl6T1M0/exec', {
                 method: "POST",
                 headers: {
                     "Content-Type": "text/plain; charset=utf-8"
@@ -212,7 +212,7 @@ export default function Course() {
                 content='您的瀏覽器不支援分享功能，請使用其他瀏覽器。'
                 disclosure={{ isOpen: isShareErrorOpen, onOpen: onShareErrorOpen, onOpenChange: onShareErrorOpenChange }}
             />
-            <div className='container mx-auto flex mx-auto pt-[7.5rem] min-h-full mb-[5rem]'>
+            <div className='container mx-auto flex pt-[7.5rem] min-h-full mb-[5rem]'>
                 <Card className='mx-4 hidden md:flex w-[400px] min-w-[400px] max-w-[400px] sticky top-[7.5rem] h-[80vh]'>
                     <CardBody className='overflow-y-scroll grow'>
                         <Menu courseConfig={courseConfig} />
