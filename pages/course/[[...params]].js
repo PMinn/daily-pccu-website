@@ -10,20 +10,22 @@ import styles from '@/styles/course.module.css';
 
 import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
-import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, getDoc, orderBy } from "firebase/firestore";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Accordion, AccordionItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio } from "@nextui-org/react";
 
 const database = getDatabase(app);
 const firestore = getFirestore(app);
 
-async function fetchFirestoreWithYear(year, type, keyword) {
+async function fetchFirestoreWithYear(type, keyword) {
     var q;
     if (type == 'college') {
-        q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('category', '==', keyword));
+        q = query(collection(firestore, "evaluations"), where('category', '==', keyword));
     } else if (type == 'teacher') {
-        q = query(collection(firestore, "evaluations"), where("year", "==", parseInt(year)), where('teacher', 'array-contains', keyword));
-    } else return [];
+        q = query(collection(firestore, "evaluations"), where('teacher', 'array-contains', keyword));
+    } else {
+        return [];
+    }
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
         var d = [];
@@ -32,8 +34,11 @@ async function fetchFirestoreWithYear(year, type, keyword) {
             docData.id = doc.id;
             d.push(docData);
         });
+        d.sort((a, b) => b.year - a.year);
         return d;
-    } else return [];
+    } else {
+        return [];
+    }
 }
 
 async function fetchFirestoreById(id) {
@@ -50,15 +55,17 @@ async function fetchDatabase(pathname) {
     pathname = decodeURI(pathname);
     // if (pathname == '/course/[[...params]]') return { title: '', data: [] };
     var pathArray = decodeURI(pathname).split('/');
-    if (pathArray.length == 5) { // '/course/109/college/%E5%95%86%E5%AD%B8%E9%99%A2'
-        return {
-            title: `${pathArray[4]}-${pathArray[2]}學年-課程評價 | 每日文大`,
-            data: await fetchFirestoreWithYear(pathArray[2], pathArray[3], pathArray[4])
-        }
-    } else if (pathArray.length == 3) { // '/course/-MTyASIvwwbHs9Vz-fu9'
-        return {
-            title: '課程評價 | 每日文大',
-            data: await fetchFirestoreById(pathArray[2])
+    if (pathArray.length == 4) {
+        if (pathArray[2] == 'college' || pathArray[2] == 'teacher') { // '/course/college/文學院' or '/course/teacher/王小明' 
+            return {
+                title: `${pathArray[3]}-課程評價 | 每日文大`,
+                data: await fetchFirestoreWithYear(pathArray[2], pathArray[3])
+            }
+        } else if (pathArray[2] == 'id') {// '/course/id/-MTyASIvwwbHs9Vz-fu9'
+            return {
+                title: '課程評價 | 每日文大',
+                data: await fetchFirestoreById(pathArray[3])
+            }
         }
     }
     return { title: '課程評價 | 每日文大', data: [] };
@@ -70,23 +77,11 @@ function fetchConfig() {
 
 function Menu({ courseConfig }) {
     return (courseConfig ?
-        <Accordion variant="splitted" selectionMode="multiple">
-            {
-                courseConfig.years.map(year => {
-                    return (
-                        <AccordionItem key={'y_' + year} aria-label={year + '學年'} title={year + '學年'}>
-                            {
-                                courseConfig.colleges.map((college, index) => {
-                                    return (
-                                        <Button color="default" variant="light" href={`/course/${year}/college/${college}`} className='w-full text-left mb-1' as={Link} key={'college_link_' + index}>{college}</Button>
-                                    )
-                                })
-                            }
-                        </AccordionItem>
-                    )
-                })
-            }
-        </Accordion>
+        courseConfig.colleges.map((college, index) => {
+            return (
+                <Button color="default" variant="light" href={`/course/college/${college}`} className='w-full text-left mb-1' as={Link} key={'college_link_' + index}>{college}</Button>
+            )
+        })
         :
         <></>
     )
@@ -94,7 +89,6 @@ function Menu({ courseConfig }) {
 }
 
 export default function Course() {
-    const [loading, setLoading] = useState(false);
     const [revelationID, setRevelationID] = useState("");
     const router = useRouter();
     const { isOpen: isRevelationOpen, onOpen: onRevelationOpen, onOpenChange: onRevelationOpenChange } = useDisclosure();
@@ -141,7 +135,7 @@ export default function Course() {
             function handleRouteChange(pathname) {
                 var title = "課程評價 | 每日文大";
                 var pathArray = decodeURI(pathname).split('/');
-                if (pathArray.length == 5) title = `${pathArray[4]}-${pathArray[2]}學年-課程評價 | 每日文大`;
+                if (pathArray.length == 4) title = `${pathArray[3]}-課程評價 | 每日文大`;
                 logEvent(analytics, 'page_view', {
                     page_location: `https://daily-pccu.web.app/${pathname}`,
                     page_title: title

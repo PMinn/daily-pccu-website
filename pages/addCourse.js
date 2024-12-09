@@ -17,8 +17,12 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 const database = getDatabase(app);
 const firestore = getFirestore(app);
 
+function encodedStr(str) {
+    return str.replace(/[\u00A0-\u9999<>\&]/gim, i => ('&#' + i.charCodeAt(0) + ';'));
+}
+
 function fetchConfig() {
-    return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val())
+    return get(ref(database, 'courseConfig/')).then(snapshot => snapshot.val());
 }
 
 export default function Course() {
@@ -254,7 +258,15 @@ export default function Course() {
         },
         {
             'all': (
-                <Input type="text" label="授課方式" value={way} onChange={e => setWay(e.target.value)} labelPlacement="outside" placeholder=" " classNames={formClassNames} />
+                <Input
+                    type="text"
+                    label="授課方式"
+                    value={way}
+                    onChange={e => setWay(e.target.value)}
+                    labelPlacement="outside"
+                    placeholder=" "
+                    classNames={formClassNames}
+                />
             )
         },
         {
@@ -312,7 +324,7 @@ export default function Course() {
             college: collegeValue,
             point: parseInt(point),
             way,
-            evaluation: evaluation.replace(/\n/gi, '\\n'),
+            evaluation: encodedStr(evaluation).replace(/\n/gi, '<br>'),
             date: new Date().toISOString(),
             category: collegeValue,
             exam: exam.join(',')
