@@ -93,7 +93,7 @@ export default function Index({ demo }) {
               <Card className='w-[80vw] md:w-[240px] box-border'>
                 <CardHeader className="justify-center box-border">點擊按鈕</CardHeader>
                 <CardBody className='flex flex-row justify-center box-border'>
-                  <Link href='https://lin.ee/h0kZmTc' className={styles['line-btn']}>
+                  <Link href='https://lin.ee/SeaAhEv' className={styles['line-btn']}>
                     <img src='https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png' alt='加入每日文大好友' border='0' width='232' height='72'></img>
                   </Link>
                 </CardBody>
@@ -101,7 +101,7 @@ export default function Index({ demo }) {
               <Card className='w-[80vw] md:w-[240px]'>
                 <CardHeader className="justify-center box-border">掃描QR code</CardHeader>
                 <CardBody className='flex flex-row justify-center box-border'>
-                  <img src='https://qr-official.line.me/sid/M/037gujtt.png' alt='加入每日文大好友' width='180' height='180'></img>
+                  <img src="https://qr-official.line.me/gs/M_037gujtt_BW.png?oat__id=4820382&oat_content=qr" alt='加入每日文大好友' width='180' height='180'></img>
                 </CardBody>
               </Card>
               <Card className='w-[80vw] md:w-[240px]'>
