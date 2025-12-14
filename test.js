@@ -16,9 +16,9 @@ for (let z of zodiac) {
         const b = imageData.data[i + 2];
         const a = imageData.data[i + 3];
         if (a > 250) {
-            imageData.data[i] = 255;
-            imageData.data[i + 1] = 177;
-            imageData.data[i + 2] = 27;
+            imageData.data[i] = 167;
+            imageData.data[i + 1] = 110;
+            imageData.data[i + 2] = 0;
             imageData.data[i + 3] = 255;
         } else {
             imageData.data[i] = 255;
