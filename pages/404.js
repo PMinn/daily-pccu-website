@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Layout from '@/components/Layout';
-import { Button, Link } from '@nextui-org/react';
+import { Button, Link } from "@heroui/react";
 
 export default function Custom404() {
     return (

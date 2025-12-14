@@ -7,7 +7,7 @@ import examString from '@/data/exam.json';
 import generalTypeString from '@/data/generalType.json';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Slider, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio, Tabs, Tab, Select, SelectItem, Tooltip, CheckboxGroup, Textarea } from "@nextui-org/react";
+import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Slider, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio, Tabs, Tab, Select, SelectItem, Tooltip, CheckboxGroup, Textarea } from "@heroui/react";
 import { WayCheckbox } from '@/components/WayCheckbox';
 
 import { app } from '@/js/firebaseConfig.js';

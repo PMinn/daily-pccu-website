@@ -6,7 +6,7 @@ import {
     ModalFooter,
     Button,
     cn
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export default function Confirm({ title, content, disclosure, confirm, placement = "center", className = "" }) {
     return (

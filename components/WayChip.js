@@ -1,4 +1,4 @@
-import { Chip, tv } from "@nextui-org/react";
+import { Chip, tv } from "@heroui/react";
 
 const checkbox = tv({
     slots: {

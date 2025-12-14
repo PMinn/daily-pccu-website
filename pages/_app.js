@@ -4,7 +4,7 @@ import Head from 'next/head';
 import localFont from 'next/font/local';
 import { useEffect, useState } from "react";
 import System from '@/contexts/System.js';
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { detectingDarkMode, getStoredTheme, setStoredTheme } from '@/js/theme.js';
 // const { auth, setAuth, claims, setClaims, isLoading: isAuthLoading } = useAuth();
 
@@ -40,7 +40,7 @@ export default function MyApp({ Component, pageProps }) {
 	}, []);
 
 	return (
-		<NextUIProvider>
+		<HeroUIProvider>
 			<System value={{ theme, setTheme: setThemeAndSetClass }}>
 				<div className={jf_openhuninn.className}>
 					<Head>
@@ -61,6 +61,6 @@ export default function MyApp({ Component, pageProps }) {
 					<Component {...pageProps} fontClass={jf_openhuninn.className} />
 				</div>
 			</System>
-		</NextUIProvider>
+		</HeroUIProvider>
 	)
 }

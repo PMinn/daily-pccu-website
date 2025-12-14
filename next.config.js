@@ -1,6 +1,6 @@
-const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
+import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
-module.exports = (phase, { defaultConfig }) => {
+export default (phase, { defaultConfig }) => {
     var nextConfig = {
         output: 'export',
 

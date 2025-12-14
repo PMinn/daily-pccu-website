@@ -1,4 +1,4 @@
-import { Checkbox, Link, User, Chip, cn } from "@nextui-org/react";
+import { Checkbox, Link, User, Chip, cn } from "@heroui/react";
 
 export const WeatherCheckbox = ({ value, city }) => {
     return (

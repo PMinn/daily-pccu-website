@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev -p 9999",
@@ -7,26 +8,25 @@
     "start": "next start"
   },
   "dependencies": {
-    "@line/liff": "^2.22.1",
-    "@nextui-org/react": "^2.2.9",
+    "@heroui/react": "^2.8.5",
+    "@line/liff": "^2.27.3",
     "@node-minify/core": "^8.0.6",
     "@node-minify/google-closure-compiler": "^8.0.6",
-    "bootstrap": "^5.3.0",
-    "eslint-config-next": "^14.1.0",
-    "filepond": "^4.30.4",
-    "filepond-plugin-file-validate-type": "^1.2.8",
-    "filepond-plugin-image-preview": "^4.6.11",
-    "firebase": "^9.21.0",
-    "framer-motion": "^11.0.5",
-    "next": "^14.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-filepond": "^7.1.2",
-    "swr": "^2.1.5"
+    "bootstrap": "^5.3.8",
+    "canvas": "^3.2.0",
+    "eslint-config-next": "^14.2.35",
+    "firebase": "^9.23.0",
+    "framer-motion": "^12.23.26",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "swr": "^2.3.7"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1"
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
   }
 }

@@ -8,7 +8,7 @@ import {
     CardBody,
     Button,
     Progress
-} from "@nextui-org/react";
+} from "@heroui/react";
 // import { FilePond, registerPlugin } from 'react-filepond';
 // import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';

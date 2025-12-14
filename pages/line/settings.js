@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import Head from 'next/head';
-import { Input, Card, CardBody, Button, Chip, useDisclosure, Tabs, Tab, Switch, CheckboxGroup } from "@nextui-org/react";
+import { Input, Card, CardBody, Button, Chip, useDisclosure, Tabs, Tab, Switch, CheckboxGroup } from "@heroui/react";
 import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get, set } from "firebase/database";
 import Alert from '@/components/Alert';

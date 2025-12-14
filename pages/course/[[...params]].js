@@ -12,7 +12,7 @@ import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get } from "firebase/database";
 import { getFirestore, collection, query, where, getDocs, doc, getDoc, orderBy } from "firebase/firestore";
 import { getAnalytics, logEvent } from "firebase/analytics";
-import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Accordion, AccordionItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio } from "@nextui-org/react";
+import { Input, Card, CardHeader, CardBody, CardFooter, Link, Button, Accordion, AccordionItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, RadioGroup, Radio, CircularProgress } from "@heroui/react";
 
 const database = getDatabase(app);
 const firestore = getFirestore(app);
@@ -103,9 +103,15 @@ export default function Course() {
     function search(e) {
         if (data && data.data.length != 0) {
             var keyWord = e.target.value;
+            console.log(document.querySelectorAll('#blocks>*'))
             document.querySelectorAll('#blocks>*').forEach(block => {
-                if (block.innerText.includes(keyWord)) block.removeAttribute('hidden');
-                else block.setAttribute('hidden', 'true');
+                if (block.innerText.includes(keyWord)) {
+                    block.classList.remove('hidden');
+                    block.classList.add('flex');
+                } else {
+                    block.classList.remove('flex');
+                    block.classList.add('hidden');
+                }
             })
         } else {
             e.target.value = '';
@@ -257,7 +263,7 @@ export default function Course() {
                     }
                     <div id="blocks" className='flex flex-col gap-5 mt-5'>
                         {
-                            (data &&
+                            data ?
                                 (data.data.length != 0 ?
                                     data.data.map(e => {
                                         return (
@@ -272,10 +278,14 @@ export default function Course() {
                                     :
                                     <div className='w-full h-[50svh] text-center flex flex-col justify-center items-center'>
                                         <div className='text-xl'>沒有結果</div>
-                                        <div className='text-sm opacity-50 mt-2'>在選單中，依照年份及院別可查詢其他評價。</div>
+                                        <div className='text-sm opacity-50 mt-2'>在選單中，依照院別可查詢其他評價。</div>
                                     </div>
                                 )
-                            )
+                                :
+                                <div className='w-full h-[50svh] text-center flex flex-col justify-center items-center'>
+                                    <CircularProgress aria-label="載入中" color="primary" />
+                                    <div className='text-sm opacity-50 mt-2'>載入中</div>
+                                </div>
                         }
                     </div>
                 </div>

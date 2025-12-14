@@ -11,7 +11,7 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 
 import Layout from '@/components/Layout';
 
-import { Link, Button, Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Link, Button, Card, CardHeader, CardBody, CardFooter } from "@heroui/react";
 
 export default function Index({ demo }) {
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function Index({ demo }) {
           <section id="add_friend" className={styles.section + ' w-full py-[5vh] md:py-0 ' + styles['add-friend']}>
             <h2 className='text-4xl mb-[5vh] text-center'>如何加入</h2>
             <div className='flex gap-3 flex-col md:flex-row'>
-              <Card className='w-[80vw] md:w-[240px] box-border'>
+              <Card className='w-[80vw] md:w-60 box-border'>
                 <CardHeader className="justify-center box-border">點擊按鈕</CardHeader>
                 <CardBody className='flex flex-row justify-center box-border'>
                   <Link href='https://lin.ee/SeaAhEv' className={styles['line-btn']}>
@@ -98,13 +98,13 @@ export default function Index({ demo }) {
                   </Link>
                 </CardBody>
               </Card>
-              <Card className='w-[80vw] md:w-[240px]'>
+              <Card className='w-[80vw] md:w-60'>
                 <CardHeader className="justify-center box-border">掃描QR code</CardHeader>
                 <CardBody className='flex flex-row justify-center box-border'>
                   <img src="https://qr-official.line.me/gs/M_037gujtt_BW.png?oat__id=4820382&oat_content=qr" alt='加入每日文大好友' width='180' height='180'></img>
                 </CardBody>
               </Card>
-              <Card className='w-[80vw] md:w-[240px]'>
+              <Card className='w-[80vw] md:w-60'>
                 <CardHeader className="justify-center box-border">輸入LINE ID</CardHeader>
                 <CardBody className='flex flex-row justify-center box-border'>
                   <p>line主頁右上方加入好友 &gt; 右上方搜尋 &gt; 選擇id &gt; 輸入:<span>@037gujtt</span></p>

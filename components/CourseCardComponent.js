@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { Card, CardHeader, CardBody, CardFooter, Progress, CheckboxGroup } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Progress, CheckboxGroup } from "@heroui/react";
 import examString from '@/data/exam.json';
 import { WayChip } from '@/components/WayChip';
 
 export default function CourseCard({ e, isDemo, setRevelationConfirmShow, setRevelationID, setShareErrorConfirmShow }) {
-    console.log(e.evaluation)
     function shareOnClick(shareData) {
         if (navigator.share) {
             navigator.share(shareData);
