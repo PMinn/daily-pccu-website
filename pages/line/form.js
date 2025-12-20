@@ -9,31 +9,17 @@ import {
     Button,
     Progress
 } from "@heroui/react";
-// import { FilePond, registerPlugin } from 'react-filepond';
-// import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-// import 'filepond/dist/filepond.min.css';
-// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
-import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-// import Confirm from '@/components/Confirm.js';
-// import TextareaComponent from '@/components/TextareaComponent.js';
 import Layout from '@/components/Layout';
 
-// import styles from '@/styles/line/form.module.css';
-
-// registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview);
-
-export default function Form() {
+export default function Form({ devMode, uuid }) {
     const formClassNames = { label: "text-md text-default-900 opacity-100", inputWrapper: "border-medium border-transparent hover:border-primary focus:border-primary transition-colors" };
     const database = getDatabase(app);
-    const storage = getStorage(app);
 
     const [liffContext, setLiffContext] = useState(null);
-    // const [errorText, setErrorText] = useState(null);
 
     const formId = new Date().getTime();
     const [files, setFiles] = useState([]);
@@ -45,7 +31,7 @@ export default function Form() {
     const [liffObject, setLiffObject] = useState(null);
 
     // 點擊上傳
-    function uploadOnClick() {
+    function uploadOnPress() {
         var input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
@@ -54,56 +40,24 @@ export default function Form() {
         input.addEventListener('change', e => {
             let id = (new Date()).getTime();
             var file = e.target.files[0];
-            const filePath = `form/${formId}_${file.name.split('.')[0]}.${file.name.split('.').pop()}`;
-            setFiles(tempFiles => {
-                let tf = [...tempFiles];
-                tf.push({
-                    filePath,
-                    bytesTransferred: 0,
-                    totalBytes: file.size,
-                    percentage: 0,
-                    id,
-                    state: "uploading",
-                    src: URL.createObjectURL(file),
-                    originFileName: file.name
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64String = e.target.result;
+                const rawBase64 = base64String.split(',')[1];
+                setFiles(tempFiles => {
+                    let tf = [...tempFiles];
+                    tf.push({
+                        totalBytes: file.size,
+                        id,
+                        base64: rawBase64,
+                        originFileName: file.name
+                    });
+                    return tf;
                 });
-                return tf;
-            });
-            window.scrollTo(0, document.body.scrollHeight);
-            const uploadTask = uploadBytesResumable(storageRef(storage, filePath), file);
-            uploadTask.on('state_changed',
-                snapshot => {
-                    setFiles(tempFiles => {
-                        let tf = [...tempFiles];
-                        var index = tf.findIndex(f => f.id == id);
-                        tf[index].bytesTransferred = snapshot.bytesTransferred;
-                        tf[index].totalBytes = snapshot.totalBytes;
-                        tf[index].percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        return tf;
-                    });
-                },
-                err => {
-                    setFiles(tempFiles => {
-                        let tf = [...tempFiles];
-                        var index = tf.findIndex(f => f.id == id);
-                        tf[index].state = "error";
-                        return tf;
-                    });
-                    console.error(err);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref)
-                        .then(downloadURL => {
-                            setFiles(tempFiles => {
-                                let tf = [...tempFiles];
-                                var index = tf.findIndex(f => f.id == id);
-                                tf[index].state = "success";
-                                tf[index].downloadURL = downloadURL;
-                                return tf;
-                            });
-                        });
-                }
-            );
+                window.scrollTo(0, document.body.scrollHeight);
+            };
+            reader.readAsDataURL(file);
         });
     }
 
@@ -130,12 +84,13 @@ export default function Form() {
             alert("內容不可為空");
             return;
         }
+        console.log(liffContext.userId)
         setLoading(true);
         var data = {
             type: radioGroup,
             content,
             uuid: liffContext.userId,
-            files: files.filter(f => f.state == "success")
+            files: files
         };
         await set(databaseRef(database, 'form/' + formId), data);
         data.id = formId;
@@ -152,29 +107,18 @@ export default function Form() {
 
     useEffect(() => {
         (async () => {
-            var liffId = "1655168208-9NvVk86X";
-            try {
-                if (process?.env?.SETTINGS_LIFF_ID) liffId = process.env.SETTINGS_LIFF_ID;
-            } catch { }
-            const context = await liff_init(liffId);
-            try {
-                if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
-                    alert("請使用正常路徑開啟");
-                    return;
-                }
-            } catch { }
-            var isDev = false;
-            var userId = "";
-            try {
-                if (process?.env?.UUID) {
-                    userId = process.env.UUID;
-                    isDev = true;
-                }
-            } catch { }
-
-            if (isDev) {
-                setLiffContext({ userId: process.env.UUID });
+            console.log('DEV_MODE:', devMode);
+            if (devMode) {
+                setLiffContext({ userId: uuid });
             } else {
+                const liffId = "1655168208-9NvVk86X";
+                const context = await liff_init(liffId);
+                try {
+                    if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
+                        alert("請使用正常路徑開啟");
+                        return;
+                    }
+                } catch { }
                 setLiffContext(context);
             }
         })();
@@ -190,7 +134,7 @@ export default function Form() {
                 <title>回饋 | 每日文大</title>
             </Head>
             {/* <Confirm title="請輸入內容" content={"內容不可為空"} show={confirmShow} btn={["確認"]} onClick={[() => setConfirmShow(false)]}></Confirm> */}
-            <div className='container mx-auto pt-[7.5rem] flex flex-col items-center min-h-screen'>
+            <div className='container mx-auto pt-30 flex flex-col items-center min-h-screen'>
                 {liffContext &&
                     (success == null ? (
                         <div className='w-full flex flex-col py-5 px-7'>
@@ -224,7 +168,7 @@ export default function Form() {
                                     return (
                                         <Card
                                             isBlurred
-                                            className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] mb-2"
+                                            className="border-none bg-background/60 dark:bg-default-100/50 max-w-152.5 mb-2"
                                             shadow="sm"
                                             key={'file_' + index}
                                         >
@@ -235,7 +179,7 @@ export default function Form() {
                                                             className="object-cover mx-auto"
                                                             height={100}
                                                             shadow="md"
-                                                            src={file.src}
+                                                            src={"data:image/png;base64," + file.base64}
                                                             width={100}
                                                         />
                                                     </div>
@@ -243,20 +187,6 @@ export default function Form() {
                                                     <div className="flex flex-col col-span-6 md:col-span-8">
                                                         <div className="flex justify-between items-start">
                                                             <h3 className="font-semibold text-foreground/90">{file.originFileName}</h3>
-                                                        </div>
-
-                                                        <div className="flex flex-col mt-3 gap-1">
-                                                            <Progress
-                                                                size="sm"
-                                                                value={file.percentage}
-                                                                color={file.state == "uploading" ? "primary" : file.state == "success" ? "success" : "danger"}
-                                                                showValueLabel={true}
-                                                                className="max-w-md"
-                                                            />
-                                                            <div className="flex justify-between">
-                                                                <p className="text-small">{(file.bytesTransferred / 1024).toFixed(2)} KB</p>
-                                                                <p className="text-small text-foreground/50">{(file.totalBytes / 1024).toFixed(2)} KB</p>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,8 +203,8 @@ export default function Form() {
                                     </>
                                     :
                                     <>
-                                        <Button color="default" variant="faded" className='mb-2' onClick={uploadOnClick}>上傳</Button>
-                                        <Button color='primary' className='w-full' onClick={submit}>送出</Button>
+                                        <Button color="default" variant="faded" className='mb-2' onPress={uploadOnPress}>上傳</Button>
+                                        <Button color='primary' className='w-full' onPress={submit}>送出</Button>
                                     </>
                             }
 
@@ -296,3 +226,10 @@ export default function Form() {
         </Layout>
     )
 }
+
+export const getStaticProps = (async (context) => {
+    const devMode = process.env.DEV_MODE == '1' || process.env.DEV_MODE == 1;
+    const props = { devMode };
+    if (devMode) props.uuid = process.env.UUID;
+    return { props };
+})
