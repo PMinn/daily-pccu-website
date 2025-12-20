@@ -9,10 +9,9 @@ export default function Footer({ options = {} }) {
                 <div className='px-4 flex flex-col md:flex-row w-full'>
                     <div className='w-full md:w-[20vw]'>
                         <img
-                            className='w-[200px] h-[200px] object-cover rounded-full border border-[#00000020] shadow-xl'
-                            src='https://firebasestorage.googleapis.com/v0/b/daily-pccu.appspot.com/o/web%2Flogo-bg_w350.webp?alt=media&token=dd0eae47-4373-42d7-8602-afbffd1cfd3a'
+                            className='w-50 h-50 object-cover rounded-full border border-[#00000020] shadow-xl'
+                            src='/images/logo/logo-bg_w350.webp'
                             alt="每日文大 logo"
-                            srcSet='https://firebasestorage.googleapis.com/v0/b/daily-pccu.appspot.com/o/web%2Flogo-bg.webp?alt=media&token=80013b5d-0cb7-4a2d-9619-67fede77edb7 350w'
                         />
                         <p className='leading-8 mt-[5vh]'>每日文大創立於2020年，致力於設計和開發更方便及人性化的移動應用程式，提供更便捷的服務給文大學生，讓每日文大成為文大學生的日常。</p>
                     </div>
