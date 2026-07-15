@@ -59,6 +59,17 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* For Firefox */
 * {
   scrollbar-color: hsl(var(--nextui-primary) / 1) hsl(var(--nextui-background) / 1);

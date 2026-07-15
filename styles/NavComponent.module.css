@@ -1,6 +1,7 @@
 .nav {
     border: 1px solid hsl(var(--nextui-foreground) / 30%);
     overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav::before {
@@ -16,4 +17,15 @@
     top: 0;
     left: 0;
     transition: all 0.3s;
+}
+
+.navScrolled {
+    border-color: hsl(var(--nextui-foreground) / 15%);
+    box-shadow: 0 8px 30px rgba(var(--black-rgb), 0.12);
+}
+
+.navScrolled::before {
+    backdrop-filter: saturate(200%) blur(16px);
+    -webkit-backdrop-filter: saturate(200%) blur(16px);
+    background-color: hsl(var(--nextui-background) / 55%);
 }

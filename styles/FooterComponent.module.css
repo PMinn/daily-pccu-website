@@ -1,10 +1,32 @@
+.topBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, rgb(var(--daily-primary-color)), var(--fourth-color), var(--second-color));
+    opacity: 0.7;
+}
+
+.links a {
+    display: inline-block;
+    width: fit-content;
+}
+
 .links a::after {
     content: '';
-    width: 2em;
+    width: 100%;
     height: 1px;
-    background-color: hsl(var(--nextui-foreground));
-    opacity: 0.5;
+    background-color: rgb(var(--daily-primary-color));
+    opacity: 0.8;
     position: absolute;
     bottom: -2px;
     left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.links a:hover::after {
+    transform: scaleX(1);
 }

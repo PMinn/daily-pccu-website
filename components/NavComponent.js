@@ -1,9 +1,17 @@
 import styles from '@/styles/NavComponent.module.css';
 import { setStoredTheme } from '@/js/theme.js';
 import Link from 'next/link';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useState } from 'react';
 
 export default function Nav({ theme, setTheme, options = {} }) {
     if (!options.head?.as) options.head = { as: 'link' };
+    const [scrolled, setScrolled] = useState(false);
+    const { scrollY } = useScroll();
+    useMotionValueEvent(scrollY, 'change', (latest) => {
+        setScrolled(latest > 24);
+    });
+
     function changeTheme() {
         if (theme == 'light') {
             setTheme('dark');
@@ -15,13 +23,18 @@ export default function Nav({ theme, setTheme, options = {} }) {
     }
 
     return (
-        <header className='w-full fixed top-[32px] left-0 z-50'>
-            <div className='container mx-auto'>
-                <nav className={styles.nav + ' mx-4 px-3 rounded-2xl h-[72px] flex justify-between items-center shadow-lg relative'}>
+        <motion.header
+            initial={{ y: -60, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className='w-full fixed top-[32px] left-0 z-50'
+        >
+            <div className='container mx-auto px-4 md:px-8'>
+                <nav className={styles.nav + (scrolled ? ' ' + styles.navScrolled : '') + ' px-4 md:px-6 rounded-2xl h-[72px] flex justify-between items-center shadow-lg relative'}>
                     {
                         options.head?.as == "link" ?
                             <Link href="/">
-                                <h1 className='text-xl'>每日文大</h1>
+                                <motion.h1 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }} className='text-xl'>每日文大</motion.h1>
                             </Link>
                             :
                             <>
@@ -34,6 +47,6 @@ export default function Nav({ theme, setTheme, options = {} }) {
                     </div>
                 </nav>
             </div>
-        </header>
+        </motion.header>
     )
 }
