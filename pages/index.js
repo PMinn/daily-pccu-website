@@ -12,7 +12,7 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 
 import Layout from '@/components/Layout';
 
-import { Link, Button } from "@heroui/react";
+import { Link } from "@heroui/react";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 28 },
@@ -21,6 +21,8 @@ const fadeUp = {
 
 const INTRO_WEIGHT = 0.85;
 const FEATURE_WEIGHT = 0.5;
+
+const JOIN_EN_LABELS = ['ONE TAP', 'QR CODE', 'LINE ID'];
 
 function ScrollStep({ range, progress, isFirst, className, children }) {
     const [start, end] = range;
@@ -36,6 +38,21 @@ function ScrollStep({ range, progress, isFirst, className, children }) {
     return (
         <motion.div className={className} style={{ opacity, y }}>
             {children}
+        </motion.div>
+    );
+}
+
+function SectionHead({ en, zh }) {
+    return (
+        <motion.div
+            className={styles['section-head']}
+            initial='hidden'
+            whileInView='show'
+            viewport={{ once: true, amount: 0.6 }}
+            variants={fadeUp}
+        >
+            <h2 className={styles['section-en']}>{en}</h2>
+            <span className={styles['section-zh']}>{zh}</span>
         </motion.div>
     );
 }
@@ -71,12 +88,17 @@ export default function Index() {
         setActiveFeature(idx);
     });
 
+    const { scrollY } = useScroll();
+    const [badgeShown, setBadgeShown] = useState(false);
+    useMotionValueEvent(scrollY, 'change', (v) => {
+        setBadgeShown(v > window.innerHeight * 0.5);
+    });
+
     const phoneRotateY = useTransform(worldProgress, [0, 1], [0, 18]);
     const phoneRotateX = useTransform(worldProgress, [0, 1], [0, -8]);
     const phoneScale = useTransform(worldProgress, [0, 0.92, 1], [1, 1, 0.85]);
     const phoneOpacity = useTransform(worldProgress, [0, 0.95, 1], [1, 1, 0]);
     const blobRotate = useTransform(worldProgress, [0, 1], [0, 60]);
-    const ctaOpacity = useTransform(worldProgress, [0, 0.95, 1], [1, 1, 0]);
 
     return (
         <Layout>
@@ -120,12 +142,16 @@ export default function Index() {
                             <div className={styles['scroll-world-left']}>
                                 <div className={styles['step-stage']}>
                                     <ScrollStep range={introRange} progress={worldProgress} isFirst className={styles['intro-step']}>
+                                        <span className={styles.eyebrow}>DAILY PCCU · LINE BOT</span>
                                         <div className={styles.text}>提供各項最新即時資訊<br />的LINE BOT機器人</div>
                                         <p className={styles['top-btn']}> <span className={styles['bounce-arrow']}>▼</span> 滑動探索所有功能 </p>
                                     </ScrollStep>
                                     {
                                         FunctionsData.map((func, i) => (
                                             <ScrollStep key={func.title} range={featureRanges[i]} progress={worldProgress} className={styles['feature-step']}>
+                                                <span className={styles['feature-index']}>
+                                                    <em>{String(i + 1).padStart(2, '0')}</em> {func.id.toUpperCase()}
+                                                </span>
                                                 <div dangerouslySetInnerHTML={{ __html: func.icon }} className={styles['feature-step-icon']}></div>
                                                 <h3>{func.title}</h3>
                                                 <p>{func.description}</p>
@@ -167,104 +193,142 @@ export default function Index() {
                                     </g>
                                 </motion.svg>
                             </div>
-                            <motion.div className={styles['floating-cta']} style={{ opacity: ctaOpacity }}>
-                                <Button as={Link} color='primary' radius="full" size="lg" href='#add_friend' className='text-lg'>加入好友</Button>
-                            </motion.div>
                         </div>
-                        <div className={styles.wave}>
+                        {/* <div className={styles.wave}>
                             <svg viewBox='0 0 960 540' width='960' height='540' mlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1' >
                                 <path d='M0 390L53.3 409C106.7 428 213.3 466 320 460.3C426.7 454.7 533.3 405.3 640 375.3C746.7 345.3 853.3 334.7 906.7 329.3L960 324L960 541L906.7 541C853.3 541 746.7 541 640 541C533.3 541 426.7 541 320 541C213.3 541 106.7 541 53.3 541L0 541Z' strokeLinecap='round' strokeLinejoin='miter'></path>
                             </svg>
+                        </div> */}
+                    </section>
+                    <section id='about' className={styles.section + ' w-full ' + styles.about}>
+                        <div className={styles.container}>
+                            <SectionHead en="About" zh="關於每日文大" />
+                            <div className={styles['about-grid']}>
+                                <motion.h3
+                                    className={styles['about-heading']}
+                                    initial='hidden'
+                                    whileInView='show'
+                                    viewport={{ once: true, amount: 0.6 }}
+                                    variants={fadeUp}
+                                >把文大的每一天，<br />整理進一個對話框。</motion.h3>
+                                <motion.div
+                                    initial='hidden'
+                                    whileInView='show'
+                                    viewport={{ once: true, amount: 0.4 }}
+                                    variants={fadeUp}
+                                >
+                                    <p className={styles['about-desc']}>每日文大是專為文化大學學生打造的 LINE Bot。從陽明山多變的天氣、公車即時進站，到校內最新消息與每日運勢，打開 LINE 就能一次掌握，不用再多裝任何 App。</p>
+                                    <dl className={styles['stat-list']}>
+                                        <div className={styles['stat-row']}>
+                                            <dt>上線時間</dt>
+                                            <dd>2021.02</dd>
+                                        </div>
+                                        <div className={styles['stat-row']}>
+                                            <dt>好友人數</dt>
+                                            <dd>10,000+</dd>
+                                        </div>
+                                        <div className={styles['stat-row']}>
+                                            <dt>功能數量</dt>
+                                            <dd>{FunctionsData.length} 項</dd>
+                                        </div>
+                                    </dl>
+                                </motion.div>
+                            </div>
                         </div>
                     </section>
-                    <section id="add_friend" className={styles.section + ' w-full py-[5vh] md:py-0 ' + styles['add-friend']}>
-                        <motion.h2
-                            className='text-4xl mb-[5vh] text-center'
-                            initial='hidden'
-                            whileInView='show'
-                            viewport={{ once: true, amount: 0.6 }}
-                            variants={fadeUp}
-                        >如何加入</motion.h2>
-                        <div className='flex gap-8 flex-col md:flex-row items-stretch justify-center'>
-                            <motion.div
-                                className={styles['step-card'] + ' ' + styles['step-card-1'] + ' bg-content1 w-[85vw] md:w-64'}
-                                initial={{ opacity: 0, y: 36 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                whileHover={{ y: -8 }}
-                            >
-                                <span className={styles['step-badge']}>最快</span>
-                                <h3 className={styles['step-title']}>點擊按鈕</h3>
-                                <p className={styles['step-desc']}>手機開啟，一鍵加入</p>
-                                <div className={styles['step-visual']}>
-                                    <Link href='https://lin.ee/SeaAhEv' className={styles['line-btn']}>
-                                        <img src='https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png' alt='加入每日文大好友' border='0' width='232' height='72'></img>
-                                    </Link>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className={styles['step-card'] + ' ' + styles['step-card-2'] + ' bg-content1 w-[85vw] md:w-64'}
-                                initial={{ opacity: 0, y: 36 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                                whileHover={{ y: -8 }}
-                            >
-                                <h3 className={styles['step-title']}>掃描QR code</h3>
-                                <p className={styles['step-desc']}>用相機或LINE掃描加入</p>
-                                <div className={styles['step-visual']}>
-                                    <img src="https://qr-official.line.me/gs/M_037gujtt_BW.png?oat__id=4820382&oat_content=qr" alt='加入每日文大好友' width='150' height='150'></img>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className={styles['step-card'] + ' ' + styles['step-card-3'] + ' bg-content1 w-[85vw] md:w-64'}
-                                initial={{ opacity: 0, y: 36 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                                whileHover={{ y: -8 }}
-                            >
-                                <h3 className={styles['step-title']}>輸入LINE ID</h3>
-                                <p className={styles['step-desc']}>手動搜尋帳號加入</p>
-                                <div className={styles['step-visual'] + ' ' + styles['step-visual-text']}>
-                                    <p>line主頁右上方加入好友 &gt; 右上方搜尋 &gt; 選擇id &gt; 輸入:<span className='font-bold'>@037gujtt</span></p>
-                                </div>
-                            </motion.div>
+                    <section id="add_friend" className={styles.section + ' w-full ' + styles['section-accent'] + ' ' + styles['add-friend']}>
+                        <div className={styles.container}>
+                            <SectionHead en="Join" zh="如何加入" />
+                            <div className={styles['step-grid']}>
+                                <motion.div
+                                    className={styles['step-card'] + ' bg-content1'}
+                                    initial={{ opacity: 0, y: 36 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                    whileHover={{ y: -8 }}
+                                >
+                                    <span className={styles['step-badge']}>最快</span>
+                                    <span className={styles['step-en']}>{JOIN_EN_LABELS[0]}</span>
+                                    <h3 className={styles['step-title']}>點擊按鈕</h3>
+                                    <p className={styles['step-desc']}>手機開啟，一鍵加入</p>
+                                    <div className={styles['step-visual']}>
+                                        <Link href='https://lin.ee/SeaAhEv' className={styles['line-btn']}>
+                                            <img src='https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png' alt='加入每日文大好友' border='0' width='232' height='72'></img>
+                                        </Link>
+                                    </div>
+                                </motion.div>
+                                <motion.div
+                                    className={styles['step-card'] + ' bg-content1'}
+                                    initial={{ opacity: 0, y: 36 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                                    whileHover={{ y: -8 }}
+                                >
+                                    <span className={styles['step-en']}>{JOIN_EN_LABELS[1]}</span>
+                                    <h3 className={styles['step-title']}>掃描QR code</h3>
+                                    <p className={styles['step-desc']}>用相機或LINE掃描加入</p>
+                                    <div className={styles['step-visual']}>
+                                        <img src="https://qr-official.line.me/gs/M_037gujtt_BW.png?oat__id=4820382&oat_content=qr" alt='加入每日文大好友' width='150' height='150'></img>
+                                    </div>
+                                </motion.div>
+                                <motion.div
+                                    className={styles['step-card'] + ' bg-content1'}
+                                    initial={{ opacity: 0, y: 36 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                                    whileHover={{ y: -8 }}
+                                >
+                                    <span className={styles['step-en']}>{JOIN_EN_LABELS[2]}</span>
+                                    <h3 className={styles['step-title']}>輸入LINE ID</h3>
+                                    <p className={styles['step-desc']}>手動搜尋帳號加入</p>
+                                    <div className={styles['step-visual'] + ' ' + styles['step-visual-text']}>
+                                        <p>line主頁右上方加入好友 &gt; 右上方搜尋 &gt; 選擇id &gt; 輸入:<span className='font-bold'>@037gujtt</span></p>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </div>
                     </section>
-                    <section id='history' className={styles.section + ' w-full py-[5vh] md:py-0 ' + styles['history']}>
-                        <motion.h2
-                            className='text-4xl mb-[5vh] text-center'
-                            initial='hidden'
-                            whileInView='show'
-                            viewport={{ once: true, amount: 0.6 }}
-                            variants={fadeUp}
-                        >重大事件</motion.h2>
-                        <div className={styles.timeline}>
-                            {
-                                HistoryData.map((history, i) => {
-                                    return (
+                    <section id='history' className={styles.section + ' w-full ' + styles['history']}>
+                        <div className={styles.container}>
+                            <SectionHead en="History" zh="重大事件" />
+                            <div className={styles['history-list']}>
+                                {
+                                    HistoryData.map((history, i) => (
                                         <motion.div
                                             key={history.time}
-                                            className={styles['timeline-item']}
-                                            initial={{ opacity: 0, x: i % 2 === 0 ? -24 : 24 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
+                                            className={styles['history-row']}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true, amount: 0.4 }}
-                                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: (i % 3) * 0.06 }}
                                         >
-                                            <span className={styles['timeline-dot']}></span>
-                                            <div className={styles['timeline-content']}>
-                                                <span className={styles['timeline-time']}>{history.time}</span>
-                                                <p>{history.description}</p>
-                                            </div>
+                                            <span className={styles['history-date']}>{history.time.replaceAll('/', '.')}</span>
+                                            <p className={styles['history-desc']}>{history.description}</p>
                                         </motion.div>
-                                    )
-                                })
-                            }
+                                    ))
+                                }
+                            </div>
                         </div>
                     </section>
                 </main>
+                <motion.a
+                    href='https://lin.ee/SeaAhEv'
+                    target='_blank'
+                    rel='noreferrer'
+                    className={styles['line-badge']}
+                    initial={false}
+                    animate={badgeShown ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: 16, pointerEvents: 'none' }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                >
+                    <span className={styles['line-badge-dot']}></span>
+                    加入好友
+                    <span className={styles['badge-arrow']}>→</span>
+                </motion.a>
             </div>
         </Layout>
     )

@@ -37,7 +37,7 @@ export default function Footer({ options = {} }) {
                         </div>
                     </div>
                 </motion.div>
-                <small className='block mt-[10svh] opacity-60'>© 2022 All Rights Reserved - <a href="https://github.com/PMinn">P'MIN</a>.</small>
+                <small className='block mt-[10svh] opacity-60'>© 2022 All Rights Reserved - 每日文大.</small>
             </div>
         </footer>
     )
