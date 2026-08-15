@@ -100,6 +100,22 @@ export default function Course() {
     const { data, error: dataError } = useSWR(pathname, fetchDatabase);
     const { data: courseConfig, error: courseConfigError } = useSWR("/courseConfig", fetchConfig);
 
+    const isResolvedPath = router.isReady && !pathname.includes('[');
+    const canonicalUrl = 'https://daily-pccu.web.app' + (isResolvedPath && pathname.startsWith('/course') ? pathname : '/course');
+    const pathSegments = decodeURI(pathname).split('/');
+    const breadcrumbItems = [
+        { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://daily-pccu.web.app/' },
+        { '@type': 'ListItem', position: 2, name: '課程評價', item: 'https://daily-pccu.web.app/course' },
+    ];
+    if (pathSegments.length === 4) {
+        breadcrumbItems.push({ '@type': 'ListItem', position: 3, name: pathSegments[3], item: canonicalUrl });
+    }
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbItems,
+    };
+
     function search(e) {
         if (data && data.data.length != 0) {
             var keyWord = e.target.value;
@@ -156,8 +172,15 @@ export default function Course() {
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>{data ? data.title : "課程評價 | 每日文大"}</title>
-                <meta name='keywords' content='每日文大,文大bot,課程評價' />
+                <meta name='keywords' content='每日文大,文大bot,課程評價,文化大學課程' />
                 <meta name='description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+                <link rel='canonical' href={canonicalUrl} />
+
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+                />
 
                 {/* Facebook Meta Tags */}
                 {/* <meta property="og:url" content="https://daily-pccu.web.app/" /> */}

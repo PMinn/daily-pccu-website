@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidEvaluation(data) {
+      return data.keys().hasOnly(['className', 'teacher', 'year', 'department', 'college', 'point', 'way', 'evaluation', 'date', 'category', 'exam'])
+        && data.className is string && data.className.size() > 0 && data.className.size() < 100
+        && data.teacher is list && data.teacher.size() > 0 && data.teacher.size() < 10
+        && data.year is int && data.year > 50 && data.year < 200
+        && data.department is string && data.department.size() < 100
+        && data.college is string && data.college.size() < 50
+        && data.point is int && data.point >= 0 && data.point <= 100
+        && data.way is string && data.way.size() < 200
+        && data.evaluation is string && data.evaluation.size() < 20000
+        && data.date is string
+        && data.category is string && data.category.size() < 50
+        && data.exam is string && data.exam.size() < 200;
+    }
+
+    match /evaluations/{evaluationsId} {
+      allow read: if true;
+      allow create: if isValidEvaluation(request.resource.data);
+      allow update, delete: if false;
+    }
+  }
+}

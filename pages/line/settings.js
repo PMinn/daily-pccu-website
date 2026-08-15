@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Input, Card, CardBody, Button, Chip, useDisclosure, Tabs, Tab, Switch, CheckboxGroup } from "@heroui/react";
 import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref, get, set } from "firebase/database";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
 import Alert from '@/components/Alert';
 import Layout from '@/components/Layout';
 import { WeatherIcon, EatIcon } from '@/components/Icons';
@@ -70,18 +71,24 @@ export default function Settings() {
 
     // liff 初始化
     async function liff_init(liffId) {
-        return await import("@line/liff")
-            .then(module => module.liff)
-            .then(liff => {
-                setLiffObject(liff);
-                return liff;
-            })
-            .then(liff => liff.init({ liffId }))
-            .then(() => {
-                const context = liff.getContext();
-                setLiffContext(context);
-                return context;
-            });
+        const liff = await import("@line/liff").then(module => module.liff);
+        setLiffObject(liff);
+        await liff.init({ liffId });
+        const context = liff.getContext();
+        setLiffContext(context);
+        return { context, liff };
+    }
+
+    // 用 LIFF ID Token 換取 Firebase custom token 並登入，之後 RTDB rules 才能用 auth.uid 判斷身分
+    async function authenticateWithLine(idToken) {
+        const res = await fetch('https://daily-pccu-server.vercel.app/api/line/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken })
+        });
+        if (!res.ok) throw new Error('LINE 身分驗證失敗');
+        const { customToken } = await res.json();
+        await signInWithCustomToken(getAuth(app), customToken);
     }
 
     // 讀取資料
@@ -116,29 +123,23 @@ export default function Settings() {
                 if (process?.env?.SETTINGS_LIFF_ID) liffId = process.env.SETTINGS_LIFF_ID;
             } catch { }
 
-            const context = await liff_init(liffId);
+            const { context, liff } = await liff_init(liffId);
             try {
                 if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
                     alert("請使用正常路徑開啟");
                     return;
                 }
             } catch { }
-            var isDev = false;
-            var userId = "";
             try {
-                if (process?.env?.UUID) {
-                    userId = process.env.UUID;
-                    isDev = true;
-                }
-            } catch { }
-
-            if (isDev) {
-                await data_init(process.env.UUID);
-                setLiffContext({ userId: process.env.UUID });
-            } else {
-                await data_init(context.userId);
-                setLiffContext(context);
+                await authenticateWithLine(liff.getIDToken());
+            } catch (e) {
+                setErrorText(`身分驗證失敗，請稍後重試，或是將此頁面截圖並回報錯誤。[err:${e}]`);
+                errorOnOpen();
+                setIsLoading(false);
+                return;
             }
+            await data_init(context.userId);
+            setLiffContext(context);
             // .catch(err => {
             //     setErrorText(`錯誤代碼:\n${err.code}\n\n錯誤訊息:\n${err.message}\n請重新開啟頁面`);
             //     errorOnOpen();
@@ -151,6 +152,8 @@ export default function Settings() {
         <Layout options={{ footer: { hidden: true }, nav: { head: { as: "div" } } }}>
             <Head>
                 <title>設定 | 每日文大</title>
+                <meta name='description' content='每日文大 LINE Bot 個人化設定頁面，僅限透過 LINE App 內開啟使用。' />
+                <meta name='robots' content='noindex, nofollow' />
             </Head>
             <Alert
                 title="發生錯誤"

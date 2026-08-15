@@ -57,6 +57,45 @@ function SectionHead({ en, zh }) {
     );
 }
 
+const WEBAPPLICATION_JSON_LD = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: '每日文大',
+    url: 'https://daily-pccu.web.app/',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'LINE',
+    description: '每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'TWD' },
+    featureList: FunctionsData.map(func => func.title + '：' + func.description),
+};
+
+const HOWTO_JSON_LD = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: '如何加入每日文大 LINE Bot',
+    description: '三種加入每日文大 LINE 官方帳號好友的方式。',
+    step: [
+        {
+            '@type': 'HowToStep',
+            name: '點擊按鈕',
+            text: '手機開啟 https://lin.ee/SeaAhEv 連結，一鍵加入。',
+            url: 'https://daily-pccu.web.app/#add_friend',
+        },
+        {
+            '@type': 'HowToStep',
+            name: '掃描QR code',
+            text: '用相機或LINE掃描官方QR Code加入好友。',
+            url: 'https://daily-pccu.web.app/#add_friend',
+        },
+        {
+            '@type': 'HowToStep',
+            name: '輸入LINE ID',
+            text: '於LINE主頁右上方加入好友，選擇ID搜尋，輸入 @037gujtt 加入好友。',
+            url: 'https://daily-pccu.web.app/#add_friend',
+        },
+    ],
+};
+
 export default function Index() {
     useEffect(() => {
         if (location.host == 'daily-pccu.web.app') getAnalytics(app);
@@ -105,9 +144,20 @@ export default function Index() {
             <div className={styles.main}>
                 <Head>
                     {/* HTML Meta Tags  */}
-                    <title>每日文大</title>
-                    <meta name='keywords' content='每日文大,文大天氣,天氣預報,即時天氣,文大bot' />
+                    <title>每日文大｜文化大學 LINE Bot：天氣、公車、校園消息一次掌握</title>
+                    <meta name='keywords' content='每日文大,文大天氣,天氣預報,即時天氣,文大bot,文化大學,LINE Bot,PCCU' />
                     <meta name='description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
+                    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+                    <link rel='canonical' href='https://daily-pccu.web.app/' />
+
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBAPPLICATION_JSON_LD) }}
+                    />
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOWTO_JSON_LD) }}
+                    />
 
                     {/* Facebook Meta Tags */}
                     <meta property="og:url" content="https://daily-pccu.web.app/" />

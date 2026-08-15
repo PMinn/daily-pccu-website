@@ -290,9 +290,9 @@ export default function Course() {
                 <Textarea
                     label="課程評語"
                     value={evaluation}
-                    onChange={e => setEvaluation(e.target.value)}
+                    onChange={e => setEvaluation(e.target.value.slice(0, 1000))}
                     labelPlacement="outside"
-                    description="請以客觀且不具辱罵及攻擊性的字眼填寫"
+                    description="請以客觀且不具辱罵及攻擊性的字眼填寫（1000字以內）"
                     classNames={formClassNames}
                 />
             )
@@ -361,8 +361,25 @@ export default function Course() {
             <Head>
                 {/* HTML Meta Tags  */}
                 <title>新增課程評價 | 每日文大</title>
-                <meta name='keywords' content='每日文大,文大bot,課程評價' />
+                <meta name='keywords' content='每日文大,文大bot,課程評價,文化大學課程' />
                 <meta name='description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+                <link rel='canonical' href='https://daily-pccu.web.app/addCourse' />
+
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'BreadcrumbList',
+                            itemListElement: [
+                                { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://daily-pccu.web.app/' },
+                                { '@type': 'ListItem', position: 2, name: '課程評價', item: 'https://daily-pccu.web.app/course' },
+                                { '@type': 'ListItem', position: 3, name: '新增課程評價', item: 'https://daily-pccu.web.app/addCourse' },
+                            ],
+                        }),
+                    }}
+                />
 
                 {/* Facebook Meta Tags */}
                 {/* <meta property="og:url" content="https://daily-pccu.web.app/" /> */}

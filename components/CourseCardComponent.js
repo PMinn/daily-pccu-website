@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import DOMPurify from 'dompurify';
 import { Card, CardHeader, CardBody, CardFooter, Progress, CheckboxGroup } from "@heroui/react";
 import examString from '@/data/exam.json';
 import { WayChip } from '@/components/WayChip';
@@ -93,7 +94,12 @@ export default function CourseCard({ e, isDemo, setRevelationConfirmShow, setRev
                 <div className=' mt-3'>授課方式:<br />
                     {e.way}
                 </div>
-                <div className='w-full whitespace-pre-line mt-3' dangerouslySetInnerHTML={{ __html: "課程評語:<br />" + e.evaluation }}></div>
+                <div
+                    className='w-full whitespace-pre-line mt-3'
+                    dangerouslySetInnerHTML={{
+                        __html: "課程評語:<br />" + DOMPurify.sanitize(e.evaluation || '', { ALLOWED_TAGS: ['br'], ALLOWED_ATTR: [] })
+                    }}
+                ></div>
             </CardBody>
             <CardFooter className='text-sm flex justify-between'>
                 <div>{e.year}學年</div>

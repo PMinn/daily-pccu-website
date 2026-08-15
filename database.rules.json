@@ -1,0 +1,51 @@
+{
+  "rules": {
+    "users":{
+      "$user_id":{
+        ".read": "auth != null && auth.uid === $user_id",
+        ".write": "auth != null && auth.uid === $user_id",
+        "isEatAvailable":{
+          ".read": "auth != null && auth.uid === $user_id",
+          ".write": "auth != null && auth.uid === $user_id",
+          ".validate": "newData.isBoolean()"
+        },
+        "weather":{
+          ".read": "auth != null && auth.uid === $user_id",
+          ".write": "auth != null && auth.uid === $user_id"
+        },
+        "eat":{
+          ".read": "auth != null && auth.uid === $user_id",
+          ".write": "auth != null && auth.uid === $user_id",
+          ".validate": "newData.isString() && newData.val().length < 500"
+        },
+        "$other": {
+          ".read": false,
+          ".write": false,
+          ".validate": false
+        }
+      }
+    },
+    "weatherLocations":{
+      ".read": true,
+      ".write": false,
+      ".validate": false
+    },
+    "courseConfig":{
+      ".read": true,
+      ".write": false
+    },
+    "form":{
+      "$form_id": {
+        "type":{".validate": "newData.isString()"},
+        "content":{".validate": "newData.isString() && newData.val().length < 5000"},
+        "uuid":{".validate": "auth != null && newData.val() === auth.uid"},
+        "files":{".validate": true},
+        "$other":{".validate": false},
+        ".read": false,
+        ".write": "auth != null && !data.exists() && newData.exists() && newData.hasChildren(['type', 'content', 'uuid'])"
+      },
+      ".read": false,
+    	".write": false
+    }
+  }
+}

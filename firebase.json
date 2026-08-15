@@ -34,5 +34,14 @@
     ],
     "redirects": [],
     "cleanUrls": true
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "us-east4",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }

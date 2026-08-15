@@ -11,6 +11,7 @@ export default function Custom404() {
                 <meta property='og:title' content='每日文大' />
                 <meta name='description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
                 <meta property='og:description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
+                <meta name='robots' content='noindex, follow' />
             </Head>
             <section className="w-full h-screen flex flex-col justify-center items-center gap-10">
                 <h1 className="text-8xl">404</h1>

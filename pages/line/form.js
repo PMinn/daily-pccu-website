@@ -12,10 +12,11 @@ import {
 
 import { app } from '@/js/firebaseConfig.js';
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
 
 import Layout from '@/components/Layout';
 
-export default function Form({ devMode, uuid }) {
+export default function Form() {
     const formClassNames = { label: "text-md text-default-900 opacity-100", inputWrapper: "border-medium border-transparent hover:border-primary focus:border-primary transition-colors" };
     const database = getDatabase(app);
 
@@ -63,18 +64,24 @@ export default function Form({ devMode, uuid }) {
 
     // liff 初始化
     async function liff_init(liffId) {
-        return await import("@line/liff")
-            .then(module => module.liff)
-            .then(liff => {
-                setLiffObject(liff);
-                return liff;
-            })
-            .then(liff => liff.init({ liffId }))
-            .then(() => {
-                const context = liff.getContext();
-                setLiffContext(context);
-                return context;
-            });
+        const liff = await import("@line/liff").then(module => module.liff);
+        setLiffObject(liff);
+        await liff.init({ liffId });
+        const context = liff.getContext();
+        setLiffContext(context);
+        return { context, liff };
+    }
+
+    // 用 LIFF ID Token 換取 Firebase custom token 並登入，之後 RTDB rules 才能用 auth.uid 判斷身分
+    async function authenticateWithLine(idToken) {
+        const res = await fetch('https://daily-pccu-server.vercel.app/api/line/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken })
+        });
+        if (!res.ok) throw new Error('LINE 身分驗證失敗');
+        const { customToken } = await res.json();
+        await signInWithCustomToken(getAuth(app), customToken);
     }
 
     // 送出
@@ -107,20 +114,21 @@ export default function Form({ devMode, uuid }) {
 
     useEffect(() => {
         (async () => {
-            console.log('DEV_MODE:', devMode);
-            if (devMode) {
-                setLiffContext({ userId: uuid });
-            } else {
-                const liffId = "1655168208-9NvVk86X";
-                const context = await liff_init(liffId);
-                try {
-                    if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
-                        alert("請使用正常路徑開啟");
-                        return;
-                    }
-                } catch { }
-                setLiffContext(context);
+            const liffId = "1655168208-9NvVk86X";
+            const { context, liff } = await liff_init(liffId);
+            try {
+                if (!process?.env?.SETTINGS_LIFF_ID && (context.type == "none" || context.type == "external")) {
+                    alert("請使用正常路徑開啟");
+                    return;
+                }
+            } catch { }
+            try {
+                await authenticateWithLine(liff.getIDToken());
+            } catch (e) {
+                alert("身分驗證失敗，請稍後重試");
+                return;
             }
+            setLiffContext(context);
         })();
         // .catch(err => {
         //     console.error(err);
@@ -132,6 +140,8 @@ export default function Form({ devMode, uuid }) {
         <Layout options={{ footer: { hidden: true }, nav: { head: { as: "div" } } }}>
             <Head>
                 <title>回饋 | 每日文大</title>
+                <meta name='description' content='每日文大 LINE Bot 使用者回饋表單，僅限透過 LINE App 內開啟使用。' />
+                <meta name='robots' content='noindex, nofollow' />
             </Head>
             {/* <Confirm title="請輸入內容" content={"內容不可為空"} show={confirmShow} btn={["確認"]} onClick={[() => setConfirmShow(false)]}></Confirm> */}
             <div className='container mx-auto pt-30 flex flex-col items-center min-h-screen'>
@@ -226,10 +236,3 @@ export default function Form({ devMode, uuid }) {
         </Layout>
     )
 }
-
-export const getStaticProps = (async (context) => {
-    const devMode = process.env.DEV_MODE == '1' || process.env.DEV_MODE == 1;
-    const props = { devMode };
-    if (devMode) props.uuid = process.env.UUID;
-    return { props };
-})

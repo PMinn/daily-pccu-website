@@ -10,6 +10,29 @@ import { detectingDarkMode, getStoredTheme, setStoredTheme } from '@/js/theme.js
 
 const jf_openhuninn = localFont({ src: '../public/fonts/jf-openhuninn-2.0.ttf' })
 
+const ORGANIZATION_JSON_LD = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Organization',
+			'@id': 'https://daily-pccu.web.app/#organization',
+			name: '每日文大',
+			alternateName: 'Daily PCCU',
+			url: 'https://daily-pccu.web.app/',
+			logo: 'https://daily-pccu.web.app/favicon_package/android-chrome-256x256.png',
+			sameAs: ['https://lin.ee/SeaAhEv'],
+		},
+		{
+			'@type': 'WebSite',
+			'@id': 'https://daily-pccu.web.app/#website',
+			name: '每日文大',
+			url: 'https://daily-pccu.web.app/',
+			inLanguage: 'zh-Hant-TW',
+			publisher: { '@id': 'https://daily-pccu.web.app/#organization' },
+		},
+	],
+};
+
 export default function MyApp({ Component, pageProps }) {
 	const [theme, setTheme] = useState("light");
 
@@ -57,6 +80,12 @@ export default function MyApp({ Component, pageProps }) {
 						<meta name="msapplication-config" content="/favicon_package/browserconfig.xml?v=4.0" />
 						<meta name="theme-color" content="#FFB11B" />
 						<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+						<meta property="og:locale" content="zh_TW" />
+						<meta property="og:site_name" content="每日文大" />
+						<script
+							type="application/ld+json"
+							dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
+						/>
 					</Head>
 					<Component {...pageProps} fontClass={jf_openhuninn.className} />
 				</div>
