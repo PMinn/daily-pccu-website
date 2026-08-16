@@ -18,10 +18,10 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DAILY_PCCU }}'
           channelId: live
           projectId: daily-pccu
-      - name: Deploy Firestore/Database rules
+      - name: Deploy Firestore rules
         run: |
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
-          npx firebase-tools deploy --only firestore:rules,firestore:indexes,database --project daily-pccu
+          npx firebase-tools deploy --only firestore:rules,firestore:indexes --project daily-pccu
         env:
           FIREBASE_SERVICE_ACCOUNT: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DAILY_PCCU }}'
           GOOGLE_APPLICATION_CREDENTIALS: '${{ runner.temp }}/firebase-service-account.json'
