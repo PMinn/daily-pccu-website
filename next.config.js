@@ -19,6 +19,7 @@ export default (phase, { defaultConfig }) => {
         nextConfig.env.UUID = process.env.UUID;
         nextConfig.env.SETTINGS_LIFF_ID = process.env.SETTINGS_LIFF_ID;
         nextConfig.env.FORM_LIFF_ID = process.env.FORM_LIFF_ID;
+        nextConfig.env.INIT_LIFF_ID = process.env.INIT_LIFF_ID;
     }
     return nextConfig;
 }

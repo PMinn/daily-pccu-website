@@ -1,0 +1,85 @@
+.stage {
+    min-height: calc(100vh - 7.5rem);
+    padding: 0 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.mark {
+    width: 9rem;
+    height: 9rem;
+    position: relative;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.checking .logo {
+    animation: breathe 1.6s ease-in-out infinite;
+}
+
+/* 蓋章：完成時像日戳一樣落在頁面上 */
+.stamp {
+    width: 100%;
+    height: 100%;
+    color: rgb(var(--daily-primary-color));
+    transform: rotate(-8deg);
+    animation: press 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.stamp-error {
+    color: var(--red);
+}
+
+.stamp-date {
+    font-family: inherit;
+    font-weight: 700;
+}
+
+.body {
+    max-width: 20rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.text {
+    margin-top: 0.5rem;
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+.actions {
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes press {
+    0% { transform: rotate(-8deg) scale(1.7); opacity: 0; }
+    100% { transform: rotate(-8deg) scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .checking .logo,
+    .stamp {
+        animation: none;
+    }
+}
