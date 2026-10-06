@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import Layout from '@/components/Layout';
 import styles from '@/styles/line/init.module.css';
 
@@ -108,11 +108,9 @@ export default function Init() {
                 <meta name='description' content='每日文大 LINE Bot 使用者資料初始化頁面，僅限透過 LINE App 內開啟使用。' />
                 <meta name='robots' content='noindex, nofollow' />
             </Head>
-            <div className={`${styles.stage} ${isChecking ? styles.checking : ''}`} aria-live="polite">
+            <div className={styles.stage} aria-live="polite">
                 <div className={styles.mark}>
-                    {isChecking
-                        ? <img className={styles.logo} src="/images/logo/logo.webp" alt="每日文大" />
-                        : <Stamp isError={isError} />}
+                    {isChecking ? <Spinner size="lg" /> : <Stamp isError={isError} />}
                 </div>
 
                 <div className={styles.body}>

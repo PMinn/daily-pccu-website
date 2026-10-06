@@ -1,6 +1,8 @@
 .stage {
-    min-height: calc(100vh - 7.5rem);
-    padding: 0 1.5rem 3rem;
+    box-sizing: border-box;
+    min-height: 100vh;
+    /* 預留固定導覽列高度，內容不會被擋住 */
+    padding: 7.5rem 1.5rem 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,17 +14,9 @@
 .mark {
     width: 9rem;
     height: 9rem;
-    position: relative;
-}
-
-.logo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.checking .logo {
-    animation: breathe 1.6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 蓋章：完成時像日戳一樣落在頁面上 */
@@ -67,18 +61,12 @@
     gap: 0.75rem;
 }
 
-@keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 0.85; }
-    50% { transform: scale(1.06); opacity: 1; }
-}
-
 @keyframes press {
     0% { transform: rotate(-8deg) scale(1.7); opacity: 0; }
     100% { transform: rotate(-8deg) scale(1); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .checking .logo,
     .stamp {
         animation: none;
     }
