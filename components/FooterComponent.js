@@ -35,6 +35,9 @@ export default function Footer({ options = {} }) {
                             <Link className='no-underline relative pt-5 text-3xl' href='/course'>課程評價</Link>
                             <Link className='no-underline relative pt-5' href='/addCourse' target='_blank'>新增課程評價</Link>
                         </div>
+                        <div className='flex flex-col pt-[10px] w-full md:w-[220px] my-4 md:my-0'>
+                            <Link className='no-underline relative pt-5 text-3xl' href='/changelog'>更新紀錄</Link>
+                        </div>
                     </div>
                 </motion.div>
                 <small className='block mt-[10svh] opacity-60'>© 2022 All Rights Reserved - 每日文大.</small>

@@ -1,0 +1,367 @@
+[
+    {
+        "version": "4.8",
+        "date": "2026/10/02",
+        "title": "訊息外觀更新與農曆",
+        "items": [
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "新增農曆功能。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "天氣、新聞、星座的訊息外觀與配色全面更新。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "圖書館開館資訊會顯示目前是否開館。"
+            }
+        ]
+    },
+    {
+        "version": "4.7",
+        "date": "2026/09/19",
+        "title": "圖書館開館時間查詢",
+        "items": [
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "新增圖書館開館時間查詢。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "開館資訊加上連結按鈕，版面更清楚。"
+            }
+        ]
+    },
+    {
+        "version": "4.6",
+        "date": "2026/08/16",
+        "title": "安全性與搜尋強化",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "強化資料的安全保護。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "LINE 表單與設定頁面安全性提升。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "讓搜尋引擎與 AI 助理更容易找到每日文大。"
+            }
+        ]
+    },
+    {
+        "version": "4.5",
+        "date": "2026/07/19",
+        "title": "官網介面改版",
+        "items": [
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "首頁新增「關於每日文大」與「如何加入」區塊，手機與電腦都好閱讀。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "導覽列與頁尾加入動畫與更細緻的設計。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "頁面捲動更流暢，並更新頁尾文字。"
+            }
+        ]
+    },
+    {
+        "version": "4.4",
+        "date": "2025/12/26",
+        "title": "全面升級與天氣新聞更新",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "網站底層全面升級，載入速度更快，整體畫面煥然一新。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "天氣新增蒲福風級。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "修正部分天氣資料顯示錯誤。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "天氣顯示版面調整。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "表單送出流程調整，不再另外上傳圖片。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "新增連結中斷與警告通知的圖示。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "重新製作十二星座圖示，檔案更小、載入更快。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "新聞更新更穩定。"
+            }
+        ]
+    },
+    {
+        "version": "4.3.2",
+        "date": "2025/05/23",
+        "title": "美食資料更新",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "更新美食資料，並修正跨日查詢的問題。"
+            }
+        ]
+    },
+    {
+        "version": "4.3.1",
+        "date": "2024/12/12",
+        "title": "逐時天氣調整與連結更新",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "調整部分指令與功能名稱，回覆速度更快。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "修正逐時天氣訊息超出版面的問題。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "遇到狀況時能自動恢復，使用上更穩定。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "更新加入好友連結與通知連結。"
+            },
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "課程評價移除「修課年度」欄位。"
+            }
+        ]
+    },
+    {
+        "version": "4.3",
+        "date": "2024/11/27",
+        "title": "未來天氣（逐時）",
+        "items": [
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "新增「未來天氣」逐時預報查詢。"
+            }
+        ]
+    },
+    {
+        "version": "4.2",
+        "date": "2024/09/24",
+        "title": "訊息支援擴充",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "支援圖片與貼圖訊息，並修正版面。"
+            }
+        ]
+    },
+    {
+        "version": "4.1.1",
+        "date": "2024/05/13",
+        "title": "校內天氣緊急修正",
+        "items": [
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "緊急修正校內天氣無法查詢的問題。"
+            }
+        ]
+    },
+    {
+        "version": "4.1",
+        "date": "2024/03/24",
+        "title": "第四代發布",
+        "items": [
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "全新的課程評價與新增評價頁面，加入通識類別、考試方式、授課方式等選項。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "新增提示與確認視窗。"
+            },
+            {
+                "type": "fix",
+                "scope": "web",
+                "text": "修正在 LINE 內開啟頁面的問題。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "Bot 全面改寫，整體更穩定。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "修正新聞指令沒有回覆的問題。"
+            }
+        ]
+    },
+    {
+        "version": "3.1",
+        "date": "2023/12/31",
+        "title": "天氣修正與圖片載入調整",
+        "items": [
+            {
+                "type": "improve",
+                "scope": "web",
+                "text": "網站圖片改放雲端，頁面載入更順暢。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "修正天氣資料錯誤，以及降雨量顯示小於 0 的問題。"
+            },
+            {
+                "type": "improve",
+                "scope": "bot",
+                "text": "天氣圖示更新。"
+            },
+            {
+                "type": "fix",
+                "scope": "bot",
+                "text": "修正天氣資料有時查詢不到的問題。"
+            }
+        ]
+    },
+    {
+        "version": "3.0",
+        "date": "2023/09/01",
+        "title": "課程評價上線",
+        "items": [
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "上線課程評價查詢頁面。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "上線新增課程評價頁面，同學可以分享修課心得。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "新增 LINE 內的設定與表單頁面。"
+            }
+        ]
+    },
+    {
+        "version": "2.0",
+        "date": "2023/01/16",
+        "title": "官方網站誕生",
+        "items": [
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "全新的介面，視覺與操作體驗全面更新。"
+            },
+            {
+                "type": "new",
+                "scope": "web",
+                "text": "每日文大官方網站專案啟動，3 月完成首頁。"
+            }
+        ]
+    },
+    {
+        "version": "1.0",
+        "date": "2021/02/22",
+        "title": "每日文大正式上線",
+        "items": [
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "每日文大 LINE Bot 與大家初次見面，首發即提供九大功能。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "天氣狀況：山上山下天氣一目瞭然，也能加入其他地區。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "公車資訊：校內外公車幾分鐘到站，馬上掌握。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "星座運勢：今日運勢查詢，也能幫朋友看。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "報修表單：設備損壞，填表單就能請技工處理。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "課程評分：查詢課程評價，也能留下評分。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "學生專區：常用的學校網站，一鍵直達。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "權益表單：向學生會反映行政與宿舍問題。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "要吃什麼：不知道吃什麼，讓每日文大幫你選。"
+            },
+            {
+                "type": "new",
+                "scope": "bot",
+                "text": "最新消息：學校公告與活動一次整理。"
+            }
+        ]
+    }
+]
