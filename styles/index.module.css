@@ -516,6 +516,35 @@
   opacity: 0.85;
 }
 
+/* ---------- faq ---------- */
+
+.faq {
+  padding: 120px 0 0;
+}
+
+.faq-list {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.faq-row {
+  padding: 26px 4px;
+  border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.faq-q {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.faq-a {
+  margin: 0;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
 /* ---------- floating badge ---------- */
 
 .line-badge {
@@ -636,9 +665,9 @@
   }
 
   .right-block img {
-    height: auto;
-    width: 56%;
-    max-width: 260px;
+    height: calc(40vh - 16px);
+    width: auto;
+    max-width: 100%;
   }
 
   .right-block .blob {
@@ -664,6 +693,10 @@
   .add-friend,
   .history {
     padding: 80px 0 96px;
+  }
+
+  .faq {
+    padding: 80px 0 0;
   }
 
   .section-head {

@@ -24,8 +24,16 @@ export default function Changelog() {
                 <title>{title}</title>
                 <meta name='keywords' content='每日文大,更新紀錄,版本紀錄,文大bot' />
                 <meta name='description' content={description} />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+                <meta property='og:url' content='https://daily-pccu.web.app/changelog' />
+                <meta property='og:type' content='website' />
                 <meta property='og:title' content={title} />
                 <meta property='og:description' content={description} />
+                <meta property='og:image' content='https://daily-pccu.web.app/images/og-image.png' />
+                <meta name='twitter:card' content='summary_large_image' />
+                <meta name='twitter:title' content={title} />
+                <meta name='twitter:description' content={description} />
+                <meta name='twitter:image' content='https://daily-pccu.web.app/images/og-image.png' />
                 <link rel='canonical' href='https://daily-pccu.web.app/changelog' />
             </Head>
             <section className={styles.page}>

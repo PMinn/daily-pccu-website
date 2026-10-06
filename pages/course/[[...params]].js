@@ -187,7 +187,7 @@ export default function Course() {
                 <meta property="og:type" content="website" /> {/* article */}
                 {(data ? <meta property="og:title" content={data.title} /> : <meta property="og:title" content="課程評價 | 每日文大" />)}
                 <meta property='og:description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
-                <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                <meta property="og:image" content="https://daily-pccu.web.app/images/og-image.png" />
                 {/*
                     檔案大小：< 8MB
                     檔案尺寸：建議尺寸 1200x630
@@ -196,12 +196,12 @@ export default function Course() {
                 */}
 
                 {/* Twitter Meta Tags */}
-                <meta name="twitter:card" content="app" /> {/* summary, summary_large_image, app, player */}
+                <meta name="twitter:card" content="summary_large_image" /> {/* summary, summary_large_image, app, player */}
                 <meta property="twitter:domain" content="daily-pccu.web.app" />
                 {/* <meta property="twitter:url" content="https://daily-pccu.web.app/" /> */}
                 {(data ? <meta property="twitter:title" content={data.title} /> : <meta property="twitter:title" content="課程評價 | 每日文大" />)}
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
-                <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                <meta name="twitter:image" content="https://daily-pccu.web.app/images/og-image.png" />
             </Head>
             <Confirm
                 title='審查'
@@ -236,6 +236,7 @@ export default function Course() {
                 disclosure={{ isOpen: isShareErrorOpen, onOpen: onShareErrorOpen, onOpenChange: onShareErrorOpenChange }}
             />
             <div className='container mx-auto flex pt-[7.5rem] min-h-full mb-[5rem]'>
+                <h1 className='sr-only'>{data ? data.title : '文化大學課程評價'}</h1>
                 <Card className='mx-4 hidden md:flex w-[400px] min-w-[400px] max-w-[400px] sticky top-[7.5rem] h-[80vh]'>
                     <CardBody className='overflow-y-scroll grow'>
                         <Menu courseConfig={courseConfig} />

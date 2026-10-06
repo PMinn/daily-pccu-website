@@ -34,11 +34,11 @@ export default function Nav({ theme, setTheme, options = {} }) {
                     {
                         options.head?.as == "link" ?
                             <Link href="/">
-                                <motion.h1 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }} className='text-xl'>每日文大</motion.h1>
+                                <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }} className='text-xl inline-block'>每日文大</motion.span>
                             </Link>
                             :
                             <>
-                                <h1 className='text-xl'>每日文大</h1>
+                                <span className='text-xl'>每日文大</span>
                             </>
                     }
                     <div className="relative h-[30px] w-[30px] cursor-pointer" onClick={changeTheme}>

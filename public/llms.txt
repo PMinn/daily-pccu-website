@@ -1,6 +1,6 @@
 # 每日文大 (Daily PCCU)
 
-> 每日文大是專為中國文化大學（PCCU）學生打造的 LINE Bot，透過 LINE 官方帳號查詢天氣、公車進站時間、校內最新消息、吃什麼推薦、星座運勢等資訊，不需額外安裝 App。自 2021 年 2 月上線，好友人數已超過 10,000 人。
+> 每日文大是專為中國文化大學（PCCU）學生打造的 LINE Bot，透過 LINE 官方帳號查詢天氣、公車進站時間、校內最新消息、吃什麼推薦、星座運勢、農曆、圖書館開館時間等資訊，不需額外安裝 App。自 2021 年 2 月上線，好友人數已超過 10,000 人。
 
 ## 核心功能 (Core features)
 - 天氣：校內及多點氣象站的即時天氣資訊，以及一週內的天氣預報。
@@ -9,6 +9,8 @@
 - 吃什麼：快速幫你決定要吃什麼。
 - 星座運勢：查看每日的星座運勢。
 - 校園即景：快速連接到學校的校園即景網頁。
+- 農曆：查詢今天的農曆日期。
+- 圖書館：查詢圖書館開館時間，並顯示目前是否開館。
 
 ## 如何加入 (How to add the bot)
 1. 手機開啟 https://lin.ee/SeaAhEv 一鍵加入。
@@ -19,6 +21,7 @@
 - [首頁 / Home](https://daily-pccu.web.app/): 產品介紹、功能列表、加入方式與重大事件時間軸。
 - [課程評價 / Course reviews](https://daily-pccu.web.app/course): 中國文化大學課程評價查詢，可依院別或教師篩選。
 - [新增課程評價 / Add a course review](https://daily-pccu.web.app/addCourse): 提交課程評價的表單。
+- [更新紀錄 / Changelog](https://daily-pccu.web.app/changelog): 網站與 LINE Bot 的版本更新紀錄（新增、調整、修正）。
 
 ## Notes for AI agents and crawlers
 - This is a companion website for a LINE Bot; the bot itself is only usable inside the LINE app via the official account `@037gujtt`.

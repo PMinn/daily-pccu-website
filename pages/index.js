@@ -74,6 +74,7 @@ const HOWTO_JSON_LD = {
     '@type': 'HowTo',
     name: '如何加入每日文大 LINE Bot',
     description: '三種加入每日文大 LINE 官方帳號好友的方式。',
+    totalTime: 'PT1M',
     step: [
         {
             '@type': 'HowToStep',
@@ -94,6 +95,43 @@ const HOWTO_JSON_LD = {
             url: 'https://daily-pccu.web.app/#add_friend',
         },
     ],
+};
+
+const FAQ_ITEMS = [
+    {
+        q: '每日文大是什麼？',
+        a: '每日文大是專為中國文化大學（PCCU）學生打造的 LINE Bot，自 2021 年 2 月上線，可在 LINE 內查詢天氣、公車進站時間、校內最新消息等資訊。',
+    },
+    {
+        q: '使用每日文大需要另外安裝 App 嗎？',
+        a: '不需要。每日文大是 LINE 官方帳號，加入好友後直接在 LINE 對話框使用，不用額外安裝任何 App。',
+    },
+    {
+        q: '每日文大可以查詢哪些資訊？',
+        a: FunctionsData.map(func => func.title + '（' + func.description + '）').join('、') + '。',
+    },
+    {
+        q: '如何加入每日文大 LINE Bot？',
+        a: '有三種方式：一、手機開啟 https://lin.ee/SeaAhEv 一鍵加入；二、用相機或 LINE 掃描官方 QR Code；三、在 LINE 搜尋 ID @037gujtt 加入好友。',
+    },
+    {
+        q: '每日文大要收費嗎？',
+        a: '不用，每日文大可免費使用。',
+    },
+    {
+        q: '哪裡可以查文化大學的課程評價？',
+        a: '可到每日文大網站的「課程評價」頁面（https://daily-pccu.web.app/course），依院別或教師查詢，也可以自行新增評價。評價內容為使用者自行提交。',
+    },
+];
+
+const FAQPAGE_JSON_LD = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_ITEMS.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
 };
 
 export default function Index() {
@@ -158,13 +196,19 @@ export default function Index() {
                         type="application/ld+json"
                         dangerouslySetInnerHTML={{ __html: JSON.stringify(HOWTO_JSON_LD) }}
                     />
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQPAGE_JSON_LD) }}
+                    />
 
                     {/* Facebook Meta Tags */}
                     <meta property="og:url" content="https://daily-pccu.web.app/" />
                     <meta property="og:type" content="website" /> {/* article */}
-                    <meta property='og:title' content='每日文大' />
+                    <meta property='og:title' content='每日文大｜文化大學 LINE Bot：天氣、公車、校園消息一次掌握' />
                     <meta property='og:description' content='每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!' />
-                    <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                    <meta property="og:image" content="https://daily-pccu.web.app/images/og-image.png" />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
                     {/*
           檔案大小：< 8MB
           檔案尺寸：建議尺寸 1200x630
@@ -173,12 +217,12 @@ export default function Index() {
         */}
 
                     {/* Twitter Meta Tags */}
-                    <meta name="twitter:card" content="app" /> {/* summary, summary_large_image, app, player */}
+                    <meta name="twitter:card" content="summary_large_image" /> {/* summary, summary_large_image, app, player */}
                     <meta property="twitter:domain" content="daily-pccu.web.app" />
                     <meta property="twitter:url" content="https://daily-pccu.web.app/" />
-                    <meta name="twitter:title" content="每日文大" />
+                    <meta name="twitter:title" content="每日文大｜文化大學 LINE Bot：天氣、公車、校園消息一次掌握" />
                     <meta name="twitter:description" content="每日文大是文化大學學生必備的工具，透過Line Bot機器人查詢天氣、公車進站時間及學校最新消息等。隨時隨地，掌握最新資訊!" />
-                    <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                    <meta name="twitter:image" content="https://daily-pccu.web.app/images/og-image.png" />
                 </Head>
                 <main>
                     <section
@@ -193,7 +237,7 @@ export default function Index() {
                                 <div className={styles['step-stage']}>
                                     <ScrollStep range={introRange} progress={worldProgress} isFirst className={styles['intro-step']}>
                                         <span className={styles.eyebrow}>DAILY PCCU · LINE BOT</span>
-                                        <div className={styles.text}>提供各項最新即時資訊<br />的LINE BOT機器人</div>
+                                        <h1 className={styles.text}>提供各項最新即時資訊<br />的LINE BOT機器人</h1>
                                         <p className={styles['top-btn']}> <span className={styles['bounce-arrow']}>▼</span> 滑動探索所有功能 </p>
                                     </ScrollStep>
                                     {
@@ -224,8 +268,7 @@ export default function Index() {
                                         style={{ rotateY: phoneRotateY, rotateX: phoneRotateX, scale: phoneScale, opacity: phoneOpacity }}
                                     >
                                         <img
-                                            src="/images/portrait_w480.webp"
-                                            srcSet='/images/portrait_w330.webp 600w'
+                                            src="/images/portrait.png"
                                             alt="每日文大 實際使用 範例圖"
                                             loading='eager'
                                             priority='true'
@@ -338,6 +381,21 @@ export default function Index() {
                                         <p>line主頁右上方加入好友 &gt; 右上方搜尋 &gt; 選擇id &gt; 輸入:<span className='font-bold'>@037gujtt</span></p>
                                     </div>
                                 </motion.div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id='faq' className={styles.section + ' w-full ' + styles['faq']}>
+                        <div className={styles.container}>
+                            <SectionHead en="FAQ" zh="常見問題" />
+                            <div className={styles['faq-list']}>
+                                {
+                                    FAQ_ITEMS.map(item => (
+                                        <div key={item.q} className={styles['faq-row']}>
+                                            <h3 className={styles['faq-q']}>{item.q}</h3>
+                                            <p className={styles['faq-a']}>{item.a}</p>
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </section>

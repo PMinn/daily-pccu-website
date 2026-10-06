@@ -386,7 +386,7 @@ export default function Course() {
                 <meta property="og:type" content="website" /> {/* article */}
                 <meta property='og:title' content='新增課程評價 | 每日文大' />
                 <meta property='og:description' content='文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。' />
-                <meta property="og:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                <meta property="og:image" content="https://daily-pccu.web.app/images/og-image.png" />
                 {/*
                     檔案大小：< 8MB
                     檔案尺寸：建議尺寸 1200x630
@@ -395,12 +395,12 @@ export default function Course() {
                 */}
 
                 {/* Twitter Meta Tags */}
-                <meta name="twitter:card" content="app" /> {/* summary, summary_large_image, app, player */}
+                <meta name="twitter:card" content="summary_large_image" /> {/* summary, summary_large_image, app, player */}
                 <meta property="twitter:domain" content="daily-pccu.web.app" />
                 {/* <meta property="twitter:url" content="https://daily-pccu.web.app/" /> */}
                 <meta name="twitter:title" content="新增課程評價 | 每日文大" />
                 <meta name="twitter:description" content="文化大學學生必看的課程評價網站，探索每日文大的課程評價，作為選課參考，分享對課程的評價，發現受歡迎的課程和大家最真實的意見。" />
-                <meta name="twitter:image" content="https://daily-pccu.web.app/favicon_package/mstile-310x310.png" />
+                <meta name="twitter:image" content="https://daily-pccu.web.app/images/og-image.png" />
             </Head>
             <Confirm
                 title='確認新增'
